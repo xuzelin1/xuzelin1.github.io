@@ -148,6 +148,80 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-vue 建立项目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/04/12/vue 建立项目/">Vuex 项目建立</a>
+    </h1>
+  
+
+        
+        <a href="/2019/04/12/vue 建立项目/" class="archive-article-date">
+  	<time datetime="2019-04-12T10:45:42.738Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="开始建立一个项目"><a href="#开始建立一个项目" class="headerlink" title="开始建立一个项目"></a>开始建立一个项目</h1><p>在文件夹下输入命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init webpack</span><br></pre></td></tr></table></figure></p>
+<h1 id="项目目录"><a href="#项目目录" class="headerlink" title="项目目录"></a>项目目录</h1><h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/04/12/vue 建立项目/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-vuex使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -168,9 +242,10 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Vuex实现数据共享"><a href="#Vuex实现数据共享" class="headerlink" title="Vuex实现数据共享"></a>Vuex实现数据共享</h1><h2 id="1-安装vuex"><a href="#1-安装vuex" class="headerlink" title="1. 安装vuex"></a>1. 安装vuex</h2><h2 id="2-新建文件store-js"><a href="#2-新建文件store-js" class="headerlink" title="2. 新建文件store.js"></a>2. 新建文件store.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Vuex from &apos;vuex&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">// 定义变量</span><br><span class="line">var state = &#123;</span><br><span class="line">  num: 10</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 定义方法</span><br><span class="line">var mutations = &#123;</span><br><span class="line">  addNum () &#123;</span><br><span class="line">    ++state.num</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var store = new Vuex.Store(&#123;</span><br><span class="line">  state,</span><br><span class="line">  mutations: mutations</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default store</span><br></pre></td></tr></table></figure>
+        <h1 id="Vuex实现数据共享"><a href="#Vuex实现数据共享" class="headerlink" title="Vuex实现数据共享"></a>Vuex实现数据共享</h1><h2 id="1-安装vuex"><a href="#1-安装vuex" class="headerlink" title="1. 安装vuex"></a>1. 安装vuex</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vuex -S</span><br></pre></td></tr></table></figure>
+<h2 id="2-新建文件store-js"><a href="#2-新建文件store-js" class="headerlink" title="2. 新建文件store.js"></a>2. 新建文件store.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Vuex from &apos;vuex&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">// 定义变量</span><br><span class="line">var state = &#123;</span><br><span class="line">  num: 10</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 定义方法</span><br><span class="line">var mutations = &#123;</span><br><span class="line">  addNum (state, n) &#123;</span><br><span class="line">    state.num += n</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var store = new Vuex.Store(&#123;</span><br><span class="line">  state,</span><br><span class="line">  mutations: mutations</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default store</span><br></pre></td></tr></table></figure>
 <h2 id="3-在使用vuex的组件中导入store"><a href="#3-在使用vuex的组件中导入store" class="headerlink" title="3. 在使用vuex的组件中导入store"></a>3. 在使用vuex的组件中导入store</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import store from &apos;../vuex/store.js&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="4-获取数据和方法"><a href="#4-获取数据和方法" class="headerlink" title="4. 获取数据和方法"></a>4. 获取数据和方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;this.$store.state.num&#125;&#125;</span><br><span class="line"></span><br><span class="line">this.$store.commit(&apos;addNum&apos;)</span><br></pre></td></tr></table></figure>
+<h2 id="4-获取数据和方法"><a href="#4-获取数据和方法" class="headerlink" title="4. 获取数据和方法"></a>4. 获取数据和方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;this.$store.state.num&#125;&#125;</span><br><span class="line"></span><br><span class="line">this.$store.commit(&apos;addNum&apos;, n)</span><br></pre></td></tr></table></figure>
       
 
       
