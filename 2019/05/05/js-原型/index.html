@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="xuzelin博客">
 <meta property="og:description" content="原型设计模式原型模式是一个创建型的模式。原型模式有一个样板实例，用户从该模板对象中复制一个内部属性一致的对象。被复制的实例成为“原型”，该原型的可定制的 js 中原型规则每个函数都有一个prototype（原型）属性，是一个指针，指向一个对象，该对象包含所有实例共享的属性和方法  创建构造函数 添加构造函数的原型属性和方法 创建实例， 实例中的proto属性连接的是原型对象，跟构造函数没有直接关系">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-06T15:29:01.794Z">
+<meta property="og:updated_time" content="2019-05-07T13:54:55.978Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="原型和原型链">
 <meta name="twitter:description" content="原型设计模式原型模式是一个创建型的模式。原型模式有一个样板实例，用户从该模板对象中复制一个内部属性一致的对象。被复制的实例成为“原型”，该原型的可定制的 js 中原型规则每个函数都有一个prototype（原型）属性，是一个指针，指向一个对象，该对象包含所有实例共享的属性和方法  创建构造函数 添加构造函数的原型属性和方法 创建实例， 实例中的proto属性连接的是原型对象，跟构造函数没有直接关系">
@@ -192,15 +192,17 @@
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Cat()&#123; </span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = new Animal();</span><br><span class="line">Cat.prototype.name = &apos;cat&apos;;</span><br><span class="line"></span><br><span class="line">//　Test Code</span><br><span class="line">var cat = new Cat();</span><br><span class="line">console.log(cat.name);</span><br><span class="line">console.log(cat.eat(&apos;fish&apos;));</span><br><span class="line">console.log(cat.sleep());</span><br><span class="line">console.log(cat instanceof Animal); //true </span><br><span class="line">console.log(cat instanceof Cat); //true</span><br></pre></td></tr></table></figure>
 </li>
 <li><p>构造函数继承</p>
-</li>
-</ol>
+<p> 使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name)&#123;</span><br><span class="line">  Animal.call(this);</span><br><span class="line">  this.name = name || &apos;Tom&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Test Code</span><br><span class="line">var cat = new Cat();</span><br><span class="line">console.log(cat.name);</span><br><span class="line">console.log(cat.sleep());</span><br><span class="line">console.log(cat instanceof Animal); // false</span><br><span class="line">console.log(cat instanceof Cat); // true</span><br></pre></td></tr></table></figure>
-<ol start="3">
-<li><p>组合继承</p>
 </li>
-<li><p>拷贝继承</p>
+<li><p>组合继承-<br>-原型继承+借用构造函数继承</p>
+<p> 通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name)&#123;</span><br><span class="line">  //借用构造函数</span><br><span class="line">  Animal.call(this);</span><br><span class="line">  this.name = name || &apos;Tom&apos;;</span><br><span class="line">&#125;</span><br><span class="line">//改变原型指向——原型继承</span><br><span class="line">Cat.prototype = new Animal();</span><br><span class="line"></span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line"></span><br><span class="line">// Test Code</span><br><span class="line">var cat = new Cat();</span><br><span class="line">console.log(cat.name);</span><br><span class="line">console.log(cat.sleep());</span><br><span class="line">console.log(cat instanceof Animal); // true</span><br><span class="line">console.log(cat instanceof Cat); // true</span><br></pre></td></tr></table></figure>
 </li>
 </ol>
+<blockquote>
+<p>属性和方法都可以被继承，（改继承方法最佳）</p>
+</blockquote>
 <h1 id="开源项目应用原型继承"><a href="#开源项目应用原型继承" class="headerlink" title="开源项目应用原型继承"></a>开源项目应用原型继承</h1><h1 id="new一个对象的过程-手动实现new"><a href="#new一个对象的过程-手动实现new" class="headerlink" title="new一个对象的过程 手动实现new"></a>new一个对象的过程 手动实现new</h1><p>过程</p>
 <ol>
 <li><p>创建一个对象</p>
