@@ -6,15 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>xuzelin博客</title>
+  <title>作用域和闭包 | xuzelin博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="xuzelin博客">
-<meta property="og:url" content="http://yoursite.com/page/2/index.html">
+  <meta name="description" content="词法作用域（静态作用域）和动态作用域作用域是指程序源代码中定义变量的区域。作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。 词法作用域，也叫静态作用域，它的作用域是指在词法分析阶段就确定了，不会改变。动态作用域是在运行时根据程序的流程信息来动态确定的，而不是在写代码时进行静态确定的。123456789101112var a = 2;function foo() &amp;#123;  c">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="作用域和闭包">
+<meta property="og:url" content="http://yoursite.com/2019/05/07/js-作用域和必闭包/index.html">
 <meta property="og:site_name" content="xuzelin博客">
+<meta property="og:description" content="词法作用域（静态作用域）和动态作用域作用域是指程序源代码中定义变量的区域。作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。 词法作用域，也叫静态作用域，它的作用域是指在词法分析阶段就确定了，不会改变。动态作用域是在运行时根据程序的流程信息来动态确定的，而不是在写代码时进行静态确定的。123456789101112var a = 2;function foo() &amp;#123;  c">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2019-05-12T07:30:45.575Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xuzelin博客">
+<meta name="twitter:title" content="作用域和闭包">
+<meta name="twitter:description" content="词法作用域（静态作用域）和动态作用域作用域是指程序源代码中定义变量的区域。作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。 词法作用域，也叫静态作用域，它的作用域是指在词法分析阶段就确定了，不会改变。动态作用域是在运行时根据程序的流程信息来动态确定的，而不是在写代码时进行静态确定的。123456789101112var a = 2;function foo() &amp;#123;  c">
   
     <link rel="alternative" href="/atom.xml" title="xuzelin博客" type="application/atom+xml">
   
@@ -146,42 +151,138 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-vue组件内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-js-作用域和必闭包" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/08/vue组件内容/">Vue 组件内容</a>
+    <h1 class="article-title" itemprop="name">
+      作用域和闭包
     </h1>
   
 
         
-        <a href="/2019/04/08/vue组件内容/" class="archive-article-date">
-  	<time datetime="2019-04-08T12:14:08.670Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-08</time>
+        <a href="/2019/05/07/js-作用域和必闭包/" class="archive-article-date">
+  	<time datetime="2019-05-07T13:56:53.723Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="Vue组件"><a href="#Vue组件" class="headerlink" title="Vue组件"></a>Vue组件</h1><h2 id="组件用法"><a href="#组件用法" class="headerlink" title="组件用法"></a>组件用法</h2><h3 id="1-在src文件夹下创建文件夹components"><a href="#1-在src文件夹下创建文件夹components" class="headerlink" title="1.在src文件夹下创建文件夹components"></a>1.在src文件夹下创建文件夹components</h3><h3 id="2-创建组件文件（例Home-vue）"><a href="#2-创建组件文件（例Home-vue）" class="headerlink" title="2.创建组件文件（例Home.vue）"></a>2.创建组件文件（例Home.vue）</h3><h3 id="3-文件内容结构"><a href="#3-文件内容结构" class="headerlink" title="3.文件内容结构"></a>3.文件内容结构</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h1&gt;&#123;&#123;homeTitle&#125;&#125;&lt;/h1&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;Home&apos;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      homeTitle: &apos;主页标题&apos;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  methods: &#123;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style scoped&gt;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br></pre></td></tr></table></figure>
+        <h1 id="词法作用域（静态作用域）和动态作用域"><a href="#词法作用域（静态作用域）和动态作用域" class="headerlink" title="词法作用域（静态作用域）和动态作用域"></a>词法作用域（静态作用域）和动态作用域</h1><p>作用域是指程序源代码中定义变量的区域。作用域规定了如何查找变量，也就是确定当前执行代码对变量的访问权限。</p>
+<p>词法作用域，也叫静态作用域，它的作用域是指在词法分析阶段就确定了，不会改变。动态作用域是在运行时根据程序的流程信息来动态确定的，而不是在写代码时进行静态确定的。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">var a = 2;</span><br><span class="line"></span><br><span class="line">function foo() &#123;</span><br><span class="line">  console.log(a); // 会输出2还是3？</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function bar() &#123;</span><br><span class="line">  var a = 3;</span><br><span class="line">  foo();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">bar();</span><br></pre></td></tr></table></figure></p>
+<ol>
+<li>如果是词法作用域，它会让 foo() 函数引用到全局作用域中的 a，因此会输出 2。</li>
+<li>动态作用域并不关心函数和作用域是如何声明以及在何处声明的，只关心它们从何处调用。换句话说，作用域链是基于调用栈的，而不是代码中的作用域嵌套。因此，如果Javascript具有动态作用域，理论上输出结果是 3。</li>
+</ol>
 <blockquote>
-<p>template中只能有一个子组件</p>
+<p>当 foo() 无法找到 a 的变量引用时，会顺着调用栈在调用 foo() 的地方查找 a ，而不是在嵌套的词法作用域链中向上查找。由于 foo() 是在 bar() 中调用的，引擎会检查 bar() 的作用域，并在其中找到值为 3 的变量 a。</p>
 </blockquote>
-<h3 id="4-在APP-vue中导入该组件"><a href="#4-在APP-vue中导入该组件" class="headerlink" title="4.在APP.vue中导入该组件"></a>4.在APP.vue中导入该组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">import Home from &apos;./components/Home.vue&apos;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &apos;App&apos;,</span><br><span class="line">  components: &#123;</span><br><span class="line">    &apos;v-home&apos;: Home</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<h3 id="5-在APP-vue中使用组件"><a href="#5-在APP-vue中使用组件" class="headerlink" title="5. 在APP.vue中使用组件"></a>5. 在APP.vue中使用组件</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;v-home&gt;&lt;/v-home&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="组件生命周期函数"><a href="#组件生命周期函数" class="headerlink" title="组件生命周期函数"></a>组件生命周期函数</h2><h3 id="函数种类"><a href="#函数种类" class="headerlink" title="函数种类"></a>函数种类</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">beforeCreate () &#123;</span><br><span class="line">  console.log(&apos;实例创建之前&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">created () &#123;</span><br><span class="line">  console.log(&apos;实例创建完成&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">beforeMount () &#123;</span><br><span class="line">  console.log(&apos;模板编译之前&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">mounted () &#123;</span><br><span class="line">  console.log(&apos;模板编译完成&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">beforeUpdate () &#123;</span><br><span class="line">  console.log(&apos;数据更新之前&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">updated () &#123;</span><br><span class="line">  console.log(&apos;数据更新完成&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">beforeDestroy () &#123;</span><br><span class="line">  console.log(&apos;实例销毁之前&apos;)</span><br><span class="line">&#125;,</span><br><span class="line">destroyed () &#123;</span><br><span class="line">  console.log(&apos;实例销毁完成&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="JavaScript的作用域和作用域链"><a href="#JavaScript的作用域和作用域链" class="headerlink" title="JavaScript的作用域和作用域链"></a>JavaScript的作用域和作用域链</h1><p>javascript采用的是静态作用域</p>
+<p>javascript 函数的执行用到了作用域链，这个作用域链是在函数定义的时候创建的。</p>
+<h2 id="变量作用域"><a href="#变量作用域" class="headerlink" title="变量作用域"></a>变量作用域</h2><p>在JavaScript中全局变量的作用域比较简单，它的作用域是全局的，在代码的任何地方都是有定义的。</p>
+<p>当声明一个全局变量的时候，实际上是定义了全局对象window的一个属性。</p>
+<h2 id="函数作用域"><a href="#函数作用域" class="headerlink" title="函数作用域"></a>函数作用域</h2><h2 id="作用域链"><a href="#作用域链" class="headerlink" title="作用域链"></a>作用域链</h2><h1 id="JavaScript的执行上下文栈，可以应用堆栈信息快速定位问题"><a href="#JavaScript的执行上下文栈，可以应用堆栈信息快速定位问题" class="headerlink" title="JavaScript的执行上下文栈，可以应用堆栈信息快速定位问题"></a>JavaScript的执行上下文栈，可以应用堆栈信息快速定位问题</h1><p>执行全局代码时，会产生一个执行上下文环境，每次调用函数都会产生执行上下文环境，当函数调用完事，上下文环境及其数据都会被消除，重新回到<strong>全局上下文环境</strong>，处于活动状态的上下文环境只有一个——执行上下文栈</p>
+<h1 id="this的原理以及几种不同使用场景的取值"><a href="#this的原理以及几种不同使用场景的取值" class="headerlink" title="this的原理以及几种不同使用场景的取值"></a>this的原理以及几种不同使用场景的取值</h1><p>它可以是全局对象、当前对象或者任意对象，这完全取决于函数的调用方式。</p>
+<p>一般情况下this对象指向调用函数的对象，全局环境中执行函数this对象指向Window<br>在call和apply函数中this指向指定的对象，如果指定的对为undefined或者null，那么this对象指向Window<br>在箭头函数中，this对象等同于外层代码块的this</p>
+<ol>
+<li><p>全局函数</p>
+<p> this指向window</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">function A()&#123;</span><br><span class="line">   console.log(this)</span><br><span class="line">&#125;</span><br><span class="line"> A();//Window</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>对象方法</p>
+<p> this指向调用该方法的对象</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">var b=&#123;</span><br><span class="line">	getThis:function()&#123;</span><br><span class="line">		console.log(this)</span><br><span class="line">	&#125;</span><br><span class="line">b.getThis()//b</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var c =&#123;</span><br><span class="line">	getFunc:function()&#123;</span><br><span class="line">		return function()&#123;</span><br><span class="line">			console.log(this)</span><br><span class="line">	 	&#125;</span><br><span class="line">	  &#125;</span><br><span class="line"> &#125;</span><br><span class="line"> var cFun =  c.getFunc()</span><br><span class="line"> cFun()//window</span><br></pre></td></tr></table></figure>
+<p>在全局环境中调用了cFun(),此时this指向的还是Window。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var c=&#123;</span><br><span class="line">	getFunc:function()&#123;</span><br><span class="line">		var that = this //在这里保留住this</span><br><span class="line">			return function()&#123;</span><br><span class="line">				console.log(that)</span><br><span class="line">			 &#125;</span><br><span class="line">	  &#125;</span><br><span class="line">	&#125;</span><br><span class="line">	var cFun = c.getFunc()</span><br><span class="line">	cFun() //c</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li><p>call 和 apply</p>
+<p> this<strong>通常</strong>指向函数中制定的this值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">//例子5</span><br><span class="line">var d = &#123;</span><br><span class="line"> getThis:function()&#123;</span><br><span class="line">  console.log(this)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line">var e = &#123;</span><br><span class="line"> name:&apos;e&apos;//(给e写个`name`属性只是因为觉得孤零零的太难看了~~)</span><br><span class="line">&#125;</span><br><span class="line">d.getThis.call(e)//e</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">//例子6</span><br><span class="line">var d = &#123;</span><br><span class="line"> getThis:function()&#123;</span><br><span class="line">  console.log(this)</span><br><span class="line"> &#125;</span><br><span class="line">&#125;</span><br><span class="line"> d.getThis.call(null)//Window</span><br><span class="line"> d.getThis.call(undefined)//Window</span><br></pre></td></tr></table></figure>
+<p>此时的this指向全局对象Window</p>
+<ol start="4">
+<li><p>箭头函数</p>
+<p> 箭头函数没有this对象，所以箭头函数的this指向<strong>外层</strong>this</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">//例子7</span><br><span class="line"> var f = &#123;</span><br><span class="line">	 getThis:()=&gt;&#123;</span><br><span class="line">   		console.log(this)</span><br><span class="line">  		&#125;</span><br><span class="line"> &#125;</span><br><span class="line"> f.getThis()//Window</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="闭包的实现原理和作用，闭包的实际应用"><a href="#闭包的实现原理和作用，闭包的实际应用" class="headerlink" title="闭包的实现原理和作用，闭包的实际应用"></a>闭包的实现原理和作用，闭包的实际应用</h1><h2 id="概念及作用"><a href="#概念及作用" class="headerlink" title="概念及作用"></a>概念及作用</h2><p>函数A中，有一个函数B，函数B可以调用函数A中的定义的变量或数据，此时形成闭包</p>
+<p>作用是:缓存数据，延长作用域(既是优点，也是缺点)</p>
+<p>闭包模式有：函数模式的闭包，对象模式的闭包</p>
+<p>函数模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function f1() &#123;</span><br><span class="line">  var num = 10;</span><br><span class="line">  function f2() &#123;</span><br><span class="line">    console.log(num);</span><br><span class="line">  &#125;</span><br><span class="line">  f2();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f1();</span><br></pre></td></tr></table></figure></p>
+<p>对象模式：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function f3() &#123;</span><br><span class="line">  var num = 10;</span><br><span class="line">  var obj = &#123;</span><br><span class="line">    age:num</span><br><span class="line">  &#125;;</span><br><span class="line">  console.log(obj.num);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">f3();</span><br></pre></td></tr></table></figure></p>
+<h1 id="理解堆栈溢出和内存泄漏的原理，如何防止"><a href="#理解堆栈溢出和内存泄漏的原理，如何防止" class="headerlink" title="理解堆栈溢出和内存泄漏的原理，如何防止"></a>理解堆栈溢出和内存泄漏的原理，如何防止</h1><p>内存溢出就是没有足够的空间满足申请使用</p>
+<p>内存泄漏就是无法释放已申请的内存空间</p>
+<p>在严格模式下解析 JavaScript 可以防止意外的全局变量。</p>
+<p>“垃圾回收语言中的泄漏的主要原因是不必要的引用”。</p>
+<h2 id="常见的js泄漏"><a href="#常见的js泄漏" class="headerlink" title="常见的js泄漏"></a>常见的js泄漏</h2><ol>
+<li>以外的全局变量</li>
+</ol>
+<p>处理没有声明的变量：一个未声明的变量的引用在全局对象中创建了一个新变量。在浏览器的环境中，全局对象是window。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function foo(arg) &#123;</span><br><span class="line">  bar = &quot;this is a hidden global variable&quot;;</span><br><span class="line">&#125;</span><br><span class="line">实际上是：</span><br><span class="line"></span><br><span class="line">function foo(arg) &#123;</span><br><span class="line">  window.bar = &quot;this is an explicit global variable&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <blockquote>
-<p>请求数据，操作DOM在 mounted() 进行</p>
+<p>为了阻止这种错误发生，在你的Javascript文件最前面添加’use strict;’。这开启了解析JavaScript的阻止意外全局的更严格的模式。</p>
+<ol start="2">
+<li>被遗忘的计时器或回调</li>
+</ol>
 </blockquote>
-<h3 id="官方文档图片"><a href="#官方文档图片" class="headerlink" title="官方文档图片"></a>官方文档图片</h3><p><img src="https://cn.vuejs.org/images/lifecycle.png" alt="life"></p>
+<ol start="3">
+<li><p>超出DOM引用</p>
+</li>
+<li><p>闭包</p>
+</li>
+</ol>
+<h1 id="如何处理循环的异步操作"><a href="#如何处理循环的异步操作" class="headerlink" title="如何处理循环的异步操作"></a>如何处理循环的异步操作</h1><ol>
+<li><p>for循环 + var + 索引传值</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">  (function(i) &#123;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      console.log(&apos;i&apos;, i);</span><br><span class="line">    &#125;, 10);</span><br><span class="line">  &#125;)(i);</span><br><span class="line">&#125;</span><br><span class="line">// i 0</span><br><span class="line">// i 1</span><br><span class="line">// i 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for循环 + var + 闭包</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">for (var i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">  var func = function() &#123;</span><br><span class="line">    var j = i;</span><br><span class="line">    return function () &#123;</span><br><span class="line">      setTimeout(() =&gt; &#123;</span><br><span class="line">        console.log(&apos;i&apos;, j);</span><br><span class="line">      &#125;, 10);</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  func()();</span><br><span class="line">&#125; </span><br><span class="line">// i 0</span><br><span class="line">// i 1</span><br><span class="line">// i 2</span><br><span class="line"></span><br><span class="line">&lt;!-- 或者 --&gt;</span><br><span class="line"></span><br><span class="line">for (var i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">  (function() &#123;</span><br><span class="line">    var j = i;</span><br><span class="line">    setTimeout(() =&gt; &#123;</span><br><span class="line">      console.log(&apos;i&apos;, j);</span><br><span class="line">    &#125;, 10);</span><br><span class="line">  &#125;)();</span><br><span class="line">&#125;</span><br><span class="line">// i 0</span><br><span class="line">// i 1</span><br><span class="line">// i 2</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>for循环 + let</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&apos;i&apos;, i);</span><br><span class="line">  &#125;, 10);</span><br><span class="line">&#125;</span><br><span class="line">// i 0</span><br><span class="line">// i 1</span><br><span class="line">// i 2</span><br><span class="line">&lt;!-- 或者 --&gt;</span><br><span class="line">for (var i = 0; i &lt; 3; i++) &#123;</span><br><span class="line">  let j = i;</span><br><span class="line">  setTimeout(() =&gt; &#123;</span><br><span class="line">    console.log(&apos;i&apos;, j);</span><br><span class="line">  &#125;, 10);</span><br><span class="line">&#125;</span><br><span class="line">// i 0</span><br><span class="line">// i 1</span><br><span class="line">// i 2</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<blockquote>
+<p>let 是es6的一种新的变量声明方式，拥有块级作用域。上面代码中，变量i是let声明的，当前的i只在本轮循环有效，所以每一次循环的i其实都是一个新的变量，所以输出的是正确的索引。</p>
+</blockquote>
+<h1 id="模块化解决的实际问题，可列举几个模块化方案并理解其中原理"><a href="#模块化解决的实际问题，可列举几个模块化方案并理解其中原理" class="headerlink" title="模块化解决的实际问题，可列举几个模块化方案并理解其中原理"></a>模块化解决的实际问题，可列举几个模块化方案并理解其中原理</h1><p>命名空间冲突</p>
+<ol>
+<li>我自己测试好的代码和大家合并后怎么起冲突了?</li>
+<li>页面脚本的变量或函数覆盖了公有脚本的。</li>
+</ol>
+<p>文件依赖管理</p>
 
       
 
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
       
     </div>
     <div class="article-info article-info-index">
@@ -192,7 +293,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
         		</li>
       		
 		</ul>
@@ -201,16 +302,75 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/08/vue组件内容/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/05/07/js-作用域和必闭包/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
+  
+  
+    <a href="/2019/05/05/js-原型/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">原型和原型链</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
 
 <aside class="wrap-side-operation">
     <div class="mod-side-operation">
@@ -230,248 +390,14 @@
 
 
 
-
-  
-    <article id="post-vue基础内容" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/08/vue基础内容/">Vue 部分基础内容</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/08/vue基础内容/" class="archive-article-date">
-  	<time datetime="2019-04-08T11:39:40.556Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="组件数据"><a href="#组件数据" class="headerlink" title="组件数据"></a>组件数据</h1><h2 id="组件数据绑定"><a href="#组件数据绑定" class="headerlink" title="组件数据绑定"></a>组件数据绑定</h2><p>单向绑定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;h3&gt;&#123;&#123;msg&#125;&#125;&lt;/h3&gt;</span><br></pre></td></tr></table></figure></p>
-<p>双向绑定<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;input v-model=&quot;inputvalue&quot;/&gt;</span><br></pre></td></tr></table></figure></p>
-<h2 id="属性绑定"><a href="#属性绑定" class="headerlink" title="属性绑定"></a>属性绑定</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 标题绑定 --&gt;</span><br><span class="line">&lt;h1 :title=&quot;title&quot;&gt;这是标题&lt;/h1&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 类绑定 --&gt;</span><br><span class="line">&lt;div :class=&quot;&#123;&apos;red-div&apos;:flag, &apos;blue-div&apos;:!flag&#125;&quot;&gt;RED&lt;/div&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="vue循环"><a href="#vue循环" class="headerlink" title="vue循环"></a>vue循环</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">&lt;ul&gt;</span><br><span class="line">    &lt;li v-for=&quot;item in list&quot; v-bind:key=&quot;item&quot;&gt;&#123;&#123;item.name&#125;&#125;&lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- (item, index) 绑定 --&gt;</span><br><span class="line">&lt;ul  v-for=&quot;(item, index) in todoList&quot; v-bind:key=&quot;item.id&quot;&gt;</span><br><span class="line">    &lt;li v-if=&quot;!item.checked&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; v-model=&quot;item.checked&quot;/&gt;</span><br><span class="line">    &#123;&#123;item.title&#125;&#125;</span><br><span class="line">    &lt;button @click=&quot;todoRemove(index)&quot;&gt;删除&lt;/button&gt;</span><br><span class="line">    &lt;/li&gt;</span><br><span class="line">&lt;/ul&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>循环时要通过’v-bind:key’绑定key值</p>
-</blockquote>
-<h2 id="vue判断v-if"><a href="#vue判断v-if" class="headerlink" title="vue判断v-if"></a>vue判断v-if</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;li v-if=&quot;item.checked&quot;&gt;</span><br><span class="line">    &lt;input type=&quot;checkbox&quot; v-model=&quot;item.checked&quot;/&gt;</span><br><span class="line">    &#123;&#123;item.title&#125;&#125;</span><br><span class="line">    &lt;button @click=&quot;todoRemove(index)&quot;&gt;删除&lt;/button&gt;</span><br><span class="line">&lt;/li&gt;</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/08/vue基础内容/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vue父子组件传递数据和方法" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/07/vue父子组件传递数据和方法/">父组件给子组件传值</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/07/vue父子组件传递数据和方法/" class="archive-article-date">
-  	<time datetime="2019-04-07T13:38:26.551Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-07</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="父组件传递给子组件数据-例值为title"><a href="#父组件传递给子组件数据-例值为title" class="headerlink" title="父组件传递给子组件数据 (例值为title)"></a>父组件传递给子组件数据 (例值为title)</h1><h2 id="1-在子组件中绑定值"><a href="#1-在子组件中绑定值" class="headerlink" title="1.在子组件中绑定值"></a>1.在子组件中绑定值</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;v-header :title=&quot;title&quot;&gt;&lt;/v-header&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>:传过去的值=”值”</p>
-</blockquote>
-<h2 id="2-在子组件中接收"><a href="#2-在子组件中接收" class="headerlink" title="2.在子组件中接收"></a>2.在子组件中接收</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">export default &#123;</span><br><span class="line">  name: &apos;Header&apos;,</span><br><span class="line">  data () &#123;</span><br><span class="line">    return &#123;</span><br><span class="line">      </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;,</span><br><span class="line">  props: [&apos;title&apos;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="3-在子组件中使用"><a href="#3-在子组件中使用" class="headerlink" title="3.在子组件中使用"></a>3.在子组件中使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">    &lt;div&gt;</span><br><span class="line">        &lt;h3&gt;&#123;&#123;title&#125;&#125;&lt;/h3&gt;</span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>子组件中有title时，使用父组件传来的值，不建议这样</p>
-</blockquote>
-<h1 id="父组件传方法给子组件"><a href="#父组件传方法给子组件" class="headerlink" title="父组件传方法给子组件"></a>父组件传方法给子组件</h1><h2 id="1-在父组件中定义方法"><a href="#1-在父组件中定义方法" class="headerlink" title="1.在父组件中定义方法"></a>1.在父组件中定义方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">run () &#123;</span><br><span class="line">  console.log(&apos;我是父组件方法&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-在父组件对应子组件中绑定方法"><a href="#2-在父组件对应子组件中绑定方法" class="headerlink" title="2.在父组件对应子组件中绑定方法"></a>2.在父组件对应子组件中绑定方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;v-header @run=&quot;run&quot;&gt;&lt;/v-header&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="在子组件使用方法"><a href="#在子组件使用方法" class="headerlink" title="在子组件使用方法"></a>在子组件使用方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;button @click=&quot;run()&quot;&gt;执行父组件&lt;/button&gt;</span><br><span class="line"></span><br><span class="line">run () &#123;</span><br><span class="line">  console.log(&apos;我是子组件：&apos;)</span><br><span class="line">  this.$emit(&apos;run&apos;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/07/vue父子组件传递数据和方法/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-hello-world" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/06/hello-world/">Hello World</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/06/hello-world/" class="archive-article-date">
-  	<time datetime="2019-04-06T12:53:46.587Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/06/hello-world/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
   
   
-    <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
-    </nav>
+  
+
+  
+
+  
+
   
 
 
@@ -494,8 +420,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
