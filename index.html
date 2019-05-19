@@ -148,6 +148,261 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-js-语法和API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/13/js-语法和API/">语法和API</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/13/js-语法和API/" class="archive-article-date">
+  	<time datetime="2019-05-13T14:31:59.013Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="理解ECMAScript和JavaScript的关系"><a href="#理解ECMAScript和JavaScript的关系" class="headerlink" title="理解ECMAScript和JavaScript的关系"></a>理解ECMAScript和JavaScript的关系</h1><h1 id="熟练运用es5、es6提供的语法规范，"><a href="#熟练运用es5、es6提供的语法规范，" class="headerlink" title="熟练运用es5、es6提供的语法规范，"></a>熟练运用es5、es6提供的语法规范，</h1><h1 id="熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）"><a href="#熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）" class="headerlink" title="熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）"></a>熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）</h1><h1 id="熟练应用map、reduce、filter-等高阶函数解决问题"><a href="#熟练应用map、reduce、filter-等高阶函数解决问题" class="headerlink" title="熟练应用map、reduce、filter 等高阶函数解决问题"></a>熟练应用map、reduce、filter 等高阶函数解决问题</h1><h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/13/js-语法和API/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js-执行机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/12/js-执行机制/">执行机制</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/12/js-执行机制/" class="archive-article-date">
+  	<time datetime="2019-05-12T07:31:59.438Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-12</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="为何try里面放return，finally还会执行，理解其内部机制"><a href="#为何try里面放return，finally还会执行，理解其内部机制" class="headerlink" title="为何try里面放return，finally还会执行，理解其内部机制"></a>为何try里面放return，finally还会执行，理解其内部机制</h1><p>finally的真正含义是指从try代码块出来才一定会执行相应的finally代码块。</p>
+<p>try 中的return语句不会马上返回给调用者，而是记录下返回值，等待finally代码块执行完毕在返回。</p>
+<blockquote>
+<p>不管出现什么情况， finally代码块都会执行，除了虚拟机终止和线程终止情况</p>
+</blockquote>
+<h1 id="JavaScript如何实现异步编程"><a href="#JavaScript如何实现异步编程" class="headerlink" title="JavaScript如何实现异步编程"></a>JavaScript如何实现异步编程</h1><ol>
+<li>回调函数</li>
+</ol>
+<p>异步编程最基本的方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">f1();</span><br><span class="line">f2();</span><br><span class="line"></span><br><span class="line">//如果f1是一个很耗时的任务，可以考虑改写f1，把f2写成f1的回调函数。</span><br><span class="line">function f1(callback)&#123;</span><br><span class="line">    setTimeout(function () &#123;</span><br><span class="line">        // f1的任务代码</span><br><span class="line">        callback();</span><br><span class="line">    &#125;, 1000);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//执行代码就变成下面这样：</span><br><span class="line">f1(f2);</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>事件监听</li>
+</ol>
+<ol start="3">
+<li>发布订阅</li>
+<li>promise</li>
+</ol>
+<h1 id="宏任务和微任务分别有哪些-EventLoop机制"><a href="#宏任务和微任务分别有哪些-EventLoop机制" class="headerlink" title="宏任务和微任务分别有哪些 EventLoop机制"></a>宏任务和微任务分别有哪些 EventLoop机制</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;script start&apos;);</span><br><span class="line"></span><br><span class="line">setTimeout(function() &#123;</span><br><span class="line">  console.log(&apos;setTimeout&apos;);</span><br><span class="line">&#125;, 0);</span><br><span class="line"></span><br><span class="line">Promise.resolve().then(function() &#123;</span><br><span class="line">  console.log(&apos;promise1&apos;);</span><br><span class="line">&#125;).then(function() &#123;</span><br><span class="line">  console.log(&apos;promise2&apos;);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">console.log(&apos;script end&apos;);</span><br><span class="line"></span><br><span class="line">// script start</span><br><span class="line">// script end</span><br><span class="line">// promise1</span><br><span class="line">// promise2</span><br><span class="line">// setTimeout</span><br></pre></td></tr></table></figure>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">setTimeout(_ =&gt; console.log(1))</span><br><span class="line"></span><br><span class="line">new Promise(resolve =&gt; &#123;</span><br><span class="line">  resolve()</span><br><span class="line">  console.log(2)</span><br><span class="line">&#125;).then(_ =&gt; &#123;</span><br><span class="line">  console.log(3)</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">console.log(4)</span><br><span class="line"></span><br><span class="line">2 4 3 1</span><br></pre></td></tr></table></figure>
+<p>new Promise在实例化的过程中所执行的代码都是同步进行的，而then中注册的回调才是异步执行的。</p>
+<ol>
+<li>宏任务</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>浏览器</th>
+<th>Node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>I/O</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>setTimeout</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>setInterval</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>setImmediate</td>
+<td>✖</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>requsetAnimationFrame</td>
+<td>✔</td>
+<td>✖</td>
+</tr>
+</tbody>
+</table>
+<ol start="2">
+<li>微任务</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>#</th>
+<th>浏览器</th>
+<th>Node</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>process.nextTick</td>
+<td>✖</td>
+<td>✔</td>
+</tr>
+<tr>
+<td>MutationObserver</td>
+<td>✔</td>
+<td>✖</td>
+</tr>
+<tr>
+<td>Promise.then catch finally</td>
+<td>✔</td>
+<td>✔</td>
+</tr>
+</tbody>
+</table>
+<p>在当前的微任务没有执行完成时，是不会执行下一个宏任务的。</p>
+<h2 id="Event-Loop是个啥"><a href="#Event-Loop是个啥" class="headerlink" title="Event-Loop是个啥"></a>Event-Loop是个啥</h2><p>JavaScript是一个单进程的语言，单线程就意味着，所有任务需要排队，同一时间不能处理多个任务，宏任务必然是在微任务之后才执行的（因为微任务实际上是宏任务的其中一个步骤）</p>
+<p>主线程从”任务队列”中读取事件，这个过程是循环不断的，所以整个的这种运行机制又称为Event Loop（事件循环）。</p>
+<h1 id="可以快速分析一个复杂的异步嵌套逻辑，并掌握分析方法"><a href="#可以快速分析一个复杂的异步嵌套逻辑，并掌握分析方法" class="headerlink" title="可以快速分析一个复杂的异步嵌套逻辑，并掌握分析方法"></a>可以快速分析一个复杂的异步嵌套逻辑，并掌握分析方法</h1><h1 id="使用Promise实现串行"><a href="#使用Promise实现串行" class="headerlink" title="使用Promise实现串行"></a>使用Promise实现串行</h1><h1 id="Node与浏览器EventLoop的差异"><a href="#Node与浏览器EventLoop的差异" class="headerlink" title="Node与浏览器EventLoop的差异"></a>Node与浏览器EventLoop的差异</h1><p><img src="eventloop.jpg" alt></p>
+<p>这是Event Loop完整流程图</p>
+<ol>
+<li>读取宏任务队列中的任务</li>
+</ol>
+<ul>
+<li>队列空，执行（2）</li>
+<li>队列不空，将队列第一个任务推进执行栈，执行（2）</li>
+</ul>
+<ol start="2">
+<li>读取微任务队列中的任务</li>
+</ol>
+<ul>
+<li>队列空，执行（3）</li>
+<li>队列不空， 循环执行（将第一个任务推进执行栈）</li>
+</ul>
+<ol start="3">
+<li>更新UI<h1 id="如何在保证页面运行流畅的情况下处理海量数据"><a href="#如何在保证页面运行流畅的情况下处理海量数据" class="headerlink" title="如何在保证页面运行流畅的情况下处理海量数据"></a>如何在保证页面运行流畅的情况下处理海量数据</h1></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/12/js-执行机制/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js-作用域和必闭包" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -994,171 +1249,6 @@
 
 
   
-    <article id="post-vue路由相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/10/vue路由相关/">Vue 路由相关</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/10/vue路由相关/" class="archive-article-date">
-  	<time datetime="2019-04-10T09:00:46.820Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="路由的基本用法"><a href="#路由的基本用法" class="headerlink" title="路由的基本用法"></a>路由的基本用法</h1><h2 id="1-新建路由文件（到时候导入main-js）"><a href="#1-新建路由文件（到时候导入main-js）" class="headerlink" title="1.新建路由文件（到时候导入main.js）"></a>1.新建路由文件（到时候导入main.js）</h2><p>在路由文件中配置路由项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Router from &apos;vue-router&apos;</span><br><span class="line">import IndexList from &apos;@/components/IndexList&apos;</span><br><span class="line">import ContactList from &apos;@/components/ContactList&apos;</span><br><span class="line">import ContactInfo from &apos;@/components/ContactInfo&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/index&apos;,</span><br><span class="line">      name: &apos;IndexList&apos;,</span><br><span class="line">      component: IndexList</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/contacts&apos;,</span><br><span class="line">      name: &apos;ContactsList&apos;,</span><br><span class="line">      component: ContactList</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/contactInfo&apos;,</span><br><span class="line">      name: &apos;ContactInfo&apos;,</span><br><span class="line">      component: ContactInfo</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-在main-js中导入"><a href="#2-在main-js中导入" class="headerlink" title="2.在main.js中导入"></a>2.在main.js中导入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  router,</span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: &apos;&lt;App/&gt;&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="3-在需要使用路由页面的地方使用"><a href="#3-在需要使用路由页面的地方使用" class="headerlink" title="3.在需要使用路由页面的地方使用"></a>3.在需要使用路由页面的地方使用<router-view></router-view></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;v-home&gt;&lt;/v-home&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="4-在执行路由跳转地方使用router-link"><a href="#4-在执行路由跳转地方使用router-link" class="headerlink" title="4.在执行路由跳转地方使用router-link"></a>4.在执行路由跳转地方使用router-link</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link :to=&quot;tab.to&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>:to不可缺少</p>
-</blockquote>
-<h1 id="路由传值（例传’id’）"><a href="#路由传值（例传’id’）" class="headerlink" title="路由传值（例传’id’）"></a>路由传值（例传’id’）</h1><h2 id="1-在配置文件（route-js）中配置"><a href="#1-在配置文件（route-js）中配置" class="headerlink" title="1. 在配置文件（route.js）中配置"></a>1. 在配置文件（route.js）中配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: &apos;/contactInfo/:id&apos;,</span><br><span class="line">    name: &apos;ContactInfo&apos;,</span><br><span class="line">    component: ContactInfo</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-在router-link中传"><a href="#2-在router-link中传" class="headerlink" title="2. 在router-link中传"></a>2. 在router-link中传</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link :to=&quot;&apos;/contactInfo/&apos; + contact.id&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="3-在跳转的路由里接收"><a href="#3-在跳转的路由里接收" class="headerlink" title="3. 在跳转的路由里接收"></a>3. 在跳转的路由里接收</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getContactInfo () &#123;</span><br><span class="line">    this.currentId = this.$route.params.id</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="路由的嵌套"><a href="#路由的嵌套" class="headerlink" title="路由的嵌套"></a>路由的嵌套</h1><p>在路由跳转的界面中还存在路由跳转</p>
-<h2 id="1-在route-js文件配置-增加childred"><a href="#1-在route-js文件配置-增加childred" class="headerlink" title="1. 在route.js文件配置,增加childred"></a>1. 在route.js文件配置,增加childred</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: &apos;/contacts&apos;,</span><br><span class="line">    name: &apos;ContactsList&apos;,</span><br><span class="line">    component: ContactList,</span><br><span class="line">    children: [</span><br><span class="line">    &#123;path: &apos;&apos;, component: &apos;&apos;&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-在组件中设置router-view"><a href="#2-在组件中设置router-view" class="headerlink" title="2. 在组件中设置router-view"></a>2. 在组件中设置router-view</h2><h1 id="编程式的导航"><a href="#编程式的导航" class="headerlink" title="编程式的导航"></a>编程式的导航</h1><p>使用js跳转页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123;path: &apos;/contactInfo/1&apos;&#125;)</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">官方文档</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/10/vue路由相关/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vue数据请求" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/08/vue数据请求/">Vue 数据请求</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/08/vue数据请求/" class="archive-article-date">
-  	<time datetime="2019-04-08T13:54:13.760Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-08</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="vue-resource-的使用"><a href="#vue-resource-的使用" class="headerlink" title="vue-resource 的使用"></a>vue-resource 的使用</h1><h2 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vue-resource -S</span><br></pre></td></tr></table></figure>
-<h2 id="2-在main-js中导入"><a href="#2-在main-js中导入" class="headerlink" title="2.在main.js中导入"></a>2.在main.js中导入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import VueResource from &apos;_vue-resource@1.5.1@vue-resource&apos;</span><br><span class="line">Vue.use(VueResource)</span><br></pre></td></tr></table></figure>
-<h2 id="3-在-vue文件中使用"><a href="#3-在-vue文件中使用" class="headerlink" title="3.在.vue文件中使用"></a>3.在.vue文件中使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">getMessage () &#123;</span><br><span class="line">    this.$http.get(api).then(function (res) &#123;</span><br><span class="line">    console.log(res)</span><br><span class="line">    &#125;, function (err) &#123;</span><br><span class="line">    console.log(err)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="axios-的使用"><a href="#axios-的使用" class="headerlink" title="axios 的使用"></a>axios 的使用</h1><h2 id="1-安装-1"><a href="#1-安装-1" class="headerlink" title="1.安装"></a>1.安装</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i axios -S</span><br></pre></td></tr></table></figure>
-<h2 id="2-哪里使用则在哪里引入"><a href="#2-哪里使用则在哪里引入" class="headerlink" title="2.哪里使用则在哪里引入"></a>2.哪里使用则在哪里引入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import Axios from &apos;axios&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="3-在导入文件中使用"><a href="#3-在导入文件中使用" class="headerlink" title="3.在导入文件中使用"></a>3.在导入文件中使用</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">Axios.get(api).then((res) =&gt; &#123;</span><br><span class="line">  console.log(res)</span><br><span class="line">&#125;).catch((err) =&gt; &#123;</span><br><span class="line">  console.log(err)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/08/vue数据请求/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1256,11 +1346,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color3">js</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">js</a>
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
             
             <div class="clearfix"></div>
