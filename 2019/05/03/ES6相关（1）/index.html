@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>xuzelin博客</title>
+  <title>let 和 const 命令 | xuzelin博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="xuzelin博客">
+  <meta name="description" content="基本用法ES6新增let命令，用来申明变量，变量只在let所在代码块中生效1234567&amp;#123;  let a = 10;  var b = 1;&amp;#125;a // ReferenceError: a is not defined.b // 1 for循环中的let用法12345for (let i = 0; i &amp;lt; 10; i++) &amp;#123;  // ...&amp;#125;conso">
+<meta name="keywords" content="es">
+<meta property="og:type" content="article">
+<meta property="og:title" content="let 和 const 命令">
 <meta property="og:url" content="http://yoursite.com/2019/05/03/ES6相关（1）/index.html">
 <meta property="og:site_name" content="xuzelin博客">
+<meta property="og:description" content="基本用法ES6新增let命令，用来申明变量，变量只在let所在代码块中生效1234567&amp;#123;  let a = 10;  var b = 1;&amp;#125;a // ReferenceError: a is not defined.b // 1 for循环中的let用法12345for (let i = 0; i &amp;lt; 10; i++) &amp;#123;  // ...&amp;#125;conso">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-05-03T11:11:31.473Z">
+<meta property="og:updated_time" content="2019-05-31T14:07:22.066Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xuzelin博客">
+<meta name="twitter:title" content="let 和 const 命令">
+<meta name="twitter:description" content="基本用法ES6新增let命令，用来申明变量，变量只在let所在代码块中生效1234567&amp;#123;  let a = 10;  var b = 1;&amp;#125;a // ReferenceError: a is not defined.b // 1 for循环中的let用法12345for (let i = 0; i &amp;lt; 10; i++) &amp;#123;  // ...&amp;#125;conso">
   
     <link rel="alternative" href="/atom.xml" title="xuzelin博客" type="application/atom+xml">
   
@@ -150,9 +154,27 @@
             <article id="post-ES6相关（1）" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      let 和 const 命令
+    </h1>
+  
+
+        
+        <a href="/2019/05/03/ES6相关（1）/" class="archive-article-date">
+  	<time datetime="2019-05-03T10:59:53.570Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h1><p>ES6新增let命令，用来申明变量，变量只在let所在代码块中生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  let a = 10;</span><br><span class="line">  var b = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a // ReferenceError: a is not defined.</span><br><span class="line">b // 1</span><br></pre></td></tr></table></figure></p>
+<h2 id="for循环中的let用法"><a href="#for循环中的let用法" class="headerlink" title="for循环中的let用法"></a>for循环中的let用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(i);</span><br></pre></td></tr></table></figure>
+<p>i只在for循环体中有效，在循环体外则报错</p>
+
       
 
       
@@ -181,6 +203,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">es</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -382,11 +415,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">es</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">js</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color2">树</a>
               </li>
             
             <div class="clearfix"></div>
