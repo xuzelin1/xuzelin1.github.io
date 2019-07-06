@@ -148,6 +148,452 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-手动实现前端轮子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/23/手动实现前端轮子/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js模块化开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/22/js模块化开发/">js 模块化开发</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/22/js模块化开发/" class="archive-article-date">
+  	<time datetime="2019-06-22T14:28:15.392Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h1><h2 id="模块化开发"><a href="#模块化开发" class="headerlink" title="模块化开发"></a>模块化开发</h2><p>一个模块就是实现特定功能的文件，有了模块，就可以更方便的使用别人的模块，按需加载模块。</p>
+<p>目前的js 模块化规范主要有两种：Common.js和AMD</p>
+<h2 id="为什么要模块化"><a href="#为什么要模块化" class="headerlink" title="为什么要模块化"></a>为什么要模块化</h2><p>降低复杂度，提高解耦性，部署方便</p>
+<h2 id="模块化好处"><a href="#模块化好处" class="headerlink" title="模块化好处"></a>模块化好处</h2><ol>
+<li>避免命名冲突</li>
+<li>更好的分离，按需加载</li>
+<li>更高的复用性</li>
+<li>高可维护性</li>
+</ol>
+<h2 id="页面引入加载script"><a href="#页面引入加载script" class="headerlink" title="页面引入加载script"></a>页面引入加载script</h2><p>模块的使用： layui的js就是采用模块化</p>
+<p>layui.use就是引入模块<br>layui.define就是定义模块</p>
+<h1 id="AMD规范"><a href="#AMD规范" class="headerlink" title="AMD规范"></a>AMD规范</h1><p>AMD 即 Asynchronous Module Definition，中文名是“异步模块定义”的意思。它是一个在浏览器端模块化开发的规范，服务器端的规范是CommonJS</p>
+<p>模块将被异步加载，模块加载不影响后面语句的运行。所有依赖某些模块的语句均放置在回调函数中。</p>
+<p>AMD 是 RequireJS 在推广过程中对模块定义的规范化的产出。</p>
+<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>定义暴露模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">　　//定义没有依赖的模块：</span><br><span class="line"></span><br><span class="line">　　define(function()&#123;</span><br><span class="line"></span><br><span class="line">　　　　return 模块</span><br><span class="line"></span><br><span class="line">　　&#125;)</span><br><span class="line"></span><br><span class="line">　　//定义有依赖的模块：</span><br><span class="line"></span><br><span class="line">　　define([&apos;module1&apos;,&apos;module2&apos;],function(m1,m2)&#123;</span><br><span class="line"></span><br><span class="line">　　　　return 模块</span><br><span class="line"></span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>引入使用模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 　　require([&apos;module1&apos;,&apos;module2&apos;],function(m1,m2)&#123;</span><br><span class="line"></span><br><span class="line">　　　　使用m1/m2</span><br><span class="line"></span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure></p>
+<h1 id="CommonJs（node根据该规范编写）"><a href="#CommonJs（node根据该规范编写）" class="headerlink" title="CommonJs（node根据该规范编写）"></a>CommonJs（node根据该规范编写）</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
+<li>每一个文件都可以当做一个模块</li>
+<li>服务器端：模块的加载是运行时同步加载的</li>
+<li>浏览器端：模块需要提前编译打包处理<h2 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h2></li>
+<li>模块引入:require</li>
+<li>暴露模块:export.xxx = value 和 module.exports = value</li>
+</ol>
+<h1 id="RequireJs和SeaJs"><a href="#RequireJs和SeaJs" class="headerlink" title="RequireJs和SeaJs"></a>RequireJs和SeaJs</h1><h2 id="相同之处"><a href="#相同之处" class="headerlink" title="相同之处"></a>相同之处</h2><pre><code>RequireJs和SeaJs都是模块加载器，倡导模块化开发理念，让js的模块化开发变得简单自然。
+</code></pre><h2 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h2><pre><code>1. 定位差异：RequireJs是浏览器的模块加载器，同时成为Node等环境的模块加载器。SeaJs专注于Web浏览器端，同时通过Node扩展可以很方便的跑在Node环境中
+2. 准讯规范不同：RequireJs遵循AMD规范，SeaJs遵循CMD规范，规范不同，API不同，SeaJs更贴近CommomJs规范
+3. 推广理念差异：RequireJs在尝试让第三方类库修改自身来支持RequireJs，目前只有少数社区采纳，SeaJs不强推，采用自主封装的方式，目前已有叫成熟的封装策略
+4. 对开发调试的支持有差异：SeaJs关注代码的调试开发，RequireJs无明显支持
+5. 插件机制不同：RequireJs采取在源码中预留接口，插件类型单一，SeaJs采取通用事件机制，插件类型更丰富
+</code></pre>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/22/js模块化开发/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-数据结构-红黑树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/22/数据结构-红黑树/">数据结构</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/22/数据结构-红黑树/" class="archive-article-date">
+  	<time datetime="2019-06-22T12:33:13.074Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-22</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h2 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h2><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
+<li>左子树所有的结点的值均小于或等于根结点的值</li>
+<li>右子树所有的结点的值均大于或等于根结点的值</li>
+<li>左子树和右子树都是二叉排序树</li>
+</ol>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/9182fc564c2f4e43a21ccf5303ff52f2.jpeg" alt></p>
+<h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/3490195d7e3a405c97c34d391c71f09b.png" alt></p>
+<p>不断插入更小的结点或更大的结点，二叉查找树有可能会变成线性结构</p>
+<h2 id="红黑树的作用"><a href="#红黑树的作用" class="headerlink" title="红黑树的作用"></a>红黑树的作用</h2><p>为了解决二叉查找树的不平衡</p>
+<h2 id="红黑树的特性"><a href="#红黑树的特性" class="headerlink" title="红黑树的特性"></a>红黑树的特性</h2><ol>
+<li>结点是红色或者黑色的</li>
+<li>根节点是黑色的</li>
+<li>叶子节点都是黑色的空节点（NIL节点）</li>
+<li>每个红色节点的两个子节点都是黑色</li>
+<li>从任意节点到其每个叶子的所有路径都包含相同的黑色节点</li>
+</ol>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/eefb5a3397ef4089b356e7c9f0938a8d.jpeg" alt></p>
+<p>当插入节点或者删除节点时，有可能会打破红黑树的规则，这时候就需要进行调整<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/c0042741a40d47249e287908c16a9203.jpeg" alt></p>
+<h2 id="变色"><a href="#变色" class="headerlink" title="变色"></a>变色</h2><p>为了重新符合红黑树的规则，尝试把红节点变成黑色，把黑色节点变成红色</p>
+<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><h3 id="左旋转"><a href="#左旋转" class="headerlink" title="左旋转"></a>左旋转</h3><p>逆时针旋转红黑树的两个节点，使得父节点被自己的右孩子取代，自己成为了右孩子的左节点</p>
+<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3cd82550b29445eac5b6e6b0f40f03c.png" alt></p>
+<h3 id="右旋转"><a href="#右旋转" class="headerlink" title="右旋转"></a>右旋转</h3><p>顺时针旋转红黑树的两个节点，使得父节点被自己的左孩子取代，自己成为了左孩子的右节点<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/c739da55ba784729919bc18b57c3a5c3.png" alt></p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>插入节点21<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/7a4055b4eaa14fd097ffa241abd86032.jpeg" alt><br>首先变色<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/a0c2409f6c7d4c468a3d1c80c18ebe9b.jpeg" alt></p>
+<p>此时节点17和节点25是连续的两个红色节点，那么把节点17变成黑色节点？恐怕不合适。这样一来不但打破了规则4，而且根据规则2（根节点是黑色），也不可能把节点13变成红色节点。</p>
+<p>变色已无法解决问题，我们把节点13看做X，把节点17看做Y，像刚才的示意图那样进行左旋转：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/cb7731c2eb4e4e2b839004e3dcaf7126.png" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/9f6949f1ca624323ad26bd474912571a.jpeg" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/d7da48b838514b33bd8b44ab1b55c9e1.jpeg" alt></p>
+<p>由于根节点必须是黑色节点，所以需要变色，变色结果如下：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/d32de019907c4e9a9c2e3490d66677de.jpeg" alt></p>
+<p>因为其中两条路径(17 -&gt; 8 -&gt; 6 -&gt; NIL)的黑色节点个数是4，其他路径的黑色节点个数是3，不符合规则5。</p>
+<p>这时候我们需要把节点13看做X，节点8看做Y，像刚才的示意图那样进行右旋转：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/1fdcb0466c7a4ecc84b54cb701781243.jpeg" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3fcbe987f214340b0b03d129b2a2059.jpeg" alt></p>
+<p>根据规则来进行变色：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/79bbe75c48da4a7492c21af0e18065a5.jpeg" alt></p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">树</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/22/数据结构-红黑树/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-编译原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/21/编译原理/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-HTML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/20/HTML/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js-语法和API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/05/13/js-语法和API/">语法和API</a>
+    </h1>
+  
+
+        
+        <a href="/2019/05/13/js-语法和API/" class="archive-article-date">
+  	<time datetime="2019-05-13T14:31:59.013Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-13</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="理解ECMAScript和JavaScript的关系"><a href="#理解ECMAScript和JavaScript的关系" class="headerlink" title="理解ECMAScript和JavaScript的关系"></a>理解ECMAScript和JavaScript的关系</h1><h2 id="js-包含三个部分"><a href="#js-包含三个部分" class="headerlink" title="js 包含三个部分"></a>js 包含三个部分</h2><ol>
+<li>ECMAScript，ES6语法比较新,一些浏览器对ES6不兼容，所以一般会用一些转换工具如Babel进行转换。</li>
+<li>DOM文档对象</li>
+<li>BOM浏览器对象</li>
+</ol>
+<h2 id="JavaScript处理引擎"><a href="#JavaScript处理引擎" class="headerlink" title="JavaScript处理引擎"></a>JavaScript处理引擎</h2><ul>
+<li>chrome v8</li>
+<li>firefox SpiderMonkey</li>
+<li>edge chakra</li>
+</ul>
+<h1 id="es5、es6提供的语法规范"><a href="#es5、es6提供的语法规范" class="headerlink" title="es5、es6提供的语法规范"></a>es5、es6提供的语法规范</h1><h1 id="熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）"><a href="#熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）" class="headerlink" title="熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）"></a>熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）</h1><h1 id="熟练应用map、reduce、filter-等高阶函数解决问题"><a href="#熟练应用map、reduce、filter-等高阶函数解决问题" class="headerlink" title="熟练应用map、reduce、filter 等高阶函数解决问题"></a>熟练应用map、reduce、filter 等高阶函数解决问题</h1><ol>
+<li>map</li>
+</ol>
+<p>返回每次函数调用的结果组成的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function pow(x) &#123;</span><br><span class="line">    return x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br><span class="line">arr.map(pow); // [1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br></pre></td></tr></table></figure></p>
+<p>map()作为高阶函数，事实上它把运算规则抽象了，因此，我们不但可以计算简单的f(x)=x2，还可以计算任意复杂的函数，比如，把Array的所有数字转为字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br><span class="line">arr.map(String); // [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;]</span><br></pre></td></tr></table></figure></p>
+<ol start="2">
+<li>reduce</li>
+</ol>
+<p>reduce()把结果继续和序列的下一个元素做累积计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)</span><br><span class="line">//比方说对一个Array求和，就可以用reduce实现：</span><br><span class="line"></span><br><span class="line">var arr = [1, 3, 5, 7, 9];</span><br><span class="line">arr.reduce(function (x, y) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;); // 25</span><br></pre></td></tr></table></figure></p>
+<ol start="3">
+<li>filter</li>
+</ol>
+<p>把Array的某些元素过滤掉，然后返回剩下的元素。filter()把传入的函数依次作用于每个元素，然后根据返回值是true还是false决定保留还是丢弃该元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//例如，在一个Array中，删掉偶数，只保留奇数，可以这么写：</span><br><span class="line">var arr = [1, 2, 4, 5, 6, 9, 10, 15];</span><br><span class="line">var r = arr.filter(function (x) &#123;</span><br><span class="line">    return x % 2 !== 0;</span><br><span class="line">&#125;);</span><br><span class="line">r; // [1, 5, 9, 15]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//把一个Array中的空字符串删掉，可以这么写：</span><br><span class="line">var arr = [&apos;A&apos;, &apos;&apos;, &apos;B&apos;, null, undefined, &apos;C&apos;, &apos;  &apos;];</span><br><span class="line">var r = arr.filter(function (s) &#123;</span><br><span class="line">    return s &amp;&amp; s.trim(); // 注意：IE9以下的版本没有trim()方法</span><br><span class="line">&#125;);</span><br><span class="line">arr; // [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]</span><br></pre></td></tr></table></figure></p>
+<p>用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
+<ol start="4">
+<li>sort</li>
+</ol>
+<p>Array的sort()方法默认把所有元素先转换为String再排序，结果’10’排在了’2’的前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function ss(a, b) &#123;return a - b;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(ss)</span><br><span class="line">(5) [1, 6, 7, 10, 15]</span><br><span class="line"></span><br><span class="line">function sss(a, b) &#123;return b - a;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(sss)</span><br><span class="line">(5) [15, 10, 7, 6, 1]</span><br></pre></td></tr></table></figure></p>
+<h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/05/13/js-语法和API/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js-执行机制" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -657,644 +1103,9 @@
 
 
   
-    <article id="post-js-变量和类型相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/04/js-变量和类型相关/">变量和类型相关</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/04/js-变量和类型相关/" class="archive-article-date">
-  	<time datetime="2019-05-04T11:11:22.938Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="变量和类型"><a href="#变量和类型" class="headerlink" title="变量和类型"></a>变量和类型</h1><h3 id="基本类型的种类"><a href="#基本类型的种类" class="headerlink" title="基本类型的种类"></a>基本类型的种类</h3><ul>
-<li>String</li>
-<li>Number</li>
-<li>Boolean</li>
-<li>Symbol</li>
-<li>Undefined</li>
-<li>Null</li>
-</ul>
-<h3 id="js对象底层数据结构是什么"><a href="#js对象底层数据结构是什么" class="headerlink" title="js对象底层数据结构是什么"></a>js对象底层数据结构是什么</h3><p>js中的对象就是数据和功能的集合，对象存储在堆中，而基本数据类型则存放在栈中<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var a = [1,2,3];</span><br><span class="line">var b = a;</span><br><span class="line">var c = a[1];</span><br></pre></td></tr></table></figure></p>
-<p>在这里，当数组b改变时，数组a也会跟着改变，而当c改变时，数组a不会改变。这就是传值和传址的区别。b和a指向相同地址，因此改变其中一个都会是另一个改变</p>
-<h3 id="浅拷贝和深拷贝"><a href="#浅拷贝和深拷贝" class="headerlink" title="浅拷贝和深拷贝"></a>浅拷贝和深拷贝</h3><p>当直接把a赋值给b时就是浅拷贝，深拷贝是要依次把a对应字段及其值赋给b。深拷贝可以避免地址引用带来的问题<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function deepCopy(obj) &#123;</span><br><span class="line">    var result = Array.isArray(obj) ? [] : &#123;&#125;;</span><br><span class="line">    for (var key in obj) &#123;</span><br><span class="line">    if (obj.hasOwnProperty(key)) &#123;</span><br><span class="line">        if (typeof obj[key] === &apos;object&apos;) &#123;</span><br><span class="line">        result[key] = deepCopy(obj[key]);   //递归复制</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">        result[key] = obj[key];</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h3 id="Symbol相关"><a href="#Symbol相关" class="headerlink" title="Symbol相关"></a>Symbol相关</h3><p>ES6 引入了一种新的原始数据类型Symbol，表示独一无二的值。它是 JavaScript 语言的第七种数据类型</p>
-<h4 id="Symbol对象"><a href="#Symbol对象" class="headerlink" title="Symbol对象"></a>Symbol对象</h4><p>Symbol通过函数生成，Symbol中的描述是为了区分，但是相同参数返回不同的对象<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">let s = Symbol(&apos;这里添加描述&apos;);</span><br><span class="line"></span><br><span class="line">typeof s</span><br><span class="line">// &quot;symbol&quot;</span><br></pre></td></tr></table></figure></p>
-<h4 id="Symbol类型不能与其他类型进行运算"><a href="#Symbol类型不能与其他类型进行运算" class="headerlink" title="Symbol类型不能与其他类型进行运算"></a>Symbol类型不能与其他类型进行运算</h4><p>Symbol不能与其他类型运算，但是可以转为字符串和布尔值<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">let sym = Symbol(&apos;My symbol&apos;);</span><br><span class="line"></span><br><span class="line">&quot;your symbol is &quot; + sym</span><br><span class="line">// TypeError: can&apos;t convert symbol to string</span><br><span class="line">`your symbol is $&#123;sym&#125;`</span><br><span class="line">// TypeError: can&apos;t convert symbol to string</span><br></pre></td></tr></table></figure></p>
-<h3 id="基本类型的内置对象"><a href="#基本类型的内置对象" class="headerlink" title="基本类型的内置对象"></a>基本类型的内置对象</h3><ol>
-<li>数据类型</li>
-</ol>
-<ul>
-<li>Object Array </li>
-<li>String Undefined Null Number Boolean Symbol</li>
-</ul>
-<ol start="2">
-<li>内置对象</li>
-</ol>
-<blockquote>
-<p>定义：由ECMAScript实现提供，不依赖宿主环境，在程序执行之前就已经存在</p>
-</blockquote>
-<ul>
-<li>Array对象 Date对象 正则对象 String对象</li>
-<li>（单体内置对象）Global对象 Math对象</li>
-</ul>
-<h3 id="基本类型的装箱拆箱"><a href="#基本类型的装箱拆箱" class="headerlink" title="基本类型的装箱拆箱"></a>基本类型的装箱拆箱</h3><p>把基本数据类型转换为对应的引用类型称为装箱，把引用类型转换为对应的基本数据类型称为拆箱</p>
-<ol>
-<li>装箱 - <strong>把基本数据类型转化为对应的引用数据类型的操作</strong><blockquote>
-<p>每当读取一个基本类型的时候，后台就会创建一个对应的基本包装类型对象，从而让我们能够调用一些方法来操作这些数据。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var s1 = &quot;abc&quot;;</span><br><span class="line">var s2 = s1.indexOf(&quot;a&quot;)</span><br></pre></td></tr></table></figure>
-</blockquote>
-</li>
-</ol>
-<p>变量s1数基本数据类型，不是对象，不应该有方法，但是js完成装箱操作，使其能够调用方法</p>
-<ol start="2">
-<li>拆箱 - <strong>将引用类型对象转换为对应的值类型对象</strong></li>
-</ol>
-<p>通过引用类型的<strong>valueOf</strong>或者<strong>toString</strong>来实现</p>
-<h3 id="值类型和引用类型"><a href="#值类型和引用类型" class="headerlink" title="值类型和引用类型"></a>值类型和引用类型</h3><h4 id="类型种类"><a href="#类型种类" class="headerlink" title="类型种类"></a>类型种类</h4><ol>
-<li>值类型（基本类型） </li>
-</ol>
-<ul>
-<li>String Undefined Null Number Boolean Symbol</li>
-</ul>
-<ol start="2">
-<li>引用类型</li>
-</ol>
-<ul>
-<li>Object Function Array</li>
-</ul>
-<h4 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h4><table>
-<thead>
-<tr>
-<th></th>
-<th>存储方式</th>
-<th>保存复制</th>
-<th>类型判断</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>值类型</td>
-<td>保存在栈中，空间固定</td>
-<td>保存复制的是值本身</td>
-<td>typeof</td>
-</tr>
-<tr>
-<td>引用类型</td>
-<td>保存在堆中，空间不固定</td>
-<td>保存复制的是对象的指针</td>
-<td>instanceof</td>
-</tr>
-</tbody>
-</table>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 利用typeof来区分</span><br><span class="line">typeof undefined // undefined</span><br><span class="line">typeof &apos;abc&apos; // string</span><br><span class="line">typeof 123 // number</span><br><span class="line">typeof true // boolean</span><br><span class="line">// typeof 区分不出来引用类型（除了函数）</span><br><span class="line">typeof &#123;&#125; // object</span><br><span class="line">typeof [] // object</span><br><span class="line">typeof null // object</span><br><span class="line">typeof console.log //function</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">alert(person instanceof Object); // 变量 person 是 Object 吗？</span><br><span class="line"></span><br><span class="line">alert(colors instanceof Array); // 变量 colors 是 Array 吗？</span><br><span class="line"></span><br><span class="line">alert(pattern instanceof RegExp); // 变量 pattern 是 RegExp 吗？</span><br></pre></td></tr></table></figure>
-<h3 id="Undefined-和-null"><a href="#Undefined-和-null" class="headerlink" title="Undefined 和 null"></a>Undefined 和 null</h3><p>undefined是表示系统级的、出乎意料的或类似错误的值的空缺，而null是表示程序级的、正常的或在意料之中的值的空缺。</p>
-<p>null值则是表示空对象指针。</p>
-<h3 id="数据类型判断"><a href="#数据类型判断" class="headerlink" title="数据类型判断"></a>数据类型判断</h3><ol>
-<li>typeof<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">console.log(typeof 1); //number</span><br><span class="line">console.log(typeof &apos;&apos;); //string</span><br><span class="line">console.log(typeof true); //boolean</span><br><span class="line">console.log(typeof undefined); //undefined</span><br><span class="line">console.log(typeof Symbol()); //symbol</span><br><span class="line">console.log(typeof null); //object 无效</span><br><span class="line"></span><br><span class="line">console.log(typeof []); //object 无效</span><br><span class="line">console.log(typeof function (argument) &#123;&#125;); //function</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p>typeof 主要用于检测基本数据类型，对于引用数据类型，用处不大</p>
-</blockquote>
-<ol start="2">
-<li>instanceof</li>
-</ol>
-<p>instanceof 是用来判断 A 是否为 B 的实例，表达式为：A instanceof B，如果 A 是 B 的实例，则返回 true,否则返回 false</p>
-<p><strong>instanceof 检测的是原型</strong><br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">instanceof (A,B) = &#123;</span><br><span class="line">    var L = A.__proto__;</span><br><span class="line">    var R = B.prototype;</span><br><span class="line">    if(L === R) &#123;</span><br><span class="line">        // A的内部属性 __proto__ 指向 B 的原型对象</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">    return false;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<p>instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例具体属于哪种类型</p>
-</blockquote>
-<ol start="3">
-<li>constructor</li>
-</ol>
-<p>当执行var f = new F() 时，f.constructor = F<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;&apos;.constructor == String)</span><br><span class="line">console.log(new Number().constructor == Number)</span><br><span class="line">console.log(Symbol().constructor == Symbol)</span><br><span class="line">console.log(true.constructor == Boolean)</span><br><span class="line">// console.log(null.constructor == null)</span><br><span class="line">// console.log(undefined.constructor)</span><br><span class="line"></span><br><span class="line">console.log(new Date().constructor == Date)</span><br></pre></td></tr></table></figure></p>
-<blockquote>
-<ol>
-<li>null 和 undefined 是无效的对象，因此是不会有 constructor 存在的，这两种类型的数据需要通过其他方式来判断。</li>
-<li>函数的 constructor 是不稳定的，这个主要体现在自定义对象上，当开发者重写 prototype 后，原有的 constructor 引用会丢失，constructor 会默认为 Object</li>
-</ol>
-</blockquote>
-<ol start="4">
-<li>toString</li>
-</ol>
-<p>toString 是Object的原型方法。对于Object对象，直接调用toString，其他对象则要通过call/apply来判断</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">console.log(Object.prototype.toString.call(&apos;&apos;))</span><br><span class="line">console.log(Object.prototype.toString.call(1))</span><br><span class="line">console.log(Object.prototype.toString.call(Symbol()))</span><br><span class="line">console.log(Object.prototype.toString.call(null))</span><br><span class="line">console.log(Object.prototype.toString.call(undefined))</span><br></pre></td></tr></table></figure>
-<h4 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h4><ol>
-<li>typeof 主要用于基本数据类型，不可用于引用类型（返回object）</li>
-<li>instanceof 只能用来判断两个对象是否属于实例关系， 而不能判断一个对象实例<strong>具体</strong>属于哪种类型</li>
-<li>constructor</li>
-</ol>
-<ul>
-<li>null 和 undefined 是无效的对象，因此是不会有 constructor 存在的，这两种类型的数据需要通过其他方式来判断。</li>
-<li>函数的 constructor 是不稳定的，这个主要体现在自定义对象上，当开发者重写 prototype 后，原有的 constructor 引用会丢失，constructor 会默认为 Object</li>
-</ul>
-<h3 id="显式，隐式类型转换"><a href="#显式，隐式类型转换" class="headerlink" title="显式，隐式类型转换"></a>显式，隐式类型转换</h3><h4 id="显式转换"><a href="#显式转换" class="headerlink" title="显式转换"></a>显式转换</h4><ol>
-<li>转换为布尔值</li>
-</ol>
-<table>
-<thead>
-<tr>
-<th>数据类型</th>
-<th>转换为true的值</th>
-<th>转换为false的值</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Boolean</td>
-<td>true</td>
-<td>false</td>
-</tr>
-<tr>
-<td>String</td>
-<td>任何非空字符串</td>
-<td>“” (空字符串)</td>
-</tr>
-<tr>
-<td>Number</td>
-<td>任何非零数字值(包括无穷大)</td>
-<td>0和NaN</td>
-</tr>
-<tr>
-<td>Object</td>
-<td>任何对象</td>
-<td>null</td>
-</tr>
-<tr>
-<td>Underfined</td>
-<td>n/a</td>
-<td>undefined</td>
-</tr>
-</tbody>
-</table>
-<ol start="2">
-<li>转换为数字</li>
-</ol>
-<p>Number()转换</p>
-<ul>
-<li>Boolean 值：true为1，false为0</li>
-<li>null为0</li>
-<li>Undefined为NaN</li>
-<li>字符串：””为0，不规则为NaN</li>
-</ul>
-<p>parseInt()</p>
-<ul>
-<li>“”为NaN</li>
-</ul>
-<ol start="3">
-<li>转换为字符串</li>
-</ol>
-<h4 id="隐式转换"><a href="#隐式转换" class="headerlink" title="隐式转换"></a>隐式转换</h4><p>在不同数据类型进行比较或计算时，会进行自动类型转换</p>
-<ul>
-<li><p>字符串连接符与算术运算符隐式转换</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">console.log(1 + &apos;true&apos;); //1true ....字符串连接符</span><br><span class="line">console.log(1 + true); //2 ...算术运算符</span><br><span class="line">console.log(1 + null); //1 ...算术运算符</span><br><span class="line">console.log(1 + undefined); //NaN ...算术运算符</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>关系运算符 <strong>会把其他数据类型转换成number之后再比较关系</strong></p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">console.log(&apos;2&apos; &gt; 10); //false</span><br><span class="line">console.log(&apos;2&apos; &gt; &apos;10&apos;); //true</span><br><span class="line">console.log(&apos;abc&apos; &gt; &apos;b&apos;); //false</span><br><span class="line">console.log(&apos;abc&apos; &gt; &apos;aac&apos;); //true</span><br><span class="line">console.log(NaN == NaN); //false</span><br><span class="line">console.log(undefined == null); //true</span><br><span class="line">console.log(undefined === null); //false</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>复杂数据类型在隐式转换时会先转成String，然后再转成Number运算</p>
-</li>
-</ul>
-<ol>
-<li>复杂数据类型转number顺序<ul>
-<li>先使用valueof获取值，如果不是number，使用toString转成number</li>
-<li>将string转为number</li>
-</ul>
-</li>
-</ol>
-<ul>
-<li>逻辑非隐式转换与关系运算符隐式转换</li>
-</ul>
-<p>空数组的toString()方法会得到空字符串，而空对象的toString()方法会得到字符串’[object Object]’<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">console.log([].toString()); //&apos;&apos;</span><br><span class="line">console.log([] == 0); //true</span><br><span class="line">console.log(![] == 0); //true</span><br><span class="line"></span><br><span class="line">console.log([] == ![]); //true</span><br><span class="line">console.log([] == []); //false</span><br><span class="line"></span><br><span class="line">console.log(&#123;&#125;.toString()); //[object Object]</span><br><span class="line">console.log(&#123;&#125; == !&#123;&#125;); //false</span><br><span class="line">console.log(&#123;&#125; == &#123;&#125;); //false</span><br></pre></td></tr></table></figure></p>
-<h3 id="小数精度丢失的原因"><a href="#小数精度丢失的原因" class="headerlink" title="小数精度丢失的原因"></a>小数精度丢失的原因</h3><p>二进制模仿十进制进行四舍五入了，但是二进制只有 0 和 1 两个，于是变为 0 舍 1 入。这即是计算机中部分浮点数运算时出现误差，丢失精度的根本原因</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/04/js-变量和类型相关/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ES6相关（1）" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/03/ES6相关（1）/">let 和 const 命令</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/03/ES6相关（1）/" class="archive-article-date">
-  	<time datetime="2019-05-03T10:59:53.570Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="基本用法"><a href="#基本用法" class="headerlink" title="基本用法"></a>基本用法</h1><p>ES6新增let命令，用来申明变量，变量只在let所在代码块中生效<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  let a = 10;</span><br><span class="line">  var b = 1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">a // ReferenceError: a is not defined.</span><br><span class="line">b // 1</span><br></pre></td></tr></table></figure></p>
-<h2 id="for循环中的let用法"><a href="#for循环中的let用法" class="headerlink" title="for循环中的let用法"></a>for循环中的let用法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">for (let i = 0; i &lt; 10; i++) &#123;</span><br><span class="line">  // ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">console.log(i);</span><br></pre></td></tr></table></figure>
-<p>i只在for循环体中有效，在循环体外则报错</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">es</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/03/ES6相关（1）/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-promise" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/16/promise/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vue 建立项目" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/12/vue 建立项目/">Vuex 项目建立</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/12/vue 建立项目/" class="archive-article-date">
-  	<time datetime="2019-04-12T10:45:42.738Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-12</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="开始建立一个项目"><a href="#开始建立一个项目" class="headerlink" title="开始建立一个项目"></a>开始建立一个项目</h1><p>在文件夹下输入命令<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm init webpack</span><br></pre></td></tr></table></figure></p>
-<h1 id="项目目录"><a href="#项目目录" class="headerlink" title="项目目录"></a>项目目录</h1><h2 id="1"><a href="#1" class="headerlink" title="1."></a>1.</h2>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/12/vue 建立项目/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vuex使用" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/11/vuex使用/">Vuex 使用</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/11/vuex使用/" class="archive-article-date">
-  	<time datetime="2019-04-11T15:31:16.728Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-11</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="Vuex实现数据共享"><a href="#Vuex实现数据共享" class="headerlink" title="Vuex实现数据共享"></a>Vuex实现数据共享</h1><h2 id="1-安装vuex"><a href="#1-安装vuex" class="headerlink" title="1. 安装vuex"></a>1. 安装vuex</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i vuex -S</span><br></pre></td></tr></table></figure>
-<h2 id="2-新建文件store-js"><a href="#2-新建文件store-js" class="headerlink" title="2. 新建文件store.js"></a>2. 新建文件store.js</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Vuex from &apos;vuex&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(Vuex)</span><br><span class="line"></span><br><span class="line">// 定义变量</span><br><span class="line">var state = &#123;</span><br><span class="line">  num: 10</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 定义方法</span><br><span class="line">var mutations = &#123;</span><br><span class="line">  addNum (state, n) &#123;</span><br><span class="line">    state.num += n</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var store = new Vuex.Store(&#123;</span><br><span class="line">  state,</span><br><span class="line">  mutations: mutations</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">export default store</span><br></pre></td></tr></table></figure>
-<h2 id="3-在使用vuex的组件中导入store"><a href="#3-在使用vuex的组件中导入store" class="headerlink" title="3. 在使用vuex的组件中导入store"></a>3. 在使用vuex的组件中导入store</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import store from &apos;../vuex/store.js&apos;</span><br></pre></td></tr></table></figure>
-<h2 id="4-获取数据和方法"><a href="#4-获取数据和方法" class="headerlink" title="4. 获取数据和方法"></a>4. 获取数据和方法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#123;this.$store.state.num&#125;&#125;</span><br><span class="line"></span><br><span class="line">this.$store.commit(&apos;addNum&apos;, n)</span><br></pre></td></tr></table></figure>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/11/vuex使用/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-vue路由相关" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/04/10/vue路由相关/">Vue 路由相关</a>
-    </h1>
-  
-
-        
-        <a href="/2019/04/10/vue路由相关/" class="archive-article-date">
-  	<time datetime="2019-04-10T09:00:46.820Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-04-10</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="路由的基本用法"><a href="#路由的基本用法" class="headerlink" title="路由的基本用法"></a>路由的基本用法</h1><h2 id="1-新建路由文件（到时候导入main-js）"><a href="#1-新建路由文件（到时候导入main-js）" class="headerlink" title="1.新建路由文件（到时候导入main.js）"></a>1.新建路由文件（到时候导入main.js）</h2><p>在路由文件中配置路由项<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">import Vue from &apos;vue&apos;</span><br><span class="line">import Router from &apos;vue-router&apos;</span><br><span class="line">import IndexList from &apos;@/components/IndexList&apos;</span><br><span class="line">import ContactList from &apos;@/components/ContactList&apos;</span><br><span class="line">import ContactInfo from &apos;@/components/ContactInfo&apos;</span><br><span class="line"></span><br><span class="line">Vue.use(Router)</span><br><span class="line"></span><br><span class="line">export default new Router(&#123;</span><br><span class="line">  routes: [</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/index&apos;,</span><br><span class="line">      name: &apos;IndexList&apos;,</span><br><span class="line">      component: IndexList</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/contacts&apos;,</span><br><span class="line">      name: &apos;ContactsList&apos;,</span><br><span class="line">      component: ContactList</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      path: &apos;/contactInfo&apos;,</span><br><span class="line">      name: &apos;ContactInfo&apos;,</span><br><span class="line">      component: ContactInfo</span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
-<h2 id="2-在main-js中导入"><a href="#2-在main-js中导入" class="headerlink" title="2.在main.js中导入"></a>2.在main.js中导入</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">new Vue(&#123;</span><br><span class="line">  el: &apos;#app&apos;,</span><br><span class="line">  router,</span><br><span class="line">  components: &#123; App &#125;,</span><br><span class="line">  template: &apos;&lt;App/&gt;&apos;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<h2 id="3-在需要使用路由页面的地方使用"><a href="#3-在需要使用路由页面的地方使用" class="headerlink" title="3.在需要使用路由页面的地方使用"></a>3.在需要使用路由页面的地方使用<router-view></router-view></h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;v-home&gt;&lt;/v-home&gt;</span><br><span class="line">    &lt;router-view&gt;&lt;/router-view&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="4-在执行路由跳转地方使用router-link"><a href="#4-在执行路由跳转地方使用router-link" class="headerlink" title="4.在执行路由跳转地方使用router-link"></a>4.在执行路由跳转地方使用router-link</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link :to=&quot;tab.to&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>:to不可缺少</p>
-</blockquote>
-<h1 id="路由传值（例传’id’）"><a href="#路由传值（例传’id’）" class="headerlink" title="路由传值（例传’id’）"></a>路由传值（例传’id’）</h1><h2 id="1-在配置文件（route-js）中配置"><a href="#1-在配置文件（route-js）中配置" class="headerlink" title="1. 在配置文件（route.js）中配置"></a>1. 在配置文件（route.js）中配置</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: &apos;/contactInfo/:id&apos;,</span><br><span class="line">    name: &apos;ContactInfo&apos;,</span><br><span class="line">    component: ContactInfo</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-在router-link中传"><a href="#2-在router-link中传" class="headerlink" title="2. 在router-link中传"></a>2. 在router-link中传</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-link :to=&quot;&apos;/contactInfo/&apos; + contact.id&quot;&gt;</span><br><span class="line"></span><br><span class="line">&lt;/router-link&gt;</span><br></pre></td></tr></table></figure>
-<h2 id="3-在跳转的路由里接收"><a href="#3-在跳转的路由里接收" class="headerlink" title="3. 在跳转的路由里接收"></a>3. 在跳转的路由里接收</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">getContactInfo () &#123;</span><br><span class="line">    this.currentId = this.$route.params.id</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="路由的嵌套"><a href="#路由的嵌套" class="headerlink" title="路由的嵌套"></a>路由的嵌套</h1><p>在路由跳转的界面中还存在路由跳转</p>
-<h2 id="1-在route-js文件配置-增加childred"><a href="#1-在route-js文件配置-增加childred" class="headerlink" title="1. 在route.js文件配置,增加childred"></a>1. 在route.js文件配置,增加childred</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    path: &apos;/contacts&apos;,</span><br><span class="line">    name: &apos;ContactsList&apos;,</span><br><span class="line">    component: ContactList,</span><br><span class="line">    children: [</span><br><span class="line">    &#123;path: &apos;&apos;, component: &apos;&apos;&#125;</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="2-在组件中设置router-view"><a href="#2-在组件中设置router-view" class="headerlink" title="2. 在组件中设置router-view"></a>2. 在组件中设置router-view</h2><h1 id="编程式的导航"><a href="#编程式的导航" class="headerlink" title="编程式的导航"></a>编程式的导航</h1><p>使用js跳转页面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">this.$router.push(&#123;path: &apos;/contactInfo/1&apos;&#125;)</span><br></pre></td></tr></table></figure></p>
-<p><a href="https://router.vuejs.org/zh/" target="_blank" rel="noopener">官方文档</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/04/10/vue路由相关/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
+      <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
     </nav>
   
 
@@ -1389,11 +1200,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">es</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">es</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1402,6 +1217,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
               </li>
              
               <li class="article-tag-list-item">

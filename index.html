@@ -148,6 +148,642 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-CSS-圣杯布局" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/06/CSS-圣杯布局/">圣杯布局</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/06/CSS-圣杯布局/" class="archive-article-date">
+  	<time datetime="2019-07-06T03:47:10.161Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="效果"><a href="#效果" class="headerlink" title="效果"></a>效果</h1><p>中间盒子优先渲染，两边的盒子框子宽度固定不变，即使页面宽度变小，也不影响浏览。安全起见，可以给body加一个最小宽度。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/18/1685f4fc5066b302?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h1 id="圣杯布局要求"><a href="#圣杯布局要求" class="headerlink" title="圣杯布局要求"></a>圣杯布局要求</h1><ul>
+<li>中间的container是一个三栏布局</li>
+<li>三栏布局两侧宽度不变，中间部分自动填充整个区域</li>
+<li>中间部分的高度是三栏中最高的区域的高度</li>
+</ul>
+<h1 id="三种实现方式"><a href="#三种实现方式" class="headerlink" title="三种实现方式"></a>三种实现方式</h1><h2 id="1-浮动"><a href="#1-浮动" class="headerlink" title="1. 浮动"></a>1. 浮动</h2><ul>
+<li>在container中的三列设为浮动和相对定位，center要放在最前面。</li>
+<li>三列的左右分别设置宽为200px，中间部分center设置100%撑满</li>
+<li>这样因为浮动关系，center会占据整个container，左右两块区域被挤下去</li>
+<li>接下来设置left的 <code>margin-left:-100%;</code>, 让left回到上一上最左侧</li>
+<li>但是这样会把center挡住，所以这时给最外层的container设置<code>padding-left:200px;padding-right:150px;</code>， 给left和right空出位置</li>
+<li>这时left并没有在最左侧，因为设置过相对定位，所以通过<code>left:-200px;</code>，把left拉回最左侧</li>
+<li>同样的，对于right区域，设置<code>margin-right:-150px;</code>，把right拉回第一行</li>
+<li>这时右侧空出来150px控件，最后设置 <code>right:-150px</code>，把right区域拉回到最右侧就行了</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">  &lt;script src=&quot;http://lib.sinaapp.com/js/jquery/2.0.2/jquery-2.0.2.min.js&quot;&gt;&lt;/script&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">  body &#123;</span><br><span class="line">    min-width: 550px;  /* 2x leftContent width + rightContent width */</span><br><span class="line">    font-weight: bold;</span><br><span class="line">    font-size: 20px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #container &#123;</span><br><span class="line">    padding-left: 200px;   /* leftContent width */</span><br><span class="line">    padding-right: 150px;  /* rightContent width */</span><br><span class="line">    overflow: hidden;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #container .column &#123;</span><br><span class="line">    position: relative;</span><br><span class="line">    float: left;</span><br><span class="line">    text-align: center;</span><br><span class="line">    height: 300px;</span><br><span class="line">    line-height: 300px;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #center &#123;</span><br><span class="line">    width: 100%;</span><br><span class="line">    background: rgb(206, 201, 201);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #left &#123;</span><br><span class="line">    width: 200px;           /* leftContent width */</span><br><span class="line">    right: 200px;           /* leftContent width */</span><br><span class="line">    margin-left: -100%;</span><br><span class="line">    background: rgba(95, 179, 235, 0.972);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  #right &#123;</span><br><span class="line">    width: 150px;           /* rightContent width */</span><br><span class="line">    margin-right: -150px;   /* rightContent width */</span><br><span class="line">    background: rgb(231, 105, 2);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="2-flex弹性布局"><a href="#2-flex弹性布局" class="headerlink" title="2. flex弹性布局"></a>2. flex弹性布局</h2><ul>
+<li>container中的left、center、right一次排布</li>
+<li>给container设置弹性布局 <code>display:flex;</code></li>
+<li>left和right区域定宽，center设置 <code>flex:1;</code></li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">  #container &#123;</span><br><span class="line">   display: flex;</span><br><span class="line">  &#125;</span><br><span class="line">  #container .column &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">    height: 300px;</span><br><span class="line">    line-height: 300px;</span><br><span class="line">  &#125;</span><br><span class="line">  #center &#123;</span><br><span class="line">    flex: 1;</span><br><span class="line">    background: rgb(206, 201, 201);</span><br><span class="line">  &#125;</span><br><span class="line">  #left &#123;</span><br><span class="line">    width: 200px;        </span><br><span class="line">    background: rgba(95, 179, 235, 0.972);</span><br><span class="line">  &#125;</span><br><span class="line">  #right &#123;</span><br><span class="line">    width: 150px;           </span><br><span class="line">    background: rgb(231, 105, 2);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;container&quot;&gt;</span><br><span class="line">    &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</span><br><span class="line">    &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="3-grid布局"><a href="#3-grid布局" class="headerlink" title="3. grid布局"></a>3. grid布局</h2><p><img src="https://user-gold-cdn.xitu.io/2019/1/18/1685f4fc505bcc8a?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>如上图所示，我们把body划分为三行四列的网络，其中有5条网格线</p>
+<ul>
+<li>给body元素添加 <code>display:grid;</code> 属性变成一个grid（网格）</li>
+<li>给left元素设置 <code>grid-row:2</code> 和 <code>grid-column:1/2;</code>， 意思是占据第二行网格的第一条列网格线开始到第二条列网格线结束</li>
+<li>给center元素设置 <code>grid-row:2</code> 和 <code>grid-column:2/4</code> 意思是占据第二行网格的从第二条网格线开始到第四条网格线结束</li>
+<li>给right元素设置 <code>grid-row:2</code> 和 <code>grid-column:4/5</code> 意思是占据第二行网格的第四条网格线开始到第五条列网格线结束</li>
+</ul>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line">&lt;!DOCTYPE html&gt;</span><br><span class="line">&lt;html&gt;</span><br><span class="line"></span><br><span class="line">&lt;head&gt;</span><br><span class="line">  &lt;meta charset=&quot;utf-8&quot;&gt;</span><br><span class="line">&lt;/head&gt;</span><br><span class="line">&lt;style&gt;</span><br><span class="line">  body &#123;</span><br><span class="line">    min-width: 550px;</span><br><span class="line">    font-weight: bold;</span><br><span class="line">    font-size: 20px;</span><br><span class="line">    display: grid;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  .column &#123;</span><br><span class="line">    text-align: center;</span><br><span class="line">    height: 300px;</span><br><span class="line">    line-height: 300px;</span><br><span class="line">  &#125;</span><br><span class="line">  #left &#123;</span><br><span class="line">    grid-row: 2;</span><br><span class="line">    grid-column: 1/2;</span><br><span class="line">    background: rgba(95, 179, 235, 0.972);</span><br><span class="line">  &#125;</span><br><span class="line">  #center &#123;</span><br><span class="line">    grid-row: 2;</span><br><span class="line">    grid-column: 2/4;</span><br><span class="line">    background: rgb(206, 201, 201);</span><br><span class="line">  &#125;</span><br><span class="line">  #right &#123;</span><br><span class="line">    grid-row: 2;</span><br><span class="line">    grid-column: 4/5;</span><br><span class="line">    background: rgb(231, 105, 2);</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br><span class="line">&lt;body&gt;</span><br><span class="line">  &lt;div id=&quot;left&quot; class=&quot;column&quot;&gt;#left&lt;/div&gt;</span><br><span class="line">  &lt;div id=&quot;center&quot; class=&quot;column&quot;&gt;#center&lt;/div&gt;</span><br><span class="line">  &lt;div id=&quot;right&quot; class=&quot;column&quot;&gt;#right&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br><span class="line"></span><br><span class="line">&lt;/html&gt;</span><br></pre></td></tr></table></figure>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/06/CSS-圣杯布局/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-浏览器存储" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/05/浏览器存储/">浏览器存储</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/05/浏览器存储/" class="archive-article-date">
+  	<time datetime="2019-07-05T14:44:26.983Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-05</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>移动网络的发展让手机可以跑webapp，即开即用。WebApp优异的性能表现，有一部分原因要归功于浏览器存储技术的提升，cookie存储数据的功能已经很难满足开发需求，逐渐被WebStorage，IndexedDB取代。</p>
+<h1 id="一、Cookie"><a href="#一、Cookie" class="headerlink" title="一、Cookie"></a>一、Cookie</h1><h2 id="1-Cookie的来源"><a href="#1-Cookie的来源" class="headerlink" title="1. Cookie的来源"></a>1. Cookie的来源</h2><p>Cookie的本职工作并非本地存储，而是‘维持状态’。因为HTTP协议是无状态的，HTTP协议自身不对请求和响应之间的通讯状态进行保存，通俗来讲，服务器不知道用户上一次操作，这严重阻碍了交互式Web应用程序的实现。</p>
+<p>购物场景中，用户浏览几个页面，结账时，由于HTTP的无状态性，不通过额外的手段，服务器不知道用户买了什么，于是就诞生了Cookie，他是用来绕开HTTP的无状态性的‘额外手段’之一。服务器可以设置或读取Cookie中包含的信息，借此维护用户跟服务器之间会话中的状态。</p>
+<p>把Cookie理解为一个存储在浏览器里的一个小小的文本文件，它负载HTTP的请求上，在浏览器和服务器之间游走，它可以携带用户信息，当服务器检查Cookie的时候，便可以获取到客户端的状态。</p>
+<p>在购物场景中，当用户选购一件商品时，服务器向用户发送网页的同时，还发送了一段Cookie，记录着那项商品的信息。当用户继续访问另一个页面，浏览器会把Cookie发送给服务器，于是服务器知道他之前选购了什么。当用户选另一件商品时，服务器就在原来那段Cookie追加新的商品信息。结账时，服务器读取发送来的Cookie就行了。</p>
+<h2 id="2-什么是Cookie以及应用场景"><a href="#2-什么是Cookie以及应用场景" class="headerlink" title="2. 什么是Cookie以及应用场景"></a>2. 什么是Cookie以及应用场景</h2><p>Cookie指某些网站为了辨别用户身份而存储在用户本地终端上的数据（通常经过加密）。Cookie是服务端生成，客户端进行维护和存储。通过Cookie，可以让服务器知道请求是来自哪个客户端，就可以进行客户端状态的维护，比如登录后刷新，请求头就会携带登录时response header中的set-cookie，Web服务器街道请求时也能读出cookie的值，根据cookie的值就可以判断和恢复一些用户的信息状态。</p>
+<p>Cookie以键值对的形式存在。</p>
+<p><strong>典型的应用场景有：</strong></p>
+<ul>
+<li>记住密码，下次自动登录</li>
+<li>购物车功能</li>
+<li>记录用户浏览数据，进行商品推荐</li>
+</ul>
+<h2 id="3-Cookie的原理以及生成方式"><a href="#3-Cookie的原理以及生成方式" class="headerlink" title="3. Cookie的原理以及生成方式"></a>3. Cookie的原理以及生成方式</h2><p><strong>原理</strong></p>
+<p>第一次访问网站的时候，浏览器发出请求，服务器响应请求后，会在响应头里面添加一个Set-Cookie选项，将cookie放入到响应请求中，在浏览器发出第二次请求的时候，会通过Cookie的请求头部将Cookie信息发送给服务器，服务器会辨别用户身份，另外，Cookie的过期时间、域、路径、有效期、适用站点都可以根据需求来指定。</p>
+<p><strong>生成方式</strong></p>
+<ul>
+<li>方式一： http response header中的set-cookie</li>
+</ul>
+<p>我们可以通过响应头里面的Set-Cookie指定要存储的Cookie值。默认情况下，domain被设置为设置Cookie页面的主机名，我们也可以手动设置domain值。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2018 07:28:00 GMT;//可以指定一个特定的过期时间（Expires）或有效期（Max-Age）</span><br></pre></td></tr></table></figure>
+<p>当cookie的过期时间被设定时，设定的日期和时间只与客户端相关，而不是服务端。</p>
+<ul>
+<li>方式二：js中可以通过document.cookie读写cookie，以键值对的形式展示<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">document.cookie=&quot;userName=hello&quot;</span><br><span class="line"></span><br><span class="line">document.cookie=&quot;gender=male&quot;</span><br><span class="line"></span><br><span class="line">document.cookie=&apos;age=20;domain=.baidu.com&apos;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/20/1699bb1286c61eb4?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>Domain标识指定了哪些域名可以接受cookie，如果没有设置domain，就会自动绑定到执行语句的当前域。如果设置为‘.baidu.com’，则所有的以‘baidu.com’结尾的域名都可以访问该cookie</p>
+<h2 id="4-cookie的缺陷"><a href="#4-cookie的缺陷" class="headerlink" title="4. cookie的缺陷"></a>4. cookie的缺陷</h2><ul>
+<li>Cookie不够大</li>
+</ul>
+<p>Cookie大小限制在4kb左右，对于复杂的存储需求来说是不够用的。当cookie超过4kb时，他将面临被裁切的命运，这样看来，cookie只能用来存储少量的信息，此外很多浏览器对一个站点的cookie个数也是有限制的。</p>
+<p>浏览器的cookie每一个name=value的value值大概在4k，所以4k并不是一个域名下所有的cookie，而是一个name的大小。</p>
+<ul>
+<li>过多的cookie会带来巨大的性能浪费</li>
+</ul>
+<p>cookie是紧跟着域名的。用一个域名下得所有请求，都会携带cookie。如果请求一张图片或者是css文件，也要携带cookie（cookie存储的信息不重要），就很浪费了。cookie虽然小，但是请求却很多，随着请求的叠加，这样不必要的cookie带来的开销无法想象。</p>
+<p>cookie是用来维护用户信息的，而域名下所有请求都会携带cookie，但是对静态文件的请求，携带cookie信息根本没用，由此可以通过cdn（存储静态文件的）的域名和主站的域名分开来解决。</p>
+<ul>
+<li>由于在http请求中的cookie是明文传输，所以安全性成问题，除非用https</li>
+</ul>
+<h2 id="5-Cookie与安全"><a href="#5-Cookie与安全" class="headerlink" title="5. Cookie与安全"></a>5. Cookie与安全</h2><p>对于Cookie来说，我们还需要注意安全性</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/25/169b0739c22f84a7?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>HttpOnly不支持读写，浏览器不允许脚本操作document.cookie去更改cookie，所以为避免跨域脚本（XSS）攻击，通过js的Document.cookie API无法访问带有HttpOnly标记的Cookie，他们只应该发送给服务端。如果包含服务端Session信息的Cookie不想被客户端js脚本调用，那么就应该为其设置httpOnly标记。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Set-Cookie: id=a3fWa; Expires=Wed, 21 Oct 2015 07:28:00 GMT; Secure; HttpOnly</span><br></pre></td></tr></table></figure>
+<p>标记为Secure的Cookie只应该通过被HTTPS协议加密过的请求发送给服务端。但即便设置了Secure标记，敏感信息也不应通过Cookie传输，因为Cookie有其固有的不安全性，Secure标记也无法提供确认的安全保障。</p>
+<p>为了弥补Cookie的局限性，让‘专业的人做专业的事情’，Web Storage出现了。</p>
+<p>HTML5中新增了本地存储的解决方案——Web Storage，它分成两类：sessionStorage和localStorage。有了WebStorage后，Cookie能只做他应该做的——作为客户端与服务器交互的通道，保持客户端状态</p>
+<h1 id="二、LocalStorage"><a href="#二、LocalStorage" class="headerlink" title="二、LocalStorage"></a>二、LocalStorage</h1><h2 id="1-LocalStorage的特点"><a href="#1-LocalStorage的特点" class="headerlink" title="1. LocalStorage的特点"></a>1. LocalStorage的特点</h2><ul>
+<li>保存的数据长期存在，下一次访问该网站的时候，网页可以直接读取以前保存的数据</li>
+<li>大小为5m左右</li>
+<li>仅在客户端使用，不和服务端进行通讯</li>
+<li>接口封装较好</li>
+</ul>
+<p>基于上面的特点，LocalStorage可以作为浏览器本地缓存方案，用来提升网页首屏渲染速度（根据第一请求返回时，将一些不变信息直接存储在本地）</p>
+<h2 id="2-存入-读取数据"><a href="#2-存入-读取数据" class="headerlink" title="2. 存入/读取数据"></a>2. 存入/读取数据</h2><p>localStorage保存的数据，以键值对的形式存在。也就是说，每一项数据都有一个键名和对应的值，所有的数据都是以文本形式保存。存入数据室友setItem方法，他接受两个参数，第一个是键名，第二个是保存的数据。localStorage。setItem(‘key’, ‘value’); 读取数据使用getItem()方法。他只有一个参数，就是键名。var value = localStorage.getItem(‘key’);</p>
+<p>具体步骤<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">if(window.localStorage)&#123;</span><br><span class="line">  localStorage.setItem（&apos;name&apos;,&apos;world&apos;）</span><br><span class="line">  localStorage.setItem（&apos;gender&apos;,&apos;female&apos;）</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">&lt;div id=&quot;name&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div id=&quot;gender&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;script&gt;</span><br><span class="line">var name=localStorage.getItem(&apos;name&apos;)</span><br><span class="line">var gender=localStorage.getItem(&apos;gender&apos;)</span><br><span class="line">document.getElementById(&apos;name&apos;).innerHTML=name</span><br><span class="line">document.getElementById(&apos;gender&apos;).innerHTML=gender</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<h2 id="3-使用场景"><a href="#3-使用场景" class="headerlink" title="3. 使用场景"></a>3. 使用场景</h2><p>localStorage在存储方面没有什么特别的限制，理论上Cookie无法胜任的、可以用简单的键值对来存储的数据存储任务，都可以交给localStorage来做。</p>
+<p>考虑到localStorage的特点之一是持久，有时我们更倾向于用它来存储一些内容稳定的资源。比如图片内容丰富的电商网站会用它来存储Base64格式的图片字符串：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/169a087c3a0738a9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<h1 id="三、sessionStorage"><a href="#三、sessionStorage" class="headerlink" title="三、sessionStorage"></a>三、sessionStorage</h1><p>sessionStorage保存的数据用于浏览器的一次会话，当会话结束（通常是该窗口关闭），数据被清空。sessionStorage特别的一点在于，即便是相同域名下得两个页面，只要它们不在同一个浏览器窗口中打开，那么它们的sessionStorage内容便无法共享。localStorage在所有同源窗口中都是共享的，cookie也是在所有同源窗口中的都是共享的。除了保存期限的长短不同，sessionStorage的属性和方法与localStorage完全一样。</p>
+<h2 id="1-sessionStorage的特点"><a href="#1-sessionStorage的特点" class="headerlink" title="1. sessionStorage的特点"></a>1. sessionStorage的特点</h2><ul>
+<li>会话级别的浏览器存储</li>
+<li>大小为5m左右</li>
+<li>仅在客户端使用，不和服务端进行通信</li>
+<li>接口封装较好</li>
+</ul>
+<p>基于上面的特点，sessionStorage可以有效对表单信息进行维护，比如刷新时，表单信息不丢失。</p>
+<h2 id="2-使用场景"><a href="#2-使用场景" class="headerlink" title="2. 使用场景"></a>2. 使用场景</h2><p>sessionStorage更适合用来存储生命周期和他同步的会话级别的信息。这些信息只适用于当前会话，当开启新的会话时，他需要相应的更新或释放。</p>
+<h2 id="3-sessionStorage、localStorage和Cookie之间的区别"><a href="#3-sessionStorage、localStorage和Cookie之间的区别" class="headerlink" title="3. sessionStorage、localStorage和Cookie之间的区别"></a>3. sessionStorage、localStorage和Cookie之间的区别</h2><ul>
+<li>共同点：都是保存在浏览器端，且都遵循同源策略</li>
+<li>不同点：在于生命周期与作用域不同</li>
+</ul>
+<p>作用域：localStorage只要在相同的协议，相同的主机名、相同的端口下，就能读取/修改到同一份localStorage数据。sessionStorage比localStorage更苛刻一点，除了协议，主机名，端口外，还要求在同一窗口（也就是浏览器的标签页）下</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/169a07c478b857c5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>生命周期：localStorage是持久化的本地存储，存储在其中的数据是永远不会过期的，使其消失的唯一办法是手动删除，而sessionStorage是临时的本地存储，他是会话级别的存储，当前会话结束时，存储内容也随之释放。</p>
+<p>Web Storage是一个从定义到使用都非常简单的东西，使用键值对的形式存储，这种模式有单类似于对象，却连对象都不是，他只能存储字符串，要想得到对象，需要对字符串进行解析。</p>
+<p>说到底，WebStorage 是对Cookie的扩展，他只能存储少量的简单数据每当遇到大规模的，结构复杂的数据，webstorage也爱莫能助。这时候就需要IndexedDb。</p>
+<h1 id="四、IndexedDb"><a href="#四、IndexedDb" class="headerlink" title="四、IndexedDb"></a>四、IndexedDb</h1><p>IndexedDB是一种低级API，用于客户端存储大量结构化数据（包括文件和blobs）。改API使用索引来实现对该数据的高性能搜索。IndexedDB是一个运行在浏览器上的非关系型数据库。既然是数据库，理论上是没有存储上限的，它不仅可以存储字符串，还可以存储二进制数据</p>
+<h2 id="1-IndexedBD的特点"><a href="#1-IndexedBD的特点" class="headerlink" title="1. IndexedBD的特点"></a>1. IndexedBD的特点</h2><ul>
+<li>键值对存储</li>
+</ul>
+<p>IndexedDB内部采用对象数据仓库存放数据。所有类型的数据都可以直接存入，包括js对象。对象仓库中，数据以键值对的形式保存，每一个数据记录都有对应的主键，主键是独一无二的，不能重复，否则报错。</p>
+<ul>
+<li>异步</li>
+</ul>
+<p>IndexedDB操作时不会锁死浏览器，用户依然可以进行其他操作，这与localStorage形成对比，后者是同步的，异步是为了防止大量数据的读写，拖慢网页的表现</p>
+<ul>
+<li>支持事务</li>
+</ul>
+<p>IndexedDB支持事务，意味着一系列操作步骤中，只要有一步失败，整个事务就都取消，数据库回滚到事务发生前的状态，不存在值改写一部分数据的情况。</p>
+<ul>
+<li>同源限制</li>
+</ul>
+<p>IndexedDB受到同源限制，每一个数据库对应创建他的域名。网页只能访问自身域名下的数据库，不能访问跨域的数据库。</p>
+<ul>
+<li>存储空间大</li>
+</ul>
+<p>IndexedDB的存储空间比localStorage大得多，一般来说不少于250m，甚至没有上线</p>
+<ul>
+<li>支持二进制存储</li>
+</ul>
+<p>IndexedDB不仅可以存储字符串，还可以存储二进制数据。</p>
+<h2 id="2-IndexedDB的常见操作"><a href="#2-IndexedDB的常见操作" class="headerlink" title="2. IndexedDB的常见操作"></a>2. IndexedDB的常见操作</h2><p>在IndexedDB大部分操作并不是我们常用的调用方法，返回结果的模式，而是请求——响应的模式。</p>
+<ul>
+<li>建立打开IndexedDB——window.indexedDb.open(‘test’)</li>
+</ul>
+<p>这条指令并不会返回一个DB对象的句柄，我们得到的是一个IDBOopenDBRequest对象，而我们希望得到的DB对象在其result属性中</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/3/21/169a0ae63686a2e5?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>除了result，IDBOpenDBRequest接口定义了几个重要属性：</p>
+<p>onerror：请求失败的回调函数句柄<br>onsuccess：请求成功的回调函数句柄<br>onupgradeneeded：请求数据库版本变化句柄</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">function openDB(name)&#123;</span><br><span class="line">var request=window.indexedDB.open(name)//建立打开IndexedDB</span><br><span class="line">request.onerror=function (e)&#123;</span><br><span class="line">console.log(&apos;open indexdb error&apos;)</span><br><span class="line">&#125;</span><br><span class="line">request.onsuccess=function (e)&#123;</span><br><span class="line">myDB.db=e.target.result//这是一个 IDBDatabase对象，这就是IndexedDB对象</span><br><span class="line">console.log(myDB.db)//此处就可以获取到db实例</span><br><span class="line">&#125;</span><br><span class="line">&#125;</span><br><span class="line">var myDB=&#123;</span><br><span class="line">name:&apos;testDB&apos;,</span><br><span class="line">version:&apos;1&apos;,</span><br><span class="line">db:null</span><br><span class="line">&#125;</span><br><span class="line">openDB(myDB.name)</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>控制台得到一个IDBDatabase对象，这就是IndexedDB对象</p>
+<ul>
+<li><p>关闭IndexedDB——indexdb。close()</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function closeDB(db)&#123;</span><br><span class="line">    db.close();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除IndexedDB——window.indexedDB.deleteDatabase(indexdb)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">function deleteDB(name) &#123;</span><br><span class="line">  indexedDB.deleteDatabase(name)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<h2 id="3-webstorage、cookie和IndexedDB的区别"><a href="#3-webstorage、cookie和IndexedDB的区别" class="headerlink" title="3. webstorage、cookie和IndexedDB的区别"></a>3. webstorage、cookie和IndexedDB的区别</h2><p><img src="https://user-gold-cdn.xitu.io/2019/4/1/169d6872b64e96a9?imageView2/0/w/1280/h/960/format/webp/ignore-error/1" alt></p>
+<p>cookie已经不建议用于存储。如果有大量数据存储需求的话，可以室友localStorage和sessionStorage。对不怎么改变的数据尽量室友localStorage存储，否则可以用sessionStorage存储。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>Cookie的本职工作不是存储，而是维持状态</li>
+<li>webstorage是html5专门为浏览器存储而提供的数据存储机制，不与服务器发生通信</li>
+<li>IndexedDB用于客户端存储大量结构化数据</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/05/浏览器存储/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js-函数防抖和节流" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/04/js-函数防抖和节流/">防抖和节流</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/04/js-函数防抖和节流/" class="archive-article-date">
+  	<time datetime="2019-07-04T11:50:30.591Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>前端开发中需要做一些事件处理，有时候不希望在事件的持续触发过程中频繁的去执行函数。</p>
+<p>解决方法就是使用防抖和节流</p>
+<h1 id="防抖"><a href="#防抖" class="headerlink" title="防抖"></a>防抖</h1><p>所谓防抖，就是指触发事件后在n秒内函数只能执行一次，如果在n秒内又触发了事件，则会重新计算函数执行时间</p>
+<h2 id="立即执行和非立即执行"><a href="#立即执行和非立即执行" class="headerlink" title="立即执行和非立即执行"></a>立即执行和非立即执行</h2><ol>
+<li>非立即执行</li>
+</ol>
+<p>非立即执行的意思是触发事件后函数不会立即执行，而是在n秒后执行，如果在n秒内又触发了事件，则会重新计算函数的执行时间<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func, wait) &#123;</span><br><span class="line">    let timeout;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) clearTimeout(timeout);</span><br><span class="line">        </span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">            func.apply(context, args)</span><br><span class="line">        &#125;, wait);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在触发事件后，函数n秒后执行，如果在触发事件的n秒内又触发了事件，则会重新计算函数的执行时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">let context = this;</span><br><span class="line">let args = arguments;</span><br></pre></td></tr></table></figure>
+<p>防抖函数室友这两行代码是为了返回的函数this指向不变以及依旧能接收到参数</p>
+<ol start="2">
+<li>立即执行版<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function debounce(func,wait) &#123;</span><br><span class="line">    let timeout;</span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) clearTimeout(timeout);</span><br><span class="line"></span><br><span class="line">        let callNow = !timeout;</span><br><span class="line">        timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">            timeout = null;</span><br><span class="line">        &#125;, wait)</span><br><span class="line"></span><br><span class="line">        if (callNow) func.apply(context, args)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>立即执行的意思是触发后函数会立即执行，然后n秒内不触发事件才能继续执行函数。</p>
+<ol start="3">
+<li>结合版<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @desc 函数防抖</span><br><span class="line"> * @param func 函数</span><br><span class="line"> * @param wait 延迟执行毫秒数</span><br><span class="line"> * @param immediate true 表立即执行，false 表非立即执行</span><br><span class="line"> */</span><br><span class="line">function debounce(func,wait,immediate) &#123;</span><br><span class="line">    let timeout;</span><br><span class="line"></span><br><span class="line">    return function () &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line"></span><br><span class="line">        if (timeout) clearTimeout(timeout);</span><br><span class="line">        if (immediate) &#123;</span><br><span class="line">            var callNow = !timeout;</span><br><span class="line">            timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">                timeout = null;</span><br><span class="line">            &#125;, wait)</span><br><span class="line">            if (callNow) func.apply(context, args)</span><br><span class="line">        &#125;</span><br><span class="line">        else &#123;</span><br><span class="line">            timeout = setTimeout(function()&#123;</span><br><span class="line">                func.apply(context, args)</span><br><span class="line">            &#125;, wait);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<h1 id="节流"><a href="#节流" class="headerlink" title="节流"></a>节流</h1><p>所谓节流，就是指连续触发事件但是在n秒中只执行一次函数，节流会稀释函数的执行评率。</p>
+<p>实现方式有两种，时间戳和定时器</p>
+<ol>
+<li>时间戳<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait) &#123;</span><br><span class="line">    let previous = 0;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        let now = Date.now();</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line">        if (now - previous &gt; wait) &#123;</span><br><span class="line">            func.apply(context, args);</span><br><span class="line">            previous = now;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ol>
+<p>事件触发过程中，函数会立即执行，并且每n秒执行一次</p>
+<ol start="2">
+<li>定时器</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">function throttle(func, wait) &#123;</span><br><span class="line">    let timeout;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line">        if (!timeout) &#123;</span><br><span class="line">            timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">                timeout = null;</span><br><span class="line">                func.apply(context, args)</span><br><span class="line">            &#125;, wait)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在持续触发事件过程中，函数不会立即执行，并且每n秒执行一次，在停止触发事件后，函数还会再执行一次</p>
+<blockquote>
+<p>时间戳版和定时器版的节流函数的区别就是，时间戳版的函数触发实在时间段内开始的时候，而定时器的函数触发实在时间段结束的时候</p>
+</blockquote>
+<ol start="3">
+<li>结合版<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">/**</span><br><span class="line"> * @desc 函数节流</span><br><span class="line"> * @param func 函数</span><br><span class="line"> * @param wait 延迟执行毫秒数</span><br><span class="line"> * @param type 1 表时间戳版，2 表定时器版</span><br><span class="line"> */</span><br><span class="line">function throttle(func, wait ,type) &#123;</span><br><span class="line">    if(type===1)&#123;</span><br><span class="line">        let previous = 0;</span><br><span class="line">    &#125;else if(type===2)&#123;</span><br><span class="line">        let timeout;</span><br><span class="line">    &#125;</span><br><span class="line">    return function() &#123;</span><br><span class="line">        let context = this;</span><br><span class="line">        let args = arguments;</span><br><span class="line">        if(type===1)&#123;</span><br><span class="line">            let now = Date.now();</span><br><span class="line"></span><br><span class="line">            if (now - previous &gt; wait) &#123;</span><br><span class="line">                func.apply(context, args);</span><br><span class="line">                previous = now;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;else if(type===2)&#123;</span><br><span class="line">            if (!timeout) &#123;</span><br><span class="line">                timeout = setTimeout(() =&gt; &#123;</span><br><span class="line">                    timeout = null;</span><br><span class="line">                    func.apply(context, args)</span><br><span class="line">                &#125;, wait)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/04/js-函数防抖和节流/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-网络-跨域" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/07/03/网络-跨域/">跨域</a>
+    </h1>
+  
+
+        
+        <a href="/2019/07/03/网络-跨域/" class="archive-article-date">
+  	<time datetime="2019-07-03T12:43:30.789Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="问题出现原因"><a href="#问题出现原因" class="headerlink" title="问题出现原因"></a>问题出现原因</h1><p>浏览器的同源策略导致了跨域，就是浏览器本身的事情。</p>
+<p>同源策略限制了从同一个源加载的文档或脚本如何来自另一个源的资源进行交互，这是一个用于格力潜在恶意文件的重要安全机制。总之，“同源策略”就是一个安全机制</p>
+<h1 id="为何需要同源策略"><a href="#为何需要同源策略" class="headerlink" title="为何需要同源策略"></a>为何需要同源策略</h1><p>一般来说，浏览器从两个方面去做同源策略，一是针对接口的请求，二是针对DOM的查询</p>
+<ol>
+<li>没有同源策略限制的接口请求</li>
+</ol>
+<p>cookie用来处理登录等场景，目的是让服务端知道是谁发出的这次请求。如果你请求了接口进行登录，服务端验证通过后会在响应头加入set-Cookie字段，然后下次请求的时候，流浪器会自动将cookie附加在HTTP请求的头字段Cookie中，服务端就能制定这和用户已经登陆过了。</p>
+<ol start="2">
+<li>没有同源策略限制的DOm查询</li>
+</ol>
+<h1 id="同源策略限制下接口请求的正确打开方式"><a href="#同源策略限制下接口请求的正确打开方式" class="headerlink" title="同源策略限制下接口请求的正确打开方式"></a>同源策略限制下接口请求的正确打开方式</h1><ol>
+<li>JSONP</li>
+</ol>
+<p>在HTML标签里，一些标签如script，img这样的获得资源的标签是没有跨域限制的</p>
+<ol start="2">
+<li>空iframe加form</li>
+</ol>
+<p>JSONP只能发送GET请求，因为本质上script加载资源就是GET，</p>
+<ol start="3">
+<li>CORS</li>
+</ol>
+<p>CORS是一个W3C标准，全称是“跨域资源共享”，处理跨域问题的标准做法。CORS有两种请求，简单请求和非简单请求。</p>
+<p>只要满足一下两大条件就是简单请求</p>
+<p>（1）请求方法是一下三种方法之一</p>
+<ul>
+<li>HEAD</li>
+<li>GET</li>
+<li>POST</li>
+</ul>
+<p>（2）HTTP的头信息不超出一下几种字段</p>
+<ul>
+<li>Accept</li>
+<li>Accept-Language</li>
+<li>Content-Language</li>
+<li>Last-Event-ID</li>
+<li>Content-Type：只限于三个值application/x-www-form-urlencoded、multipart/form-data、text/plain</li>
+</ul>
+<h3 id="非简单请求"><a href="#非简单请求" class="headerlink" title="非简单请求"></a>非简单请求</h3><p>非简单请求会发出一次预检测请求，返回码是204，预检测通过才会真正发出请求，这才返回200.通过前端发请求的时候添加一个额外的headers来触发非简单请求</p>
+<ol start="4">
+<li>代理</li>
+</ol>
+<h2 id="同资源策略限制下DOM查询的正确打开方式"><a href="#同资源策略限制下DOM查询的正确打开方式" class="headerlink" title="同资源策略限制下DOM查询的正确打开方式"></a>同资源策略限制下DOM查询的正确打开方式</h2><ol>
+<li>postMessage</li>
+</ol>
+<p>window.postMessage()是HTML5的一个接口，专注实现不同窗口不同页面的跨域通讯。</p>
+<ol start="2">
+<li>document.domain</li>
+</ol>
+<p>这种方式只适合主域名相同，旦子域名不同的iframe跨域</p>
+<ol start="3">
+<li>canvas操作图片的跨域问题</li>
+</ol>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">网络</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/03/网络-跨域/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js-防抖和节流工具函数" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/01/js-防抖和节流工具函数/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js-函数柯里化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/07/01/js-函数柯里化/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
     <article id="post-js-深拷贝" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -503,455 +1139,9 @@
 
 
   
-    <article id="post-手动实现前端轮子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/23/手动实现前端轮子/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-js模块化开发" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/22/js模块化开发/">js 模块化开发</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/22/js模块化开发/" class="archive-article-date">
-  	<time datetime="2019-06-22T14:28:15.392Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h1><h2 id="模块化开发"><a href="#模块化开发" class="headerlink" title="模块化开发"></a>模块化开发</h2><p>一个模块就是实现特定功能的文件，有了模块，就可以更方便的使用别人的模块，按需加载模块。</p>
-<p>目前的js 模块化规范主要有两种：Common.js和AMD</p>
-<h2 id="为什么要模块化"><a href="#为什么要模块化" class="headerlink" title="为什么要模块化"></a>为什么要模块化</h2><p>降低复杂度，提高解耦性，部署方便</p>
-<h2 id="模块化好处"><a href="#模块化好处" class="headerlink" title="模块化好处"></a>模块化好处</h2><ol>
-<li>避免命名冲突</li>
-<li>更好的分离，按需加载</li>
-<li>更高的复用性</li>
-<li>高可维护性</li>
-</ol>
-<h2 id="页面引入加载script"><a href="#页面引入加载script" class="headerlink" title="页面引入加载script"></a>页面引入加载script</h2><p>模块的使用： layui的js就是采用模块化</p>
-<p>layui.use就是引入模块<br>layui.define就是定义模块</p>
-<h1 id="AMD规范"><a href="#AMD规范" class="headerlink" title="AMD规范"></a>AMD规范</h1><p>AMD 即 Asynchronous Module Definition，中文名是“异步模块定义”的意思。它是一个在浏览器端模块化开发的规范，服务器端的规范是CommonJS</p>
-<p>模块将被异步加载，模块加载不影响后面语句的运行。所有依赖某些模块的语句均放置在回调函数中。</p>
-<p>AMD 是 RequireJS 在推广过程中对模块定义的规范化的产出。</p>
-<h2 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h2><p>定义暴露模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">　　//定义没有依赖的模块：</span><br><span class="line"></span><br><span class="line">　　define(function()&#123;</span><br><span class="line"></span><br><span class="line">　　　　return 模块</span><br><span class="line"></span><br><span class="line">　　&#125;)</span><br><span class="line"></span><br><span class="line">　　//定义有依赖的模块：</span><br><span class="line"></span><br><span class="line">　　define([&apos;module1&apos;,&apos;module2&apos;],function(m1,m2)&#123;</span><br><span class="line"></span><br><span class="line">　　　　return 模块</span><br><span class="line"></span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure></p>
-<p>引入使用模块<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"> 　　require([&apos;module1&apos;,&apos;module2&apos;],function(m1,m2)&#123;</span><br><span class="line"></span><br><span class="line">　　　　使用m1/m2</span><br><span class="line"></span><br><span class="line">　　&#125;)</span><br></pre></td></tr></table></figure></p>
-<h1 id="CommonJs（node根据该规范编写）"><a href="#CommonJs（node根据该规范编写）" class="headerlink" title="CommonJs（node根据该规范编写）"></a>CommonJs（node根据该规范编写）</h1><h2 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h2><ol>
-<li>每一个文件都可以当做一个模块</li>
-<li>服务器端：模块的加载是运行时同步加载的</li>
-<li>浏览器端：模块需要提前编译打包处理<h2 id="基本语法-1"><a href="#基本语法-1" class="headerlink" title="基本语法"></a>基本语法</h2></li>
-<li>模块引入:require</li>
-<li>暴露模块:export.xxx = value 和 module.exports = value</li>
-</ol>
-<h1 id="RequireJs和SeaJs"><a href="#RequireJs和SeaJs" class="headerlink" title="RequireJs和SeaJs"></a>RequireJs和SeaJs</h1><h2 id="相同之处"><a href="#相同之处" class="headerlink" title="相同之处"></a>相同之处</h2><pre><code>RequireJs和SeaJs都是模块加载器，倡导模块化开发理念，让js的模块化开发变得简单自然。
-</code></pre><h2 id="不同之处"><a href="#不同之处" class="headerlink" title="不同之处"></a>不同之处</h2><pre><code>1. 定位差异：RequireJs是浏览器的模块加载器，同时成为Node等环境的模块加载器。SeaJs专注于Web浏览器端，同时通过Node扩展可以很方便的跑在Node环境中
-2. 准讯规范不同：RequireJs遵循AMD规范，SeaJs遵循CMD规范，规范不同，API不同，SeaJs更贴近CommomJs规范
-3. 推广理念差异：RequireJs在尝试让第三方类库修改自身来支持RequireJs，目前只有少数社区采纳，SeaJs不强推，采用自主封装的方式，目前已有叫成熟的封装策略
-4. 对开发调试的支持有差异：SeaJs关注代码的调试开发，RequireJs无明显支持
-5. 插件机制不同：RequireJs采取在源码中预留接口，插件类型单一，SeaJs采取通用事件机制，插件类型更丰富
-</code></pre>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/22/js模块化开发/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-数据结构-红黑树" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/06/22/数据结构-红黑树/">数据结构</a>
-    </h1>
-  
-
-        
-        <a href="/2019/06/22/数据结构-红黑树/" class="archive-article-date">
-  	<time datetime="2019-06-22T12:33:13.074Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-22</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h2 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h2><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
-<li>左子树所有的结点的值均小于或等于根结点的值</li>
-<li>右子树所有的结点的值均大于或等于根结点的值</li>
-<li>左子树和右子树都是二叉排序树</li>
-</ol>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/9182fc564c2f4e43a21ccf5303ff52f2.jpeg" alt></p>
-<h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/3490195d7e3a405c97c34d391c71f09b.png" alt></p>
-<p>不断插入更小的结点或更大的结点，二叉查找树有可能会变成线性结构</p>
-<h2 id="红黑树的作用"><a href="#红黑树的作用" class="headerlink" title="红黑树的作用"></a>红黑树的作用</h2><p>为了解决二叉查找树的不平衡</p>
-<h2 id="红黑树的特性"><a href="#红黑树的特性" class="headerlink" title="红黑树的特性"></a>红黑树的特性</h2><ol>
-<li>结点是红色或者黑色的</li>
-<li>根节点是黑色的</li>
-<li>叶子节点都是黑色的空节点（NIL节点）</li>
-<li>每个红色节点的两个子节点都是黑色</li>
-<li>从任意节点到其每个叶子的所有路径都包含相同的黑色节点</li>
-</ol>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/eefb5a3397ef4089b356e7c9f0938a8d.jpeg" alt></p>
-<p>当插入节点或者删除节点时，有可能会打破红黑树的规则，这时候就需要进行调整<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/c0042741a40d47249e287908c16a9203.jpeg" alt></p>
-<h2 id="变色"><a href="#变色" class="headerlink" title="变色"></a>变色</h2><p>为了重新符合红黑树的规则，尝试把红节点变成黑色，把黑色节点变成红色</p>
-<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><h3 id="左旋转"><a href="#左旋转" class="headerlink" title="左旋转"></a>左旋转</h3><p>逆时针旋转红黑树的两个节点，使得父节点被自己的右孩子取代，自己成为了右孩子的左节点</p>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3cd82550b29445eac5b6e6b0f40f03c.png" alt></p>
-<h3 id="右旋转"><a href="#右旋转" class="headerlink" title="右旋转"></a>右旋转</h3><p>顺时针旋转红黑树的两个节点，使得父节点被自己的左孩子取代，自己成为了左孩子的右节点<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/c739da55ba784729919bc18b57c3a5c3.png" alt></p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>插入节点21<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/7a4055b4eaa14fd097ffa241abd86032.jpeg" alt><br>首先变色<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/a0c2409f6c7d4c468a3d1c80c18ebe9b.jpeg" alt></p>
-<p>此时节点17和节点25是连续的两个红色节点，那么把节点17变成黑色节点？恐怕不合适。这样一来不但打破了规则4，而且根据规则2（根节点是黑色），也不可能把节点13变成红色节点。</p>
-<p>变色已无法解决问题，我们把节点13看做X，把节点17看做Y，像刚才的示意图那样进行左旋转：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/cb7731c2eb4e4e2b839004e3dcaf7126.png" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/9f6949f1ca624323ad26bd474912571a.jpeg" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/d7da48b838514b33bd8b44ab1b55c9e1.jpeg" alt></p>
-<p>由于根节点必须是黑色节点，所以需要变色，变色结果如下：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/d32de019907c4e9a9c2e3490d66677de.jpeg" alt></p>
-<p>因为其中两条路径(17 -&gt; 8 -&gt; 6 -&gt; NIL)的黑色节点个数是4，其他路径的黑色节点个数是3，不符合规则5。</p>
-<p>这时候我们需要把节点13看做X，节点8看做Y，像刚才的示意图那样进行右旋转：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/1fdcb0466c7a4ecc84b54cb701781243.jpeg" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3fcbe987f214340b0b03d129b2a2059.jpeg" alt></p>
-<p>根据规则来进行变色：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/79bbe75c48da4a7492c21af0e18065a5.jpeg" alt></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">树</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/22/数据结构-红黑树/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-编译原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/21/编译原理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-HTML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/20/HTML/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-js-语法和API" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/13/js-语法和API/">语法和API</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/13/js-语法和API/" class="archive-article-date">
-  	<time datetime="2019-05-13T14:31:59.013Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-13</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="理解ECMAScript和JavaScript的关系"><a href="#理解ECMAScript和JavaScript的关系" class="headerlink" title="理解ECMAScript和JavaScript的关系"></a>理解ECMAScript和JavaScript的关系</h1><h2 id="js-包含三个部分"><a href="#js-包含三个部分" class="headerlink" title="js 包含三个部分"></a>js 包含三个部分</h2><ol>
-<li>ECMAScript，ES6语法比较新,一些浏览器对ES6不兼容，所以一般会用一些转换工具如Babel进行转换。</li>
-<li>DOM文档对象</li>
-<li>BOM浏览器对象</li>
-</ol>
-<h2 id="JavaScript处理引擎"><a href="#JavaScript处理引擎" class="headerlink" title="JavaScript处理引擎"></a>JavaScript处理引擎</h2><ul>
-<li>chrome v8</li>
-<li>firefox SpiderMonkey</li>
-<li>edge chakra</li>
-</ul>
-<h1 id="es5、es6提供的语法规范"><a href="#es5、es6提供的语法规范" class="headerlink" title="es5、es6提供的语法规范"></a>es5、es6提供的语法规范</h1><h1 id="熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）"><a href="#熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）" class="headerlink" title="熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）"></a>熟练掌握JavaScript提供的全局对象（例如Date、Math）、全局函数（例如decodeURI、isNaN）、全局属性（例如Infinity、undefined）</h1><h1 id="熟练应用map、reduce、filter-等高阶函数解决问题"><a href="#熟练应用map、reduce、filter-等高阶函数解决问题" class="headerlink" title="熟练应用map、reduce、filter 等高阶函数解决问题"></a>熟练应用map、reduce、filter 等高阶函数解决问题</h1><ol>
-<li>map</li>
-</ol>
-<p>返回每次函数调用的结果组成的数组<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function pow(x) &#123;</span><br><span class="line">    return x * x;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br><span class="line">arr.map(pow); // [1, 4, 9, 16, 25, 36, 49, 64, 81]</span><br></pre></td></tr></table></figure></p>
-<p>map()作为高阶函数，事实上它把运算规则抽象了，因此，我们不但可以计算简单的f(x)=x2，还可以计算任意复杂的函数，比如，把Array的所有数字转为字符串：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1, 2, 3, 4, 5, 6, 7, 8, 9];</span><br><span class="line">arr.map(String); // [&apos;1&apos;, &apos;2&apos;, &apos;3&apos;, &apos;4&apos;, &apos;5&apos;, &apos;6&apos;, &apos;7&apos;, &apos;8&apos;, &apos;9&apos;]</span><br></pre></td></tr></table></figure></p>
-<ol start="2">
-<li>reduce</li>
-</ol>
-<p>reduce()把结果继续和序列的下一个元素做累积计算<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[x1, x2, x3, x4].reduce(f) = f(f(f(x1, x2), x3), x4)</span><br><span class="line">//比方说对一个Array求和，就可以用reduce实现：</span><br><span class="line"></span><br><span class="line">var arr = [1, 3, 5, 7, 9];</span><br><span class="line">arr.reduce(function (x, y) &#123;</span><br><span class="line">    return x + y;</span><br><span class="line">&#125;); // 25</span><br></pre></td></tr></table></figure></p>
-<ol start="3">
-<li>filter</li>
-</ol>
-<p>把Array的某些元素过滤掉，然后返回剩下的元素。filter()把传入的函数依次作用于每个元素，然后根据返回值是true还是false决定保留还是丢弃该元素。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">//例如，在一个Array中，删掉偶数，只保留奇数，可以这么写：</span><br><span class="line">var arr = [1, 2, 4, 5, 6, 9, 10, 15];</span><br><span class="line">var r = arr.filter(function (x) &#123;</span><br><span class="line">    return x % 2 !== 0;</span><br><span class="line">&#125;);</span><br><span class="line">r; // [1, 5, 9, 15]</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">//把一个Array中的空字符串删掉，可以这么写：</span><br><span class="line">var arr = [&apos;A&apos;, &apos;&apos;, &apos;B&apos;, null, undefined, &apos;C&apos;, &apos;  &apos;];</span><br><span class="line">var r = arr.filter(function (s) &#123;</span><br><span class="line">    return s &amp;&amp; s.trim(); // 注意：IE9以下的版本没有trim()方法</span><br><span class="line">&#125;);</span><br><span class="line">arr; // [&apos;A&apos;, &apos;B&apos;, &apos;C&apos;]</span><br></pre></td></tr></table></figure></p>
-<p>用filter()这个高阶函数，关键在于正确实现一个“筛选”函数。</p>
-<ol start="4">
-<li>sort</li>
-</ol>
-<p>Array的sort()方法默认把所有元素先转换为String再排序，结果’10’排在了’2’的前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function ss(a, b) &#123;return a - b;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(ss)</span><br><span class="line">(5) [1, 6, 7, 10, 15]</span><br><span class="line"></span><br><span class="line">function sss(a, b) &#123;return b - a;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(sss)</span><br><span class="line">(5) [15, 10, 7, 6, 1]</span><br></pre></td></tr></table></figure></p>
-<h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/13/js-语法和API/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
-      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+      <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
     </nav>
   
 
@@ -1046,11 +1236,15 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">es</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
+                <a href="javascript:void(0)" class="js-tag color4">css</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">es</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1059,6 +1253,10 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
               </li>
              
               <li class="article-tag-list-item">
