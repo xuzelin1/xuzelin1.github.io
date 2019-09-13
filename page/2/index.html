@@ -148,12 +148,39 @@
           <div id="js-content" class="content-ll">
             
   
-    <article id="post-手动实现前端轮子" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+    <article id="post-js-数组扁平化和去重" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/24/js-数组扁平化和去重/">数组操作（一）</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/24/js-数组扁平化和去重/" class="archive-article-date">
+  	<time datetime="2019-06-24T14:40:40.628Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-24</time>
+</a>
+        
+      </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="一-扁平化"><a href="#一-扁平化" class="headerlink" title="一. 扁平化"></a>一. 扁平化</h1><h2 id="1-什么是扁平化"><a href="#1-什么是扁平化" class="headerlink" title="1 什么是扁平化"></a>1 什么是扁平化</h2><p>扁平化就是去掉数组嵌套<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">var arr = [1,[2,[3,4]]];</span><br><span class="line">// 扁平化后</span><br><span class="line">console.log(flatten(arr)); // [1,2,3,4]</span><br></pre></td></tr></table></figure></p>
+<p>处理完的数组只有一层</p>
+<h2 id="2-简单实现"><a href="#2-简单实现" class="headerlink" title="2 简单实现"></a>2 简单实现</h2><h3 id="2-1-递归实现"><a href="#2-1-递归实现" class="headerlink" title="2.1 递归实现"></a>2.1 递归实现</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">const flatten = (arr) =&gt; &#123;</span><br><span class="line">    let result = [];</span><br><span class="line">    arr.forEach((item, i, arr) =&gt; &#123;</span><br><span class="line">        if(item instanceof Array == true) &#123;</span><br><span class="line">            result = result.concat(flatten(item));</span><br><span class="line">        &#125; else &#123;</span><br><span class="line">            result.push(arr[i])</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;)</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var arr = [1,[2,[3,4]]];</span><br><span class="line">console.log(flatten(arr));</span><br></pre></td></tr></table></figure>
+<h3 id="2-2-toString"><a href="#2-2-toString" class="headerlink" title="2.2 toString()"></a>2.2 toString()</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">arr.toString().split(&quot;,&quot;).map((item) =&gt; &#123;return +item&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>这种方法使用的场景却非常有限，必须数组中元素全部都是 Number。</p>
+</blockquote>
+<h3 id="2-3-concat-apply-some"><a href="#2-3-concat-apply-some" class="headerlink" title="2.3 [].concat.apply + some"></a>2.3 [].concat.apply + some</h3><blockquote>
+<p>[].concat:即将两个数组连接起来，apply是将数组元素拆分开<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">const flatten2 = (arr) =&gt; &#123;</span><br><span class="line">    while(arr.some(item =&gt; (item instanceof Array == true))) &#123;</span><br><span class="line">        arr = [].concat.apply([], arr);</span><br><span class="line">    &#125;</span><br><span class="line">    return arr;</span><br><span class="line">&#125;</span><br><span class="line">console.log(flatten2(arr));</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+<h3 id="2-4-reduce"><a href="#2-4-reduce" class="headerlink" title="2.4 reduce"></a>2.4 reduce</h3><p>reduce 本身就是一个迭代循环器，通常用于累加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">function flatten(arr)&#123;</span><br><span class="line">  return arr.reduce(function(prev, cur)&#123;</span><br><span class="line">    return prev.concat(Array.isArray(cur) ? flatten(cur) : cur)</span><br><span class="line">  &#125;, [])</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [1, [2, [3, 4]]];</span><br><span class="line">console.log(flatten(arr));</span><br></pre></td></tr></table></figure></p>
+<h3 id="2-5-ES6-中的解构运算符-…"><a href="#2-5-ES6-中的解构运算符-…" class="headerlink" title="2.5 ES6 中的解构运算符 …"></a>2.5 ES6 中的解构运算符 <strong>…</strong></h3><p>… 每次只能展开最外层的数组，被 [].concat 后，arr 就扁平化一次。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function flatten(arr)&#123;</span><br><span class="line">  while(arr.some(item =&gt; Array.isArray(item)))&#123;</span><br><span class="line">    arr = [].concat(...arr);</span><br><span class="line">  &#125;</span><br><span class="line">  return arr;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const arr = [1, [2, [3, 4]]];</span><br><span class="line">console.log(flatten(arr));</span><br></pre></td></tr></table></figure></p>
+<h1 id="去重"><a href="#去重" class="headerlink" title="去重"></a>去重</h1>
       
 
       
@@ -161,11 +188,199 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
         <p class="article-more-link">
-          <a class="article-more-a" href="/2019/06/23/手动实现前端轮子/">展开全文 >></a>
+          <a class="article-more-a" href="/2019/06/24/js-数组扁平化和去重/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-js-编码能力" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/23/js-编码能力/">js 编码能力</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/23/js-编码能力/" class="archive-article-date">
+  	<time datetime="2019-06-23T14:44:58.347Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="多种方式实现数组去重、扁平化、对比优缺点"><a href="#多种方式实现数组去重、扁平化、对比优缺点" class="headerlink" title="多种方式实现数组去重、扁平化、对比优缺点"></a>多种方式实现数组去重、扁平化、对比优缺点</h1><h1 id="多种方式实现深拷贝、对比优缺点"><a href="#多种方式实现深拷贝、对比优缺点" class="headerlink" title="多种方式实现深拷贝、对比优缺点"></a>多种方式实现深拷贝、对比优缺点</h1><h1 id="手写函数柯里化工具函数、并理解其应用场景和优势"><a href="#手写函数柯里化工具函数、并理解其应用场景和优势" class="headerlink" title="手写函数柯里化工具函数、并理解其应用场景和优势"></a>手写函数柯里化工具函数、并理解其应用场景和优势</h1><h1 id="手写防抖和节流工具函数、并理解其内部原理和应用场景"><a href="#手写防抖和节流工具函数、并理解其内部原理和应用场景" class="headerlink" title="手写防抖和节流工具函数、并理解其内部原理和应用场景"></a>手写防抖和节流工具函数、并理解其内部原理和应用场景</h1><h1 id="实现一个sleep函数"><a href="#实现一个sleep函数" class="headerlink" title="实现一个sleep函数"></a>实现一个sleep函数</h1>
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/23/js-编码能力/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+<aside class="wrap-side-operation">
+    <div class="mod-side-operation">
+        
+        <div class="jump-container" id="js-jump-container" style="display:none;">
+            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
+                <i class="icon-font icon-back"></i>
+            </a>
+            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
+                <i class="icon-font icon-plane jump-plane"></i>
+            </div>
+        </div>
+        
+        
+    </div>
+</aside>
+
+
+
+
+  
+    <article id="post-手动实现前端轮子-call等" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/23/手动实现前端轮子-call等/">手动实现-call、apply、bind</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/23/手动实现前端轮子-call等/" class="archive-article-date">
+  	<time datetime="2019-06-23T14:44:14.738Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-23</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="call和apply"><a href="#call和apply" class="headerlink" title="call和apply"></a>call和apply</h1><h2 id="call的语法"><a href="#call的语法" class="headerlink" title="call的语法"></a>call的语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.call(thisArg, arg1, arg2, ...)</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>thisArg:</p>
+<p> 在fun函数运行时指定的this值。指定的this不一定是该函数执行时真正的this值，如果这个函数在非严格模式下，指定为null或Undefined的this值会自动指向全局对象（浏览器就是window），同时值为原始值（数字，字符串，布尔值）的this会指向原始值的自动包装对象。</p>
+</li>
+<li><p>arg1，arg2…</p>
+<p> 指定的参数列表</p>
+</li>
+</ol>
+<h2 id="apply的语法"><a href="#apply的语法" class="headerlink" title="apply的语法"></a>apply的语法</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">func.apply(thisArg, [argsArray])</span><br></pre></td></tr></table></figure>
+<ol>
+<li><p>thisArg:</p>
+<p> 可选参数，在func运行是使用的this的值。如果在非严格模式下指定为null或Undefined时，会自动替换为全局对象，原始值会被包装</p>
+</li>
+<li><p>argsArray</p>
+<p> 可选的。一个数组或类数组对象，其中数组将作为单独的参数传给func函数，如果该值为null或Undefined，则表示不需要传入任何参数</p>
+</li>
+</ol>
+<h1 id="call和apply的异同"><a href="#call和apply的异同" class="headerlink" title="call和apply的异同"></a>call和apply的异同</h1><h2 id="相同点"><a href="#相同点" class="headerlink" title="相同点"></a>相同点</h2><ol>
+<li><p>call和apply的第一个参数都是运行时指定的this，而且this可能不是该方法看到的实际值</p>
+</li>
+<li><p>都可以只传递一个参数</p>
+</li>
+</ol>
+<h2 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h2><ol>
+<li>apply第二个参数接受一个数组或类数组，也可以是一个对象，后续参数忽略。call第二个以及后面一系列参数</li>
+</ol>
+<p>例子1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">// 例子1：浏览器环境 非严格模式下</span><br><span class="line">var doSth = function(a, b)&#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log([a, b]);</span><br><span class="line">&#125;</span><br><span class="line">doSth.apply(null, [1, 2]); // this是window  // [1, 2]</span><br><span class="line">doSth.apply(0, [1, 2]); // this 是 Number(0) // [1, 2]</span><br><span class="line">doSth.apply(true); // this 是 Boolean(true) // [undefined, undefined]</span><br><span class="line">doSth.call(undefined, 1, 2); // this 是 window // [1, 2]</span><br><span class="line">doSth.call(&apos;0&apos;, 1, &#123;a: 1&#125;); // this 是 String(&apos;0&apos;) // [1, &#123;a: 1&#125;]</span><br></pre></td></tr></table></figure>
+<p>例子2：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 例子2：浏览器环境 严格模式下</span><br><span class="line">&apos;use strict&apos;;</span><br><span class="line">var doSth2 = function(a, b)&#123;</span><br><span class="line">    console.log(this);</span><br><span class="line">    console.log([a, b]);</span><br><span class="line">&#125;</span><br><span class="line">doSth2.call(0, 1, 2); // this 是 0 // [1, 2]</span><br><span class="line">doSth2.apply(&apos;1&apos;); // this 是 &apos;1&apos; // [undefined, undefined]</span><br><span class="line">doSth2.apply(null, [1, 2]); // this 是 null // [1, 2]</span><br></pre></td></tr></table></figure></p>
+<h1 id="模拟实现apply"><a href="#模拟实现apply" class="headerlink" title="模拟实现apply"></a>模拟实现apply</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">// 浏览器环境 非严格模式</span><br><span class="line">function getGlobalObject()&#123;</span><br><span class="line">    return this;</span><br><span class="line">&#125;</span><br><span class="line">Function.prototype.applyFn = function apply(thisArg, argsArray)&#123; // `apply` 方法的 `length` 属性是 `2`。</span><br><span class="line">    // 1.如果 `IsCallable(func)` 是 `false`, 则抛出一个 `TypeError` 异常。</span><br><span class="line">    if(typeof this !== &apos;function&apos;)&#123;</span><br><span class="line">        throw new TypeError(this + &apos; is not a function&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // 2.如果 argArray 是 null 或 undefined, 则</span><br><span class="line">    // 返回提供 thisArg 作为 this 值并以空参数列表调用 func 的 [[Call]] 内部方法的结果。</span><br><span class="line">    if(typeof argsArray === &apos;undefined&apos; || argsArray === null)&#123;</span><br><span class="line">        argsArray = [];</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    // 3.如果 Type(argArray) 不是 Object, 则抛出一个 TypeError 异常 .</span><br><span class="line">    if(argsArray !== new Object(argsArray))&#123;</span><br><span class="line">        throw new TypeError(&apos;CreateListFromArrayLike called on non-object&apos;);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    if(typeof thisArg === &apos;undefined&apos; || thisArg === null)&#123;</span><br><span class="line">        // 在外面传入的 thisArg 值会修改并成为 this 值。</span><br><span class="line">        // ES3: thisArg 是 undefined 或 null 时它会被替换成全局对象 浏览器里是window</span><br><span class="line">        thisArg = getGlobalObject();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    // ES3: 所有其他值会被应用 ToObject 并将结果作为 this 值，这是第三版引入的更改。</span><br><span class="line">    thisArg = new Object(thisArg);</span><br><span class="line">    var __fn = &apos;__fn&apos;;</span><br><span class="line">    thisArg[__fn] = this;</span><br><span class="line">    // 9.提供 thisArg 作为 this 值并以 argList 作为参数列表，调用 func 的 [[Call]] 内部方法，返回结果</span><br><span class="line">    var result = thisArg[__fn](...argsArray);</span><br><span class="line">    delete thisArg[__fn];</span><br><span class="line">    return result;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2019/06/23/手动实现前端轮子-call等/">展开全文 >></a>
         </p>
       
 
@@ -402,9 +617,53 @@
     <article id="post-编译原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/21/编译原理/">编译原理</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/21/编译原理/" class="archive-article-date">
+  	<time datetime="2019-06-21T02:24:26.381Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-21</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="匹配原理"><a href="#匹配原理" class="headerlink" title="匹配原理"></a>匹配原理</h2><h3 id="匹配基础"><a href="#匹配基础" class="headerlink" title="匹配基础"></a>匹配基础</h3><ol>
+<li><p>优先选择最左端匹配结果</p>
+</li>
+<li><p>标量词优先匹配</p>
+<p> 标准匹配量词都是匹配优先的，它们总是尝试匹配尽可能多的字符，直至匹配上限。以\b\w+s\b为例，\w+完全能够匹配regexes整个单词，但为了表达式的余下部分能够成功匹配，\w+被迫“交还”之前匹配的字符s，该过程被称作回溯</p>
+</li>
+</ol>
+<h2 id="正则引擎"><a href="#正则引擎" class="headerlink" title="正则引擎"></a>正则引擎</h2><p>正则引擎主要可以分为两大类：DFA和NFA。</p>
+<p>在主流的程序中egrep、awk、MySQL使用DFA引擎，而JAVA、grep、.Net、PHP、Python、Ruby等使用传统NFA引擎。</p>
+<ol>
+<li><p>NFA（非确定型有穷自动机）引擎是以正则表达式为主导的引擎。</p>
+<p> NFA引擎每次检查表达式的一部分，同时检查当前文本是否匹配表达式的当前部分（这里用部分表示需要匹配的可能是一个字符，或一个子表达式），若匹配，则继续表达式的下一部分，直至所有部分都能匹配，即表达式匹配成功。</p>
+</li>
+<li><p>DFA（确定型有穷自动机）引擎是以文本为主导的引擎。</p>
+<p> DFA引擎在扫描字符串时，会记录当前有效的所有匹配可能。</p>
+</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h3><pre><code>NFA引擎最重要的性质是，在遇到多个可能成功的可能（包括量词、多选结构）中进行选择时，它会选择其一，并记住其它，当匹配失败时，引擎会回溯到之前记录的位置继续尝试匹配。记录的位置包含两个位置信息：正则表达式中的位置，和未尝试的分支在字符串中的位置。在NFA正则表达式中，这些记录的位置被称为备用状态。
+</code></pre><p>回溯机制有两个要点：</p>
+<ol>
+<li>如果需要在“进行尝试”和“跳过尝试”之间选择，对于匹配优先量词，引擎会优先选择“进行尝试”，而对于忽略优先量词，会选择“跳过尝试”。</li>
+<li>距离当前最近存储的选项就是当本地失败强制回溯时返回的，使用的原则是LIFO。</li>
+</ol>
+<h3 id="优化性能就是需要减少回溯次数"><a href="#优化性能就是需要减少回溯次数" class="headerlink" title="优化性能就是需要减少回溯次数"></a>优化性能就是需要减少回溯次数</h3><ol>
+<li>使用正确的边界匹配器（^、$、\b、\B等），限定搜索字符串位置</li>
+<li>尽量不适用通配符”.”;字符使用具体的元字符、字符类（\d、\w、\s等）（推荐）</li>
+<li>使用正确的量词（+、*、?、{n,m}），如果能够限定长度，匹配最佳</li>
+<li>使用非捕获组、原子组，减少没有必要的字匹配捕获用(?:)，减少内存。</li>
+</ol>
+<h1 id="抽象语法树"><a href="#抽象语法树" class="headerlink" title="抽象语法树"></a>抽象语法树</h1>
       
 
       
@@ -412,6 +671,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -449,9 +719,24 @@
     <article id="post-HTML" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2019/06/20/HTML/">HTML</a>
+    </h1>
+  
+
+        
+        <a href="/2019/06/20/HTML/" class="archive-article-date">
+  	<time datetime="2019-06-20T14:54:01.287Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-20</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="HTML"><a href="#HTML" class="headerlink" title="HTML"></a>HTML</h1><h2 id="从规范的角度理解HTML，从分类和语义的角度使用标签"><a href="#从规范的角度理解HTML，从分类和语义的角度使用标签" class="headerlink" title="从规范的角度理解HTML，从分类和语义的角度使用标签"></a>从规范的角度理解HTML，从分类和语义的角度使用标签</h2><h2 id="常用页面标签的默认样式、自带属性、不同浏览器的差异、处理浏览器兼容问题的方式"><a href="#常用页面标签的默认样式、自带属性、不同浏览器的差异、处理浏览器兼容问题的方式" class="headerlink" title="常用页面标签的默认样式、自带属性、不同浏览器的差异、处理浏览器兼容问题的方式"></a>常用页面标签的默认样式、自带属性、不同浏览器的差异、处理浏览器兼容问题的方式</h2><h2 id="元信息类标签-head、title、meta-的使用目的和配置方法"><a href="#元信息类标签-head、title、meta-的使用目的和配置方法" class="headerlink" title="元信息类标签(head、title、meta)的使用目的和配置方法"></a>元信息类标签(head、title、meta)的使用目的和配置方法</h2><h2 id="HTML5离线缓存原理"><a href="#HTML5离线缓存原理" class="headerlink" title="HTML5离线缓存原理"></a>HTML5离线缓存原理</h2><h2 id="可以使用Canvas-API、SVG等绘制高性能的动画"><a href="#可以使用Canvas-API、SVG等绘制高性能的动画" class="headerlink" title="可以使用Canvas API、SVG等绘制高性能的动画"></a>可以使用Canvas API、SVG等绘制高性能的动画</h2>
       
 
       
@@ -459,6 +744,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">html</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -541,7 +837,8 @@
 <li>sort</li>
 </ol>
 <p>Array的sort()方法默认把所有元素先转换为String再排序，结果’10’排在了’2’的前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function ss(a, b) &#123;return a - b;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(ss)</span><br><span class="line">(5) [1, 6, 7, 10, 15]</span><br><span class="line"></span><br><span class="line">function sss(a, b) &#123;return b - a;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(sss)</span><br><span class="line">(5) [15, 10, 7, 6, 1]</span><br></pre></td></tr></table></figure></p>
-<h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
+<h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">timerFun()</span><br><span class="line">function timerFun()&#123;</span><br><span class="line">  //要执行的操作</span><br><span class="line">  var timer=setTimeout(function()&#123;</span><br><span class="line">  timerFun()</span><br><span class="line">  clearTimeout(timer)</span><br><span class="line">  &#125;,2000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
       
 
       
@@ -937,172 +1234,6 @@
 
 
   
-    <article id="post-js-原型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2019/05/05/js-原型/">原型和原型链</a>
-    </h1>
-  
-
-        
-        <a href="/2019/05/05/js-原型/" class="archive-article-date">
-  	<time datetime="2019-05-05T05:46:10.960Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-05-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h1 id="原型设计模式"><a href="#原型设计模式" class="headerlink" title="原型设计模式"></a>原型设计模式</h1><p>原型模式是一个创建型的模式。原型模式有一个样板实例，用户从该模板对象中复制一个<strong>内部属性</strong>一致的对象。被复制的实例成为“原型”，该原型的可定制的</p>
-<h1 id="js-中原型规则"><a href="#js-中原型规则" class="headerlink" title="js 中原型规则"></a>js 中原型规则</h1><p>每个函数都有一个prototype（原型）属性，是一个指针，指向一个对象，该对象包含所有实例共享的属性和方法</p>
-<ol>
-<li>创建构造函数</li>
-<li>添加构造函数的原型属性和方法</li>
-<li>创建实例， 实例中的<strong>proto</strong>属性连接的是原型对象，跟构造函数没有直接关系<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Person() &#123;&#125; //构造函数</span><br><span class="line"></span><br><span class="line">Person.prototype.name = &apos;jack&apos;; //原型属性</span><br><span class="line"></span><br><span class="line">var p1 = new Person(); //实例</span><br><span class="line"></span><br><span class="line">//构造函数的原型</span><br><span class="line">Person.prototype =&gt; Person prototype;</span><br><span class="line">//实例的__proto__</span><br><span class="line">p1.__proto__ =&gt; Person prototype;</span><br><span class="line">//原型对象的构造函数</span><br><span class="line">Person.prototype.constructor =&gt; Person</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<h1 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">function Animal(name, weight) &#123;</span><br><span class="line">    this.name = name;</span><br><span class="line">    this.weight = weight;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Animal.prototype.eat = function() &#123;</span><br><span class="line">    console.log(&apos;EAT&apos;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Dog() &#123;&#125;</span><br><span class="line">Dog.prototype = new Animal(&apos;小狗&apos;, &apos;60kg&apos;);</span><br><span class="line">Dog.prototype.bitePerson = function() &#123;</span><br><span class="line">    console.log(&quot;BITE&quot;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function HaShiQi() &#123;&#125;</span><br><span class="line">HaShiQi.prototype = new Dog();</span><br><span class="line"></span><br><span class="line">var hashiqi1 = new HaShiQi();</span><br><span class="line">console.log(hashiqi1.name, hashiqi1.weight);</span><br><span class="line">hashiqi1.eat();</span><br><span class="line">hashiqi1.bitePerson();</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&gt; Animal.prototype =&gt; Animal 原型对象</span><br><span class="line">&gt; Animal 原型对象.constructor =&gt; Animal 构造函数</span><br><span class="line">&gt; Animal 原型对象.[[proto]] =&gt; Object</span><br><span class="line"></span><br><span class="line">&gt; Dog.prototype =&gt; new Animal(实例)</span><br><span class="line">&gt; new Animal.[[proto]] =&gt; Animal 原型对象</span><br><span class="line"></span><br><span class="line">&gt; new Dog.[[proto]] =&gt; new Animal(实例)</span><br><span class="line">&gt; hashiqi1.[[proto]] =&gt; new Dog(实例)</span><br><span class="line"></span><br><span class="line">hashiqi1</span><br><span class="line">&gt; HaShiQi &#123;&#125;</span><br><span class="line">    &gt;__proto__: Animal</span><br><span class="line">        &gt;__proto__: Animal</span><br><span class="line">            &gt;bitePerson: ƒ ()</span><br><span class="line">            &gt;name: &quot;小狗&quot;</span><br><span class="line">            &gt;weight: &quot;60kg&quot;</span><br><span class="line">            &gt;__proto__:</span><br><span class="line">                &gt;eat: ƒ ()</span><br><span class="line">                &gt;constructor: ƒ Animal(name, weight)</span><br><span class="line">                &gt;__proto__: Object</span><br></pre></td></tr></table></figure>
-<h1 id="instanceof底层原理-手动实现instanceof"><a href="#instanceof底层原理-手动实现instanceof" class="headerlink" title="instanceof底层原理 手动实现instanceof"></a>instanceof底层原理 手动实现instanceof</h1><p>instanceof 检测一个对象A是不是另一个对象B的实例<br>B的prototype指向的对象是否在对象A的[[prototype]]链上</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">hashiqi1 instanceof HaShiQi //true</span><br><span class="line">hashiqi1 instanceof Dog     //true</span><br><span class="line">hashiqi1 instanceof Animal  //true</span><br><span class="line">hashiqi1 instanceof Object  //true</span><br></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">hashiqi1.__proto__</span><br><span class="line">&gt; Animal &#123;&#125;</span><br><span class="line"></span><br><span class="line">hashiqi1.__proto__.__proto__</span><br><span class="line">&gt; Animal &#123;name: &quot;小狗&quot;, weight: &quot;60kg&quot;, bitePerson: ƒ&#125;</span><br><span class="line"></span><br><span class="line">hashiqi1.__proto__.__proto__.__proto__</span><br><span class="line">&gt; &#123;eat: ƒ, constructor: ƒ&#125;</span><br><span class="line"></span><br><span class="line">hashiqi1.__proto__.__proto__.__proto__.__proto__</span><br><span class="line">&gt; &#123;constructor: ƒ, __defineGetter__: ƒ, __defineSetter__: ƒ, hasOwnProperty: ƒ, __lookupGetter__: ƒ, …&#125;</span><br><span class="line"></span><br><span class="line">hashiqi1.__proto__.__proto__.__proto__.__proto__.__proto__</span><br><span class="line">&gt; null</span><br></pre></td></tr></table></figure>
-<p>手动实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function instance_of(L, R) &#123;//L 表示左表达式，R 表示右表达式 </span><br><span class="line">    var O = R.prototype;   // 取 R 的显示原型 </span><br><span class="line">    L = L.__proto__;  // 取 L 的隐式原型</span><br><span class="line">    while (true) &#123;    </span><br><span class="line">        if (L === null)      </span><br><span class="line">             return false;   </span><br><span class="line">        if (O === L)  // 当 O 显式原型 严格等于  L隐式原型 时，返回true</span><br><span class="line">             return true;   </span><br><span class="line">        L = L.__proto__;  </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<h1 id="实现继承的几种方式"><a href="#实现继承的几种方式" class="headerlink" title="实现继承的几种方式"></a>实现继承的几种方式</h1><p>父类<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">// 定义一个动物类</span><br><span class="line">function Animal (name) &#123;</span><br><span class="line">  // 属性</span><br><span class="line">  this.name = name || &apos;Animal&apos;;</span><br><span class="line">  // 实例方法</span><br><span class="line">  this.sleep = function()&#123;</span><br><span class="line">    console.log(this.name + &apos;正在睡觉！&apos;);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line">// 原型方法</span><br><span class="line">Animal.prototype.eat = function(food) &#123;</span><br><span class="line">  console.log(this.name + &apos;正在吃：&apos; + food);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
-<ol>
-<li><p>原型链继承</p>
-<p> 将父类的实例作为子类的原型</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">function Cat()&#123; </span><br><span class="line">&#125;</span><br><span class="line">Cat.prototype = new Animal();</span><br><span class="line">Cat.prototype.name = &apos;cat&apos;;</span><br><span class="line"></span><br><span class="line">//　Test Code</span><br><span class="line">var cat = new Cat();</span><br><span class="line">console.log(cat.name);</span><br><span class="line">console.log(cat.eat(&apos;fish&apos;));</span><br><span class="line">console.log(cat.sleep());</span><br><span class="line">console.log(cat instanceof Animal); //true </span><br><span class="line">console.log(cat instanceof Cat); //true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>构造函数继承</p>
-<p> 使用父类的构造函数来增强子类实例，等于是复制父类的实例属性给子类（没用到原型）</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name)&#123;</span><br><span class="line">  Animal.call(this);</span><br><span class="line">  this.name = name || &apos;Tom&apos;;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// Test Code</span><br><span class="line">var cat = new Cat();</span><br><span class="line">console.log(cat.name);</span><br><span class="line">console.log(cat.sleep());</span><br><span class="line">console.log(cat instanceof Animal); // false</span><br><span class="line">console.log(cat instanceof Cat); // true</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>组合继承-<br>-原型继承+借用构造函数继承</p>
-<p> 通过调用父类构造，继承父类的属性并保留传参的优点，然后通过将父类实例作为子类原型，实现函数复用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">function Cat(name)&#123;</span><br><span class="line">  //借用构造函数</span><br><span class="line">  Animal.call(this);</span><br><span class="line">  this.name = name || &apos;Tom&apos;;</span><br><span class="line">&#125;</span><br><span class="line">//改变原型指向——原型继承</span><br><span class="line">Cat.prototype = new Animal();</span><br><span class="line"></span><br><span class="line">Cat.prototype.constructor = Cat;</span><br><span class="line"></span><br><span class="line">// Test Code</span><br><span class="line">var cat = new Cat();</span><br><span class="line">console.log(cat.name);</span><br><span class="line">console.log(cat.sleep());</span><br><span class="line">console.log(cat instanceof Animal); // true</span><br><span class="line">console.log(cat instanceof Cat); // true</span><br></pre></td></tr></table></figure>
-</li>
-</ol>
-<blockquote>
-<p>属性和方法都可以被继承，（改继承方法最佳）</p>
-</blockquote>
-<h1 id="开源项目应用原型继承"><a href="#开源项目应用原型继承" class="headerlink" title="开源项目应用原型继承"></a>开源项目应用原型继承</h1><h1 id="new一个对象的过程-手动实现new"><a href="#new一个对象的过程-手动实现new" class="headerlink" title="new一个对象的过程 手动实现new"></a>new一个对象的过程 手动实现new</h1><p>过程</p>
-<ol>
-<li><p>创建一个对象</p>
-<p> var obj = {};</p>
-</li>
-<li><p>新建对象连接到构造函数的原型对象</p>
-<p> obj.[[prototype]] = Class.prototype</p>
-</li>
-<li><p>使用新对象（obj）调用函数</p>
-<p> Class.call(obj)</p>
-</li>
-<li>初始化返回地址</li>
-</ol>
-<p>手动实现<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">function MyNew(classA) &#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    obj.__proto__ = classA.prototype;</span><br><span class="line">    classA.call(obj);</span><br><span class="line">    return obj;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">function Person() &#123;&#125;</span><br><span class="line"></span><br><span class="line">var p1 = MyNew(Person);</span><br></pre></td></tr></table></figure></p>
-<h1 id="es6-class构造及继承的底层原理"><a href="#es6-class构造及继承的底层原理" class="headerlink" title="es6 class构造及继承的底层原理"></a>es6 class构造及继承的底层原理</h1>
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/05/js-原型/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
-    <article id="post-ES6-Symbol" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2019/05/04/ES6-Symbol/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-<aside class="wrap-side-operation">
-    <div class="mod-side-operation">
-        
-        <div class="jump-container" id="js-jump-container" style="display:none;">
-            <a href="javascript:void(0)" class="mod-side-operation__jump-to-top">
-                <i class="icon-font icon-back"></i>
-            </a>
-            <div id="js-jump-plan-container" class="jump-plan-container" style="top: -11px;">
-                <i class="icon-font icon-plane jump-plane"></i>
-            </div>
-        </div>
-        
-        
-    </div>
-</aside>
-
-
-
-
-  
   
     <nav id="page-nav">
       <a class="extend prev" rel="prev" href="/">&laquo; Prev</a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/">Next &raquo;</a>
@@ -1200,15 +1331,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">es</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1216,15 +1343,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网络</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机基础</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
               </li>
             
             <div class="clearfix"></div>

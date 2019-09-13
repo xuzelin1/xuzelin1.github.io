@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>xuzelin博客</title>
+  <title>函数柯里化 | xuzelin博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="xuzelin博客">
+  <meta name="description" content="柯里化什么是柯里化柯里化，可以理解为提前接收部分函数，延迟执行，不立即输出结果，而是返回一个接受剩余参数的函数，因为这样的特性，也被称为部分计算函数。是一个逐步接受参数的过程 实现 multi(2)(3)(4)=24?1234567function multi(a) &amp;#123;    return function(b) &amp;#123;        return function(c) &amp;#12">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="函数柯里化">
 <meta property="og:url" content="http://yoursite.com/2019/07/01/js-函数柯里化/index.html">
 <meta property="og:site_name" content="xuzelin博客">
+<meta property="og:description" content="柯里化什么是柯里化柯里化，可以理解为提前接收部分函数，延迟执行，不立即输出结果，而是返回一个接受剩余参数的函数，因为这样的特性，也被称为部分计算函数。是一个逐步接受参数的过程 实现 multi(2)(3)(4)=24?1234567function multi(a) &amp;#123;    return function(b) &amp;#123;        return function(c) &amp;#12">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-07-01T07:44:47.288Z">
+<meta property="og:updated_time" content="2019-07-09T03:05:59.002Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xuzelin博客">
+<meta name="twitter:title" content="函数柯里化">
+<meta name="twitter:description" content="柯里化什么是柯里化柯里化，可以理解为提前接收部分函数，延迟执行，不立即输出结果，而是返回一个接受剩余参数的函数，因为这样的特性，也被称为部分计算函数。是一个逐步接受参数的过程 实现 multi(2)(3)(4)=24?1234567function multi(a) &amp;#123;    return function(b) &amp;#123;        return function(c) &amp;#12">
   
     <link rel="alternative" href="/atom.xml" title="xuzelin博客" type="application/atom+xml">
   
@@ -150,9 +154,31 @@
             <article id="post-js-函数柯里化" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      函数柯里化
+    </h1>
+  
+
+        
+        <a href="/2019/07/01/js-函数柯里化/" class="archive-article-date">
+  	<time datetime="2019-07-01T07:44:47.288Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-01</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="柯里化"><a href="#柯里化" class="headerlink" title="柯里化"></a>柯里化</h1><h2 id="什么是柯里化"><a href="#什么是柯里化" class="headerlink" title="什么是柯里化"></a>什么是柯里化</h2><p>柯里化，可以理解为提前接收部分函数，延迟执行，不立即输出结果，而是返回一个接受剩余参数的函数，因为这样的特性，也被称为部分计算函数。是一个逐步接受参数的过程</p>
+<p>实现 multi(2)(3)(4)=24?<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">function multi(a) &#123;</span><br><span class="line">    return function(b) &#123;</span><br><span class="line">        return function(c) &#123;</span><br><span class="line">            return a * b * c;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>柯里化的主要特点就是参数复用，提前返回和延迟执行</p>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>实现add(1)(2,3)(4)() = 10的效果</p>
+<blockquote>
+<p>依题意，传入参数时，代码不执行输出结果，先保存记忆起来<br>当传入空参数时，代表可以进行真正的运算</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
 
       
@@ -181,6 +207,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -249,7 +286,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          js 防抖和节流
         
       </div>
     </a>
@@ -382,15 +419,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">es</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -398,15 +431,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网络</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机基础</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
               </li>
             
             <div class="clearfix"></div>

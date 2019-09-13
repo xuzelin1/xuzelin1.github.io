@@ -6,16 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>xuzelin博客</title>
+  <title>编译原理 | xuzelin博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="article">
-<meta property="og:title" content="xuzelin博客">
+  <meta name="description" content="正则表达式匹配原理匹配基础 优先选择最左端匹配结果  标量词优先匹配  标准匹配量词都是匹配优先的，它们总是尝试匹配尽可能多的字符，直至匹配上限。以\b\w+s\b为例，\w+完全能够匹配regexes整个单词，但为了表达式的余下部分能够成功匹配，\w+被迫“交还”之前匹配的字符s，该过程被称作回溯   正则引擎正则引擎主要可以分为两大类：DFA和NFA。 在主流的程序中egrep、awk、MyS">
+<meta name="keywords" content="计算机基础">
+<meta property="og:type" content="article">
+<meta property="og:title" content="编译原理">
 <meta property="og:url" content="http://yoursite.com/2019/06/21/编译原理/index.html">
 <meta property="og:site_name" content="xuzelin博客">
+<meta property="og:description" content="正则表达式匹配原理匹配基础 优先选择最左端匹配结果  标量词优先匹配  标准匹配量词都是匹配优先的，它们总是尝试匹配尽可能多的字符，直至匹配上限。以\b\w+s\b为例，\w+完全能够匹配regexes整个单词，但为了表达式的余下部分能够成功匹配，\w+被迫“交还”之前匹配的字符s，该过程被称作回溯   正则引擎正则引擎主要可以分为两大类：DFA和NFA。 在主流的程序中egrep、awk、MyS">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-21T02:24:26.381Z">
+<meta property="og:updated_time" content="2019-07-09T03:05:58.386Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xuzelin博客">
+<meta name="twitter:title" content="编译原理">
+<meta name="twitter:description" content="正则表达式匹配原理匹配基础 优先选择最左端匹配结果  标量词优先匹配  标准匹配量词都是匹配优先的，它们总是尝试匹配尽可能多的字符，直至匹配上限。以\b\w+s\b为例，\w+完全能够匹配regexes整个单词，但为了表达式的余下部分能够成功匹配，\w+被迫“交还”之前匹配的字符s，该过程被称作回溯   正则引擎正则引擎主要可以分为两大类：DFA和NFA。 在主流的程序中egrep、awk、MyS">
   
     <link rel="alternative" href="/atom.xml" title="xuzelin博客" type="application/atom+xml">
   
@@ -150,9 +154,53 @@
             <article id="post-编译原理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      编译原理
+    </h1>
+  
+
+        
+        <a href="/2019/06/21/编译原理/" class="archive-article-date">
+  	<time datetime="2019-06-21T02:24:26.381Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-21</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="正则表达式"><a href="#正则表达式" class="headerlink" title="正则表达式"></a>正则表达式</h1><h2 id="匹配原理"><a href="#匹配原理" class="headerlink" title="匹配原理"></a>匹配原理</h2><h3 id="匹配基础"><a href="#匹配基础" class="headerlink" title="匹配基础"></a>匹配基础</h3><ol>
+<li><p>优先选择最左端匹配结果</p>
+</li>
+<li><p>标量词优先匹配</p>
+<p> 标准匹配量词都是匹配优先的，它们总是尝试匹配尽可能多的字符，直至匹配上限。以\b\w+s\b为例，\w+完全能够匹配regexes整个单词，但为了表达式的余下部分能够成功匹配，\w+被迫“交还”之前匹配的字符s，该过程被称作回溯</p>
+</li>
+</ol>
+<h2 id="正则引擎"><a href="#正则引擎" class="headerlink" title="正则引擎"></a>正则引擎</h2><p>正则引擎主要可以分为两大类：DFA和NFA。</p>
+<p>在主流的程序中egrep、awk、MySQL使用DFA引擎，而JAVA、grep、.Net、PHP、Python、Ruby等使用传统NFA引擎。</p>
+<ol>
+<li><p>NFA（非确定型有穷自动机）引擎是以正则表达式为主导的引擎。</p>
+<p> NFA引擎每次检查表达式的一部分，同时检查当前文本是否匹配表达式的当前部分（这里用部分表示需要匹配的可能是一个字符，或一个子表达式），若匹配，则继续表达式的下一部分，直至所有部分都能匹配，即表达式匹配成功。</p>
+</li>
+<li><p>DFA（确定型有穷自动机）引擎是以文本为主导的引擎。</p>
+<p> DFA引擎在扫描字符串时，会记录当前有效的所有匹配可能。</p>
+</li>
+</ol>
+<h2 id="性能优化"><a href="#性能优化" class="headerlink" title="性能优化"></a>性能优化</h2><h3 id="回溯"><a href="#回溯" class="headerlink" title="回溯"></a>回溯</h3><pre><code>NFA引擎最重要的性质是，在遇到多个可能成功的可能（包括量词、多选结构）中进行选择时，它会选择其一，并记住其它，当匹配失败时，引擎会回溯到之前记录的位置继续尝试匹配。记录的位置包含两个位置信息：正则表达式中的位置，和未尝试的分支在字符串中的位置。在NFA正则表达式中，这些记录的位置被称为备用状态。
+</code></pre><p>回溯机制有两个要点：</p>
+<ol>
+<li>如果需要在“进行尝试”和“跳过尝试”之间选择，对于匹配优先量词，引擎会优先选择“进行尝试”，而对于忽略优先量词，会选择“跳过尝试”。</li>
+<li>距离当前最近存储的选项就是当本地失败强制回溯时返回的，使用的原则是LIFO。</li>
+</ol>
+<h3 id="优化性能就是需要减少回溯次数"><a href="#优化性能就是需要减少回溯次数" class="headerlink" title="优化性能就是需要减少回溯次数"></a>优化性能就是需要减少回溯次数</h3><ol>
+<li>使用正确的边界匹配器（^、$、\b、\B等），限定搜索字符串位置</li>
+<li>尽量不适用通配符”.”;字符使用具体的元字符、字符类（\d、\w、\s等）（推荐）</li>
+<li>使用正确的量词（+、*、?、{n,m}），如果能够限定长度，匹配最佳</li>
+<li>使用非捕获组、原子组，减少没有必要的字匹配捕获用(?:)，减少内存。</li>
+</ol>
+<h1 id="抽象语法树"><a href="#抽象语法树" class="headerlink" title="抽象语法树"></a>抽象语法树</h1>
       
 
       
@@ -181,6 +229,17 @@
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">计算机基础</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -256,7 +315,7 @@
   
   
     <a href="/2019/06/20/HTML/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title"></div>
+      <div class="article-nav-title">HTML</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -382,15 +441,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">es</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -398,15 +453,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网络</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机基础</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
               </li>
             
             <div class="clearfix"></div>

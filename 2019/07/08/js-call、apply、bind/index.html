@@ -6,36 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link rel="dns-prefetch" href="http://yoursite.com">
-  <title>数据结构 | xuzelin博客</title>
+  <title>this call apply bind | xuzelin博客</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="红黑树二叉查找树特性 左子树所有的结点的值均小于或等于根结点的值 右子树所有的结点的值均大于或等于根结点的值 左子树和右子树都是二叉排序树   缺陷 不断插入更小的结点或更大的结点，二叉查找树有可能会变成线性结构 红黑树的作用为了解决二叉查找树的不平衡 红黑树的特性 结点是红色或者黑色的 根节点是黑色的 叶子节点都是黑色的空节点（NIL节点） 每个红色节点的两个子节点都是黑色 从任意节点到其每个叶">
-<meta name="keywords" content="树">
+  <meta name="description" content="this call apply bindes5中众多坑中的一个，在es6中极大避免了this产生的错误 this 的指向在es5中，this的指向始终坚持一个原理：this永远指向最后调用他的那个对象 例子1： 12345678910var name = &amp;quot;windowsName&amp;quot;;function a() &amp;#123;    var name = &amp;quot;Cherry&amp;q">
+<meta name="keywords" content="js">
 <meta property="og:type" content="article">
-<meta property="og:title" content="数据结构">
-<meta property="og:url" content="http://yoursite.com/2019/06/22/数据结构-红黑树/index.html">
+<meta property="og:title" content="this call apply bind">
+<meta property="og:url" content="http://yoursite.com/2019/07/08/js-call、apply、bind/index.html">
 <meta property="og:site_name" content="xuzelin博客">
-<meta property="og:description" content="红黑树二叉查找树特性 左子树所有的结点的值均小于或等于根结点的值 右子树所有的结点的值均大于或等于根结点的值 左子树和右子树都是二叉排序树   缺陷 不断插入更小的结点或更大的结点，二叉查找树有可能会变成线性结构 红黑树的作用为了解决二叉查找树的不平衡 红黑树的特性 结点是红色或者黑色的 根节点是黑色的 叶子节点都是黑色的空节点（NIL节点） 每个红色节点的两个子节点都是黑色 从任意节点到其每个叶">
+<meta property="og:description" content="this call apply bindes5中众多坑中的一个，在es6中极大避免了this产生的错误 this 的指向在es5中，this的指向始终坚持一个原理：this永远指向最后调用他的那个对象 例子1： 12345678910var name = &amp;quot;windowsName&amp;quot;;function a() &amp;#123;    var name = &amp;quot;Cherry&amp;q">
 <meta property="og:locale" content="default">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/9182fc564c2f4e43a21ccf5303ff52f2.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/3490195d7e3a405c97c34d391c71f09b.png">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/eefb5a3397ef4089b356e7c9f0938a8d.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/c0042741a40d47249e287908c16a9203.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3cd82550b29445eac5b6e6b0f40f03c.png">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/c739da55ba784729919bc18b57c3a5c3.png">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/7a4055b4eaa14fd097ffa241abd86032.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/a0c2409f6c7d4c468a3d1c80c18ebe9b.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/cb7731c2eb4e4e2b839004e3dcaf7126.png">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/9f6949f1ca624323ad26bd474912571a.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/d7da48b838514b33bd8b44ab1b55c9e1.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/d32de019907c4e9a9c2e3490d66677de.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/1fdcb0466c7a4ecc84b54cb701781243.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3fcbe987f214340b0b03d129b2a2059.jpeg">
-<meta property="og:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/79bbe75c48da4a7492c21af0e18065a5.jpeg">
-<meta property="og:updated_time" content="2019-06-22T13:33:13.394Z">
+<meta property="og:updated_time" content="2019-07-08T06:04:12.859Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="数据结构">
-<meta name="twitter:description" content="红黑树二叉查找树特性 左子树所有的结点的值均小于或等于根结点的值 右子树所有的结点的值均大于或等于根结点的值 左子树和右子树都是二叉排序树   缺陷 不断插入更小的结点或更大的结点，二叉查找树有可能会变成线性结构 红黑树的作用为了解决二叉查找树的不平衡 红黑树的特性 结点是红色或者黑色的 根节点是黑色的 叶子节点都是黑色的空节点（NIL节点） 每个红色节点的两个子节点都是黑色 从任意节点到其每个叶">
-<meta name="twitter:image" content="http://5b0988e595225.cdn.sohucs.com/images/20171102/9182fc564c2f4e43a21ccf5303ff52f2.jpeg">
+<meta name="twitter:title" content="this call apply bind">
+<meta name="twitter:description" content="this call apply bindes5中众多坑中的一个，在es6中极大避免了this产生的错误 this 的指向在es5中，this的指向始终坚持一个原理：this永远指向最后调用他的那个对象 例子1： 12345678910var name = &amp;quot;windowsName&amp;quot;;function a() &amp;#123;    var name = &amp;quot;Cherry&amp;q">
   
     <link rel="alternative" href="/atom.xml" title="xuzelin博客" type="application/atom+xml">
   
@@ -167,55 +151,141 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-数据结构-红黑树" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-js-call、apply、bind" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      数据结构
+      this call apply bind
     </h1>
   
 
         
-        <a href="/2019/06/22/数据结构-红黑树/" class="archive-article-date">
-  	<time datetime="2019-06-22T12:33:13.074Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-06-22</time>
+        <a href="/2019/07/08/js-call、apply、bind/" class="archive-article-date">
+  	<time datetime="2019-07-08T03:04:15.628Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2019-07-08</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="红黑树"><a href="#红黑树" class="headerlink" title="红黑树"></a>红黑树</h1><h2 id="二叉查找树"><a href="#二叉查找树" class="headerlink" title="二叉查找树"></a>二叉查找树</h2><h3 id="特性"><a href="#特性" class="headerlink" title="特性"></a>特性</h3><ol>
-<li>左子树所有的结点的值均小于或等于根结点的值</li>
-<li>右子树所有的结点的值均大于或等于根结点的值</li>
-<li>左子树和右子树都是二叉排序树</li>
+        <h1 id="this-call-apply-bind"><a href="#this-call-apply-bind" class="headerlink" title="this call apply bind"></a>this call apply bind</h1><p>es5中众多坑中的一个，在es6中极大避免了this产生的错误</p>
+<h1 id="this-的指向"><a href="#this-的指向" class="headerlink" title="this 的指向"></a>this 的指向</h1><p>在es5中，this的指向始终坚持一个原理：<strong>this永远指向最后调用他的那个对象</strong></p>
+<p>例子1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">function a() &#123;</span><br><span class="line">    var name = &quot;Cherry&quot;;</span><br><span class="line"></span><br><span class="line">    console.log(this.name);          // windowsName</span><br><span class="line"></span><br><span class="line">    console.log(&quot;inner:&quot; + this);    // inner: Window</span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line">console.log(&quot;outer:&quot; + this)         // outer: Window</span><br></pre></td></tr></table></figure>
+<p>根据this永远指向最后调用他的那个对象。调用a函数的地方在a()，因为前面没有调用的对象，所以调用的对象就是全局对象window，相当于window.a()</p>
+<blockquote>
+<p>这里没有使用严格模式，如果使用严格模式，全局对象就是Undefined，那么就会报错Uncaught TypeError: Cannot read property ‘name’ of undefined。</p>
+</blockquote>
+<p>例子2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // Cherry</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure>
+<p>这里调用fu()的对象是a，所以打印a中的name属性</p>
+<p>例子3：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">    var a = &#123;</span><br><span class="line">        name: &quot;Cherry&quot;,</span><br><span class="line">        fn : function () &#123;</span><br><span class="line">            console.log(this.name);      // Cherry</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    window.a.fn();</span><br></pre></td></tr></table></figure>
+<p>这里调用fu()的最后一个对象依然是a。</p>
+<p>例子4：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    // name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // undefined</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">window.a.fn();</span><br></pre></td></tr></table></figure></p>
+<p>因为调用的对象依然是a，就算a中没有name这个属性，也不会继续向上查找，而是直接输出Undefined。</p>
+<p>例子5：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name : null,</span><br><span class="line">    // name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // windowsName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var f = a.fn;</span><br><span class="line">f();</span><br></pre></td></tr></table></figure>
+<p>这里虽然将a对象的fn方法赋值给变量f了但是a没有调用。根据<strong>this永远指向最后调用他的那个对象</strong>， 由于刚开始f没有调用，所以fn()最后任然是被window调用的，所以this指向的就是window</p>
+<blockquote>
+<p>this的指向不是在创建的时候就可以确定的，在es5中，永远是<strong>this永远指向最后调用他的那个对象</strong></p>
+</blockquote>
+<p>例子6：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">function fn() &#123;</span><br><span class="line">    var name = &apos;Cherry&apos;;</span><br><span class="line">    innerFunction();</span><br><span class="line">    function innerFunction() &#123;</span><br><span class="line">        console.log(this.name);      // windowsName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure></p>
+<h1 id="改变this的指向"><a href="#改变this的指向" class="headerlink" title="改变this的指向"></a>改变this的指向</h1><p>改变this指向有几种方法</p>
+<ul>
+<li>使用es6的箭头函数</li>
+<li>在函数内部使用_this = this;</li>
+<li>使用call、apply、bind</li>
+<li>new实例化一个对象</li>
+</ul>
+<p>例子7：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()     // this.func1 is not a function</span><br></pre></td></tr></table></figure>
+<p>在不使用箭头函数的情况下，会报错，因为最后调用setTimeoutd的对象是window，但是在window中并没有找到func1函数。</p>
+<h2 id="箭头函数"><a href="#箭头函数" class="headerlink" title="箭头函数"></a>箭头函数</h2><p>es6中的箭头函数可以改变es5中使用this的坑，<strong>箭头函数的this始终指向函数定义时的this，而非执行时</strong>。<strong>箭头函数中没有this绑定，必须通过作用域链来决定其值</strong>。<strong>如果箭头函数被非箭头函数包含，则this绑定的是最近一层非箭头函数的this，否则，this为Undefined</strong></p>
+<p>例子8：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout( () =&gt; &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()     // Cherry</span><br></pre></td></tr></table></figure>
+<h2 id="在函数内部使用-this-this"><a href="#在函数内部使用-this-this" class="headerlink" title="在函数内部使用_this = this"></a>在函数内部使用_this = this</h2><p>不使用es6，这种方式是最简单的不会出错的方式，现将调用这个函数的对象保存在_this中，然后使用_this，这样_this就不会改变了</p>
+<p>例子9：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">var a = &#123;</span><br><span class="line"></span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        var _this = this;</span><br><span class="line">        setTimeout( function() &#123;</span><br><span class="line">            _this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()       // Cherry</span><br></pre></td></tr></table></figure></p>
+<p>在这个例子中，在func2中先定义var _this = this，这里func2的调用对象是a，为防止func2的setTimeout被window调用而导致setTimeout的调用对象是window，将this（指向a）指向_this，这样使用_this调用func2的时候就是指向对象a了</p>
+<h2 id="使用call-apply-bind"><a href="#使用call-apply-bind" class="headerlink" title="使用call apply bind"></a>使用call apply bind</h2><p>使用apply call bind函数也是可以改变this指向的</p>
+<h3 id="使用apply"><a href="#使用apply" class="headerlink" title="使用apply"></a>使用apply</h3><p>例子10：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;.apply(a),100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()            // Cherry</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用call"><a href="#使用call" class="headerlink" title="使用call"></a>使用call</h3><p>例子11：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;.call(a),100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()            // Cherry</span><br></pre></td></tr></table></figure></p>
+<h3 id="使用bind"><a href="#使用bind" class="headerlink" title="使用bind"></a>使用bind</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)</span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;.bind(a)(),100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()            // Cherry</span><br></pre></td></tr></table></figure>
+<h1 id="apply-call-bind-之间的区别"><a href="#apply-call-bind-之间的区别" class="headerlink" title="apply call bind 之间的区别"></a>apply call bind 之间的区别</h1><p>三个函数都可以改变this的指向，但是三个函数稍微有点区别</p>
+<blockquote>
+<p>apply()方法调用一个函数，其具有一个指定的this的值，以及作为一个数组（或类似数组的对象提供的参数</p>
+</blockquote>
+<p>语法：</p>
+<blockquote>
+<p>fun.apply(thisArg, [argsArray])</p>
+</blockquote>
+<ul>
+<li>thisArg：在fun函数运行时指定的this值，需要注意的是，指定的this值并不一定是该函数执行时真正的this的值，在非严格模式下，则执行为null或undefineds时会自动指向全局对象（浏览器就是window），同时值为原始值（数字，字符串，布尔值）的this会指向该原始值的自动包装对象</li>
+<li>argsArray：一个数组或类数组对象，其中数组元素将作为单独参数传给fun函数，如果该函数的值为null或Undefined，则表示不需要传入任何参数。es5可以使用类数组对象。</li>
+</ul>
+<h1 id="apply-和-call-的区别"><a href="#apply-和-call-的区别" class="headerlink" title="apply 和 call 的区别"></a>apply 和 call 的区别</h1><p>apply 和 call基本类似，只是传入的参数不同</p>
+<p>call的语法为：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fun.call(thisArg[, arg1[, arg2[, ...]]])</span><br></pre></td></tr></table></figure></p>
+<p>call方法接受的是若干个参数列表，而apply接受的是一个包含多个参数的数组</p>
+<p>例子13：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var b = a.fn;</span><br><span class="line">b.apply(a,[1,2])     // 3</span><br></pre></td></tr></table></figure></p>
+<p>例子14：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var b = a.fn;</span><br><span class="line">b.call(a,1,2)       // 3</span><br></pre></td></tr></table></figure></p>
+<h2 id="bind-apply-call-的区别"><a href="#bind-apply-call-的区别" class="headerlink" title="bind apply call 的区别"></a>bind apply call 的区别</h2><p>用bind测试以上例子：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var b = a.fn;</span><br><span class="line">b.bind(a,1,2)</span><br></pre></td></tr></table></figure></p>
+<p>测试发现并不输出</p>
+<blockquote>
+<p>bind()方法创建一个新的函数，当被调用时，将其this关键字设置为提供的值，在调用新函数时，在任何提供之前提供一个给定的参数序列。</p>
+</blockquote>
+<p>所以bind是创建一个新的函数，我们需要去手动调用：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">var a =&#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line">    fn : function (a,b) &#123;</span><br><span class="line">        console.log( a + b)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">var b = a.fn;</span><br><span class="line">b.bind(a,1,2)()           // 3</span><br></pre></td></tr></table></figure></p>
+<h1 id="js-中的函数调用"><a href="#js-中的函数调用" class="headerlink" title="js 中的函数调用"></a>js 中的函数调用</h1><p>例子6：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">function fn() &#123;</span><br><span class="line">    var name = &apos;Cherry&apos;;</span><br><span class="line">    innerFunction();</span><br><span class="line">    function innerFunction() &#123;</span><br><span class="line">        console.log(this.name);      // windowsName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure>
+<p>例子7：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;,100);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()     // this.func1 is not a function</span><br></pre></td></tr></table></figure>
+<p>函数调用的方法一般有4种</p>
+<ol>
+<li>作为一个函数调用</li>
+<li>函数作为方法调用</li>
+<li>使用构造函数调用函数</li>
+<li>作为函数方法调用函数（apply call）</li>
 </ol>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/9182fc564c2f4e43a21ccf5303ff52f2.jpeg" alt></p>
-<h3 id="缺陷"><a href="#缺陷" class="headerlink" title="缺陷"></a>缺陷</h3><p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/3490195d7e3a405c97c34d391c71f09b.png" alt></p>
-<p>不断插入更小的结点或更大的结点，二叉查找树有可能会变成线性结构</p>
-<h2 id="红黑树的作用"><a href="#红黑树的作用" class="headerlink" title="红黑树的作用"></a>红黑树的作用</h2><p>为了解决二叉查找树的不平衡</p>
-<h2 id="红黑树的特性"><a href="#红黑树的特性" class="headerlink" title="红黑树的特性"></a>红黑树的特性</h2><ol>
-<li>结点是红色或者黑色的</li>
-<li>根节点是黑色的</li>
-<li>叶子节点都是黑色的空节点（NIL节点）</li>
-<li>每个红色节点的两个子节点都是黑色</li>
-<li>从任意节点到其每个叶子的所有路径都包含相同的黑色节点</li>
+<h2 id="作为一个函数调用"><a href="#作为一个函数调用" class="headerlink" title="作为一个函数调用"></a>作为一个函数调用</h2><p>例子1：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">function a() &#123;</span><br><span class="line">    var name = &quot;Cherry&quot;;</span><br><span class="line"></span><br><span class="line">    console.log(this.name);          // windowsName</span><br><span class="line"></span><br><span class="line">    console.log(&quot;inner:&quot; + this);    // inner: Window</span><br><span class="line">&#125;</span><br><span class="line">a();</span><br><span class="line">console.log(&quot;outer:&quot; + this)         // outer: Window</span><br></pre></td></tr></table></figure></p>
+<p>这是一个简单的函数，不属于任何一个对象，就是一个函数，在浏览器的非严格模式下默认是属于全局对象的，在严格模式下就是Undefined。</p>
+<p>这是一个全局函数，很容易产生命名冲突，不建议这样做</p>
+<h2 id="函数作为方法调用"><a href="#函数作为方法调用" class="headerlink" title="函数作为方法调用"></a>函数作为方法调用</h2><p>跟多的情况是将函数作为对象的方法调用</p>
+<p>例子2：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line">var a = &#123;</span><br><span class="line">    name: &quot;Cherry&quot;,</span><br><span class="line">    fn : function () &#123;</span><br><span class="line">        console.log(this.name);      // Cherry</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">a.fn();</span><br></pre></td></tr></table></figure></p>
+<p>这里有一个对象a，a有一个属性（name）和方法（fn）。通过a.fn()调用了fn方法。fn中的this指向就是指向a。</p>
+<h2 id="使用构造函数调用函数"><a href="#使用构造函数调用函数" class="headerlink" title="使用构造函数调用函数"></a>使用构造函数调用函数</h2><blockquote>
+<p>如果函数调用前使用了new关键字，则是调用了构造函数。这看起来就是创建了新的函数，但实际上js函数时重新创建的对象：</p>
+</blockquote>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 构造函数:</span><br><span class="line">function myFunction(arg1, arg2) &#123;</span><br><span class="line">    this.firstName = arg1;</span><br><span class="line">    this.lastName  = arg2;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// This    creates a new object</span><br><span class="line">var a = new myFunction(&quot;Li&quot;,&quot;Cherry&quot;);</span><br><span class="line">a.lastName;                             // 返回 &quot;Cherry&quot;</span><br></pre></td></tr></table></figure>
+<p>这里就要简单说一下new的过程了：</p>
+<p>伪代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">var a = new myFunction(&quot;Li&quot;,&quot;Cherry&quot;);</span><br><span class="line"></span><br><span class="line">new myFunction&#123;</span><br><span class="line">    var obj = &#123;&#125;;</span><br><span class="line">    obj.__proto__ = myFunction.prototype;</span><br><span class="line">    var result = myFunction.call(obj,&quot;Li&quot;,&quot;Cherry&quot;);</span><br><span class="line">    return typeof result === &apos;obj&apos;? result : obj;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>创建一个空对象obj</li>
+<li>将新创建的空对象的隐式原型指向其构造函数的显示原型</li>
+<li>使用call改变this的指向</li>
+<li>如果无返回值或返回一个非数值，则将obj返回作为新对象，如果返回值是一个新对象的话那么直接返回该对象</li>
 </ol>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/eefb5a3397ef4089b356e7c9f0938a8d.jpeg" alt></p>
-<p>当插入节点或者删除节点时，有可能会打破红黑树的规则，这时候就需要进行调整<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/c0042741a40d47249e287908c16a9203.jpeg" alt></p>
-<h2 id="变色"><a href="#变色" class="headerlink" title="变色"></a>变色</h2><p>为了重新符合红黑树的规则，尝试把红节点变成黑色，把黑色节点变成红色</p>
-<h2 id="旋转"><a href="#旋转" class="headerlink" title="旋转"></a>旋转</h2><h3 id="左旋转"><a href="#左旋转" class="headerlink" title="左旋转"></a>左旋转</h3><p>逆时针旋转红黑树的两个节点，使得父节点被自己的右孩子取代，自己成为了右孩子的左节点</p>
-<p><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3cd82550b29445eac5b6e6b0f40f03c.png" alt></p>
-<h3 id="右旋转"><a href="#右旋转" class="headerlink" title="右旋转"></a>右旋转</h3><p>顺时针旋转红黑树的两个节点，使得父节点被自己的左孩子取代，自己成为了左孩子的右节点<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/c739da55ba784729919bc18b57c3a5c3.png" alt></p>
-<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><p>插入节点21<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/7a4055b4eaa14fd097ffa241abd86032.jpeg" alt><br>首先变色<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/a0c2409f6c7d4c468a3d1c80c18ebe9b.jpeg" alt></p>
-<p>此时节点17和节点25是连续的两个红色节点，那么把节点17变成黑色节点？恐怕不合适。这样一来不但打破了规则4，而且根据规则2（根节点是黑色），也不可能把节点13变成红色节点。</p>
-<p>变色已无法解决问题，我们把节点13看做X，把节点17看做Y，像刚才的示意图那样进行左旋转：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/cb7731c2eb4e4e2b839004e3dcaf7126.png" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/9f6949f1ca624323ad26bd474912571a.jpeg" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/d7da48b838514b33bd8b44ab1b55c9e1.jpeg" alt></p>
-<p>由于根节点必须是黑色节点，所以需要变色，变色结果如下：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/d32de019907c4e9a9c2e3490d66677de.jpeg" alt></p>
-<p>因为其中两条路径(17 -&gt; 8 -&gt; 6 -&gt; NIL)的黑色节点个数是4，其他路径的黑色节点个数是3，不符合规则5。</p>
-<p>这时候我们需要把节点13看做X，节点8看做Y，像刚才的示意图那样进行右旋转：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/1fdcb0466c7a4ecc84b54cb701781243.jpeg" alt><br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/b3fcbe987f214340b0b03d129b2a2059.jpeg" alt></p>
-<p>根据规则来进行变色：<br><img src="http://5b0988e595225.cdn.sohucs.com/images/20171102/79bbe75c48da4a7492c21af0e18065a5.jpeg" alt></p>
+<h2 id="作为函数方法调用函数"><a href="#作为函数方法调用函数" class="headerlink" title="作为函数方法调用函数"></a>作为函数方法调用函数</h2><blockquote>
+<p>在js中，函数是对象  </p>
+</blockquote>
+<blockquote>
+<p>js函数有他的属性和方法。call() 和 apply()是预定义的函数方法。两个方法可用于调用函数两个方法的第一个参数必须是对象本身</p>
+</blockquote>
+<blockquote>
+<p>严格模式下：调用函数时第一个参数会成为this的值，即使该参数不是一个对象</p>
+</blockquote>
+<blockquote>
+<p>非严格模式下：如果第一个参数是null或Undefined，他将使用全局函数代替</p>
+</blockquote>
+<p>例子6：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">function fn() &#123;</span><br><span class="line">    var name = &apos;Cherry&apos;;</span><br><span class="line">    innerFunction();</span><br><span class="line">    function innerFunction() &#123;</span><br><span class="line">        console.log(this.name);      // windowsName</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">fn()</span><br></pre></td></tr></table></figure></p>
+<p>这里的innerFunction的调用属于第一种调用方式：作为一个函数调用（就是作为一个函数调用，没有挂在任何对象上，所以对于没有挂载在任何对象上的函数，在严格模式下就是指向window）</p>
+<p>例子7：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">var name = &quot;windowsName&quot;;</span><br><span class="line"></span><br><span class="line">var a = &#123;</span><br><span class="line">    name : &quot;Cherry&quot;,</span><br><span class="line"></span><br><span class="line">    func1: function () &#123;</span><br><span class="line">        console.log(this.name)     </span><br><span class="line">    &#125;,</span><br><span class="line"></span><br><span class="line">    func2: function () &#123;</span><br><span class="line">        setTimeout(  function () &#123;</span><br><span class="line">            this.func1()</span><br><span class="line">        &#125;,100 );</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line">a.func2()     // this.func1 is not a function</span><br></pre></td></tr></table></figure></p>
+<p>这个简单理解为<strong>匿名函数的this永远指向window</strong></p>
+<p>匿名函数都是自执行的，就是在匿名函数后面加()让其自执行，其次就就是匿名函数不能被其他对象调用，但是可以被其他函数调用。例如例子7中的setTimeout</p>
+<blockquote>
+</blockquote>
 
       
 
@@ -250,7 +320,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">树</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">js</a>
         		</li>
       		
 		</ul>
@@ -306,7 +376,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/06/22/数据结构-红黑树/" alt="微信分享二维码">
+      <img src="//pan.baidu.com/share/qrcode?url=http://yoursite.com/2019/07/08/js-call、apply、bind/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -320,18 +390,18 @@
   
 <nav id="article-nav">
   
-    <a href="/2019/06/22/js模块化开发/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2019/07/13/vue权限路由/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          js 模块化开发
+          Vue 权限路由
         
       </div>
     </a>
   
   
-    <a href="/2019/06/21/编译原理/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">编译原理</div>
+    <a href="/2019/07/06/CSS-圣杯布局/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">圣杯布局</div>
       <i class="icon-circle-right"></i>
     </a>
   

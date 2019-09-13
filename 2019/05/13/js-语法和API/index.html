@@ -16,7 +16,7 @@
 <meta property="og:site_name" content="xuzelin博客">
 <meta property="og:description" content="理解ECMAScript和JavaScript的关系js 包含三个部分 ECMAScript，ES6语法比较新,一些浏览器对ES6不兼容，所以一般会用一些转换工具如Babel进行转换。 DOM文档对象 BOM浏览器对象  JavaScript处理引擎 chrome v8 firefox SpiderMonkey edge chakra  es5、es6提供的语法规范熟练掌握JavaScript提供">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2019-06-02T06:43:27.525Z">
+<meta property="og:updated_time" content="2019-07-09T03:05:56.672Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="语法和API">
 <meta name="twitter:description" content="理解ECMAScript和JavaScript的关系js 包含三个部分 ECMAScript，ES6语法比较新,一些浏览器对ES6不兼容，所以一般会用一些转换工具如Babel进行转换。 DOM文档对象 BOM浏览器对象  JavaScript处理引擎 chrome v8 firefox SpiderMonkey edge chakra  es5、es6提供的语法规范熟练掌握JavaScript提供">
@@ -199,7 +199,8 @@
 <li>sort</li>
 </ol>
 <p>Array的sort()方法默认把所有元素先转换为String再排序，结果’10’排在了’2’的前面<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function ss(a, b) &#123;return a - b;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(ss)</span><br><span class="line">(5) [1, 6, 7, 10, 15]</span><br><span class="line"></span><br><span class="line">function sss(a, b) &#123;return b - a;&#125;</span><br><span class="line">undefined</span><br><span class="line">[1,10,15,7,6].sort(sss)</span><br><span class="line">(5) [15, 10, 7, 6, 1]</span><br></pre></td></tr></table></figure></p>
-<h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
+<h1 id="setInterval需要注意的点，使用settimeout实现setInterval"><a href="#setInterval需要注意的点，使用settimeout实现setInterval" class="headerlink" title="setInterval需要注意的点，使用settimeout实现setInterval"></a>setInterval需要注意的点，使用settimeout实现setInterval</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">timerFun()</span><br><span class="line">function timerFun()&#123;</span><br><span class="line">  //要执行的操作</span><br><span class="line">  var timer=setTimeout(function()&#123;</span><br><span class="line">  timerFun()</span><br><span class="line">  clearTimeout(timer)</span><br><span class="line">  &#125;,2000)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"><a href="#JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题" class="headerlink" title="JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题"></a>JavaScript提供的正则表达式API、可以使用正则表达式（邮箱校验、URL解析、去重等）解决常见问题</h1><h1 id="JavaScript异常处理的方式，统一的异常处理方案"><a href="#JavaScript异常处理的方式，统一的异常处理方案" class="headerlink" title="JavaScript异常处理的方式，统一的异常处理方案"></a>JavaScript异常处理的方式，统一的异常处理方案</h1>
       
 
       
@@ -307,7 +308,7 @@
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          (no title)
+          HTML
         
       </div>
     </a>
@@ -440,15 +441,11 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">es6</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">es</a>
+                <a href="javascript:void(0)" class="js-tag color4">es6</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -456,15 +453,23 @@ return o(i(t),arguments.length<2?void 0:u(arguments[1]))}})},function(t,n,r){var
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">html</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color3">网络</a>
+                <a href="javascript:void(0)" class="js-tag color1">计算机基础</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color2">树</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">网络</a>
               </li>
             
             <div class="clearfix"></div>
